@@ -1,13 +1,17 @@
 /*********************************************** External Node modules ************************************************/
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
+import { AuthContext } from "/src/contexts/AuthContext";
 import { ConsumerRegisterForm } from "/src/components/organisms";
 import { RestaurantRegisterForm } from "/src/components/organisms";
 
 /**************************************************** Page Content ****************************************************/
 const RegisterPage = () => {
   /* State variables */
+  const { loggedUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [viewConsumerForm, setViewConsumerForm] = useState(false);
   const [viewRestaurantForm, setViewRestaurantForm] = useState(false);
 
@@ -20,6 +24,11 @@ const RegisterPage = () => {
     setViewConsumerForm(false);
     setViewRestaurantForm(true);
   }, []);
+
+  if (loggedUser) {
+    navigate("/profile");
+    return null;
+  }
 
   return (
     <section className="p-6 bg-base-200 min-h-screen">

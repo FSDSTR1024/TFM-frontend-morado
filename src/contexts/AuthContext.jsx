@@ -20,7 +20,7 @@ const AuthContextProvider = ({ children }) => {
     if (!json.error) {
       setLoggedUser(json.data);
     }
-  });
+  }, []);
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));

@@ -16,7 +16,7 @@ const logger = new Logger("LoginPage");
 const LoginPage = () => {
   const { formState, handleSubmit, register } = useForm();
   const { login } = useLogin();
-  const { setToken } = useContext(AuthContext);
+  const { loggedUser, setToken } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleOnSubmit = useCallback(async (formData) => {
@@ -32,6 +32,11 @@ const LoginPage = () => {
     alert("[SUCCESS] User logged in successfully!");
     navigate("/profile");
   }, []);
+
+  if (loggedUser) {
+    navigate("/profile");
+    return null;
+  }
 
   return (
     <section className="p-6 bg-base-200 min-h-screen flex flex-col items-center justify-center">
