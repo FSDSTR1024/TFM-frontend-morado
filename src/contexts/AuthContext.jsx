@@ -23,7 +23,7 @@ const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
-    const fetchLoggedUser = async () => {
+    const getLoggedUser = async () => {
       try {
         const { loggedUser } = await userAPI.getLoggedUser();
         setLoggedUser(loggedUser);
@@ -37,7 +37,7 @@ const AuthContextProvider = ({ children }) => {
 
     if (token) {
       localStorage.setItem("token", token);
-      fetchLoggedUser();
+      getLoggedUser();
     } else {
       localStorage.removeItem("token");
     }
