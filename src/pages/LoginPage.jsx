@@ -6,11 +6,12 @@ import { useNavigate } from "react-router-dom";
 /********************************************** Internal library imports **********************************************/
 import { AuthContext } from "/src/contexts/AuthContext";
 import { AuthCredentials } from "/src/components/molecules";
+import { FormFieldError } from "/src/components/protons";
 import { useLogin } from "/src/hooks";
 
 /**************************************************** Page Content ****************************************************/
 const LoginPage = () => {
-  const { login } = useLogin();
+  const { error, login } = useLogin();
   const { formState, handleSubmit, register } = useForm();
   const { loggedUser, setToken } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ const LoginPage = () => {
           <form onSubmit={handleSubmit(handleOnSubmit)} className="space-y-6">
             <AuthCredentials formState={formState} register={register} />
             <button type="submit" className="btn btn-primary w-full text-base">Log In</button>
+            {error && <FormFieldError error={{message: error}} />}
           </form>
         </div>
       </section>
