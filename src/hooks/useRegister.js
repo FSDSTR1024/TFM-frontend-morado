@@ -15,7 +15,7 @@ const useRegister = () => {
   const registerConsumer = async (formData) => {
     setError(null);
     try {
-      const { newConsumerID } = await userAPI.createConsumerUser(formData);
+      const { newConsumerID } = await userAPI.createConsumer(formData);
       return newConsumerID;
     } catch (error) {
       setError(error);
@@ -28,7 +28,7 @@ const useRegister = () => {
   const registerRestaurant = async (formData) => {
     setError(null);
     try {
-      const { newRestaurantID } = await userAPI.createRestaurantUser(formData);
+      const { newRestaurantID } = await userAPI.createRestaurant(formData);
       return newRestaurantID;
     } catch (error) {
       setError(error);
