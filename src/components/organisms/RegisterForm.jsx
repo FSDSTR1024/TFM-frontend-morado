@@ -4,9 +4,10 @@ import { useForm } from "react-hook-form";
 /********************************************** Internal library imports **********************************************/
 import { AuthCredentials } from "/src/components/molecules";
 import { FormField } from "/src/components/atoms";
+import { FormFieldError } from "/src/components/protons";
 
 /************************************************ Component Definition ************************************************/
-const RegisterForm = ({ formFields, formTitle, handleOnSubmit }) => {
+const RegisterForm = ({ error, formFields, formTitle, handleOnSubmit }) => {
   const { formState, handleSubmit, register, watch } = useForm({
     defaultValues: formFields.reduce((accumulator, field) => {
       accumulator[field.name] = field.default ? field.default : "";
@@ -33,6 +34,7 @@ const RegisterForm = ({ formFields, formTitle, handleOnSubmit }) => {
           <AuthCredentials formState={formState} is_register register={register} watch={watch} />
         </div>
         <button type="submit" className="btn btn-primary w-full text-base">Sign up</button>
+        {error && <FormFieldError error={{message: error}} />}
       </form>
     </section>
   );

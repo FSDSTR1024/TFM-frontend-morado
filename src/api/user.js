@@ -2,10 +2,8 @@
 import { axiosInstance } from "./axios.js";
 
 const userAPI = {
-  getLoggedUser: async () => {
-    const { loggedUser } = await axiosInstance.get("/user");
-    return loggedUser;
-  }
+  createConsumerUser: async (formData) => await axiosInstance.post("/users/consumers", formData),
+  getLoggedUser: async () => await axiosInstance.get("/user")
 };
 
 /********************************************* Named exports (ES module) **********************************************/

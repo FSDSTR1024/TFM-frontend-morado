@@ -1,36 +1,31 @@
 /*********************************************** External Node modules ************************************************/
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
-import { authAPI } from "/src/api";
-import { AuthContext } from "/src/contexts/AuthContext";
 import { Logger } from "/src/utils/Logger.js";
+import { userAPI } from "/src/api";
 
 /************************************************** Internal logger ***************************************************/
-const logger = new Logger("useLogin");
+const logger = new Logger("useRegister");
 
 /************************************************** Hook Definition ***************************************************/
-const useLogin = () => {
+const useRegister = () => {
   const [error, setError] = useState(null);
-  const { setToken } = useContext(AuthContext);
 
-  const login = async (credentials) => {
+  const registerConsumer = async (formData) => {
     setError(null);
     try {
-      const token = await authAPI.login(credentials);
-      setToken(token);
-      return token;
+      const { newConsumerID } = await userAPI.createConsumerUser(formData);
+      return newConsumerID;
     } catch (error) {
       setError(error);
-      setToken(null);
-      const errorText = "There was an error while trying to log in!";
+      const errorText = "Consumer user could not be created!";
       logger.error(errorText, error);
       return null;
     }
   };
-
-  return { error, login };
+  return { error, registerConsumer };
 };
 
 /********************************************** Named export (ES module) **********************************************/
-export { useLogin };
+export { useRegister };

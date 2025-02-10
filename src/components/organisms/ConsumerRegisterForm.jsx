@@ -3,33 +3,19 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
-import { Logger } from "/src/utils/Logger.js";
 import { RegisterForm } from "/src/components/organisms";
-
-/************************************************** Internal logger ***************************************************/
-const logger = new Logger("ConsumerRegisterForm");
+import { useRegister } from "/src/hooks";
 
 /************************************************ Component Definition ************************************************/
 const ConsumerRegisterForm = () => {
+  const { error, registerConsumer } = useRegister();
   const navigate = useNavigate();
 
   const handleOnSubmit = useCallback(async (formData) => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/consumers`, {
-        body: JSON.stringify(formData),
-        headers: { "Content-Type": "application/json" },
-        method: "POST"
-      });
-      const json = await response.json();
-      if (!response.ok) {
-        throw json.error;
-      }
+    const newConsumerID = await registerConsumer(formData);
+    if (newConsumerID) {
       alert("[SUCCESS] Consumer user created successfully!");
       navigate("/login");
-    } catch (error) {
-      const errorText = "Consumer user could not be created!";
-      logger.error(errorText, error);
-      alert(`[ERROR] ${errorText}`);
     }
   }, []);
 
@@ -39,7 +25,12 @@ const ConsumerRegisterForm = () => {
   ];
 
   return (
-    <RegisterForm formFields={formFields} formTitle="Create Your Consumer Account" handleOnSubmit={handleOnSubmit} />
+    <RegisterForm
+      error={error}
+      formFields={formFields}
+      formTitle="Create Your Consumer Account"
+      handleOnSubmit={handleOnSubmit}
+    />
   );
 };
 
