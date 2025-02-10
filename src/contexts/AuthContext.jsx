@@ -9,7 +9,7 @@ const initialContext = {
 const AuthContext = createContext(initialContext);
 
 const AuthContextProvider = ({ children }) => {
-  const [loggedUser, setLoggedUser] = useState(initialContext.user);
+  const [loggedUser, setLoggedUser] = useState(initialContext.loggedUser);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   const fetchUser = useCallback(async () => {
@@ -19,6 +19,9 @@ const AuthContextProvider = ({ children }) => {
     const json = await response.json();
     if (!json.error) {
       setLoggedUser(json.data);
+    } else {
+      setLoggedUser(null);
+      setToken(null);
     }
   }, [token]);
 
@@ -26,6 +29,8 @@ const AuthContextProvider = ({ children }) => {
     if (token) {
       localStorage.setItem("token", token);
       fetchUser();
+    } else {
+      localStorage.removeItem("token");
     }
   }, [token]);
 

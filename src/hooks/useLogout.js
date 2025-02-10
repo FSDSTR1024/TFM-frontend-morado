@@ -1,6 +1,14 @@
+/*********************************************** External Node modules ************************************************/
+import { useContext } from "react";
+
+/********************************************** Internal library imports **********************************************/
+import { AuthContext } from "/src/contexts/AuthContext";
+
 /************************************************** Hook Definition ***************************************************/
 const useLogout = () => {
-  const logout = () => localStorage.removeItem("token");
+  const { setToken } = useContext(AuthContext);
+
+  const logout = () => setToken(null);
   return { logout };
 };
 

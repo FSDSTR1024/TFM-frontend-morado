@@ -13,13 +13,12 @@ import { useLogin } from "/src/hooks";
 const LoginPage = () => {
   const { error, login } = useLogin();
   const { formState, handleSubmit, register } = useForm();
-  const { loggedUser, setToken } = useContext(AuthContext);
+  const { loggedUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleOnSubmit = useCallback(async (formData) => {
     const token = await login(formData);
     if (token) {
-      setToken(token)
       alert("[SUCCESS] User logged in successfully!");
       navigate("/profile");
     }
