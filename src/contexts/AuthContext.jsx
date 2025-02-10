@@ -20,16 +20,11 @@ const AuthContextProvider = ({ children }) => {
     if (!json.error) {
       setLoggedUser(json.data);
     }
-  }, []);
-
-  useEffect(() => {
-    setToken(localStorage.getItem("token"));
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     if (token) {
       localStorage.setItem("token", token);
-      setLoggedUser(token);
       fetchUser();
     }
   }, [token]);

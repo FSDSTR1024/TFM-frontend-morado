@@ -1,4 +1,8 @@
+/*********************************************** External Node modules ************************************************/
+import { useState } from "react";
+
 /********************************************** Internal library imports **********************************************/
+import { authAPI } from "/src/api";
 import { Logger } from "/src/utils/Logger.js";
 
 /************************************************** Internal logger ***************************************************/
@@ -6,28 +10,22 @@ const logger = new Logger("useLogin");
 
 /************************************************** Hook Definition ***************************************************/
 const useLogin = () => {
-  const logger = new Logger("useLogin");
+  const [error, setError] = useState(null);
 
   const login = async (credentials) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/login`, {
-        body: JSON.stringify(credentials),
-        headers: { "Content-Type": "application/json" },
-        method: "POST"
-      });
-      const json = await response.json();
-      if (!json.error) {
-        localStorage.setItem("token", json.data);
-      }
-      return json;
+      setError(null);
+      const token = await authAPI.login(credentials);
+      return token;
     } catch (error) {
       const errorText = "There was an error while trying to log in!";
       logger.error(errorText, error);
-      return { error: errorText };
+      setError(error);
+      return null;
     }
   };
 
-  return { login };
+  return { error, login };
 };
 
 /********************************************** Named export (ES module) **********************************************/
