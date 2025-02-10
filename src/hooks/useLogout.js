@@ -9,6 +9,7 @@ const useLogout = () => {
   const { setToken } = useContext(AuthContext);
 
   const logout = () => setToken(null);
+
   return { logout };
 };
 

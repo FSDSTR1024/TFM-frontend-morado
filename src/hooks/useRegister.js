@@ -24,7 +24,21 @@ const useRegister = () => {
       return null;
     }
   };
-  return { error, registerConsumer };
+
+  const registerRestaurant = async (formData) => {
+    setError(null);
+    try {
+      const { newRestaurantID } = await userAPI.createRestaurantUser(formData);
+      return newRestaurantID;
+    } catch (error) {
+      setError(error);
+      const errorText = "Restaurant user could not be created!";
+      logger.error(errorText, error);
+      return null;
+    }
+  };
+
+  return { error, registerConsumer, registerRestaurant };
 };
 
 /********************************************** Named export (ES module) **********************************************/
