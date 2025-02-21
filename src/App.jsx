@@ -10,7 +10,7 @@ import { HomePage } from "/src/pages";
 import { AuthContextProvider } from "/src/contexts/AuthContext";
 import { LoginPage } from "/src/pages";
 import { RegisterPage } from "/src/pages";
-import { UsersPage } from "./pages/UsersPage";
+import { UsersPage } from "./pages";
 
 /************************************************ Component Definition ************************************************/
 const App = () => (
