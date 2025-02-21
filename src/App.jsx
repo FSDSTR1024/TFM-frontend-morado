@@ -5,10 +5,10 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
+import { AuthContextProvider } from "/src/contexts/AuthContext";
 import { ConsumersPage } from "./pages";
 import { Header } from "/src/components/organisms";
 import { HomePage } from "/src/pages";
-import { AuthContextProvider } from "/src/contexts/AuthContext";
 import { LoginPage } from "/src/pages";
 import { RegisterPage } from "/src/pages";
 import { RestaurantsPage } from "./pages";
