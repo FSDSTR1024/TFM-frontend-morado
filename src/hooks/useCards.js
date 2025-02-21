@@ -1,25 +1,21 @@
-/*********************************************** External Node modules ************************************************/
-import { useCallback } from "react";
-
 /************************************************** Hook Definition ***************************************************/
 const useCards = () => {
-  const getNewestItem = useCallback((itemsList) => {
+  const getNewestItem = (itemsList) => {
     const newestItem = itemsList.reduce((newest, item) => {
       return new Date(item.createdAt) > new Date(newest.createdAt) ? item : newest;
     }, itemsList[0]);
     return newestItem;
-  }, []);
+  };
 
-  const getFilteredItems = useCallback((itemsList) => {
-    return itemsList;
-  }, []);
+  const getFilteredItems = ({ filterMethod, itemsList }) => {
+    return itemsList.filter((item) => filterMethod(item));
+  };
 
-  const getSortedItems = useCallback(({ itemsList, sortKey, sortOrder }) => {
-    const filteredItems = getFilteredItems(itemsList);
-    if (sortKey !== "ASC" && sortOrder !== "DESC") {
-      return filteredItems;
+  const getSortedItems = ({ itemsList, sortKey, sortOrder }) => {
+    if (sortOrder !== "ASC" && sortOrder !== "DESC") {
+      return itemsList;
     }
-    const sortedItems = [...filteredItems].sort((item, nextItem) => {
+    const sortedItems = [...itemsList].sort((item, nextItem) => {
       if (sortOrder === "ASC") {  // ascending order
         return item[sortKey] > nextItem[sortKey] ? 1 : -1;
       } else if (sortOrder === "DESC") {  // descending order
@@ -27,9 +23,13 @@ const useCards = () => {
       }
     });
     return sortedItems;
-  }, []);
+  };
 
-  return { getNewestItem, getSortedItems };
+  const getSortedFilteredItems = ({ filterMethod, itemsList, sortKey, sortOrder }) => {
+    return getSortedItems({ itemsList: getFilteredItems({ filterMethod, itemsList }), sortKey, sortOrder });
+  };
+
+  return { getNewestItem, getSortedFilteredItems };
 };
 
 /********************************************** Named export (ES module) **********************************************/

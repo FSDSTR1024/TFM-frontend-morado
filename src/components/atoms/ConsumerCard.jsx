@@ -3,50 +3,66 @@ import { useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 
 /************************************************ Component Definition ************************************************/
-const ConsumerCard = ({ _id, latest, name, surname }) => {
-  const reviewsCount = 1000;
-  const visitedRestaurantsCount = 5;
-
+const ConsumerCard = ({ _id, img_url, isTheNewest, name, reviewsCount = 1000, surname, visitedRestaurantsCount = 5 }) => {
   const navigate = useNavigate();
 
   const handleOnUserCardClick = useCallback(() => {
     navigate(`/users/${_id}`);
   }, []);
 
+  const notDefinedImgUrl = "https://res.cloudinary.com/dkpdltxzm/image/upload/ar_1:1,c_auto,g_auto/r_max/v1739315334/mw7prcgn3nykmaakze6b.png";
+  // const notActiveUserImgUrl = "https://res.cloudinary.com/dkpdltxzm/image/upload/ar_1:1,c_auto_pad,g_auto/r_max/v1739303950/uzhmdi16bdjvilwsaiy4.png";
+  // const badgeSelector = null;
+
+  const achievement1Url = "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp";
+  const achievement2Url = "https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp";
+  const achievement3Url = "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp";
+  const achievement4Url = "https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp";
+
+  let achievements = [];
+  if (name.includes("e")) achievements.push(achievement1Url);
+  if (name.includes("i")) achievements.push(achievement2Url);
+  if (name.includes("o")) achievements.push(achievement3Url);
+  if (name.includes("u")) achievements.push(achievement4Url);
+
   return (
     <div
       className="card w-72 bg-base-100 shadow-xl cursor-pointer"
       onClick={handleOnUserCardClick}
     >
-      <div className="flex items-center p-6 justify-between">
+      <div className="flex items-center p-2 pr-4 justify-between h-28">
         <img
-          src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+          src={img_url ? img_url : notDefinedImgUrl}
           alt="Profile"
           className="w-20 h-20 rounded-full mr-6"
         />
         <div className="flex flex-col items-end">
-          {latest && <div className="badge badge-primary">NEW</div>}
+          {isTheNewest && <div className="badge badge-primary mb-2">NEW</div>}
           <h2 className="card-title text-2xl">{name}</h2>
           <p className="text-lg text-gray-600">{surname}</p>
         </div>
       </div>
       <div className="border-t border-gray-200"></div>
-      <div className="p-6">
+      <div className="p-5 pt-2 pb-3">
+        <h3 className="text-xl font-semibold text-center mb-4">Reviews</h3>
         <div className="flex justify-between text-lg">
-          <strong>Visited Restaurants:</strong>
-          <span>{visitedRestaurantsCount.toLocaleString()}</span>
+          <strong>Restaurants:</strong>
+          <span>{visitedRestaurantsCount.toLocaleString("en-US")}</span>
         </div>
         <div className="flex justify-between text-lg">
-          <strong>Reviews:</strong>
-          <span>{reviewsCount.toLocaleString()}</span>
+          <strong>Dishes:</strong>
+          <span>{reviewsCount.toLocaleString("en-US")}</span>
         </div>
-        <p className="text-lg mt-4"><strong>Achievements:</strong></p>
-        <div className="flex justify-center space-x-4 mt-4">
-          <img alt="Achievement 1" className="w-12 h-12" src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" />
-          <img alt="Achievement 2" className="w-12 h-12" src="https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp" />
-          <img alt="Achievement 3" className="w-12 h-12" src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" />
-          <img alt="Achievement 4" className="w-12 h-12" src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" />
-        </div>
+        <h3 className="text-xl font-semibold text-center mt-4">Achievements</h3>
+        {achievements && achievements.length > 0 ? (
+          <div className="flex justify-center space-x-4 mt-2">
+            {achievements.map((achievement, index) => (
+              <img key={index} alt={`Achievement ${index + 1}`} className="w-10 h-10" src={achievement} />
+            ))}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
