@@ -16,6 +16,7 @@ const axiosInstance = axios.create({
   }
 });
 
+/**************************************** Axios Instance Request Interceptors *****************************************/
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -25,6 +26,7 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+/**************************************** Axios Instance Response Interceptors ****************************************/
 axiosInstance.interceptors.response.use(
   (response) => response.data,
   (error) => {
