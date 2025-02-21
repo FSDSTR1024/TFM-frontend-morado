@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 
 /************************************************ Component Definition ************************************************/
-const ConsumerCard = ({ _id, img_url, isTheNewest, name, reviewsCount = 1000, surname, visitedRestaurantsCount = 5 }) => {
+const ConsumerCard = ({ _id, img_url, isTheNewest, name, reviewed_dishes, reviewed_restaurants, surname }) => {
   const navigate = useNavigate();
 
   const handleOnUserCardClick = useCallback(() => {
@@ -47,11 +47,11 @@ const ConsumerCard = ({ _id, img_url, isTheNewest, name, reviewsCount = 1000, su
         <h3 className="text-xl font-semibold text-center mb-4">Reviews</h3>
         <div className="flex justify-between text-lg">
           <strong>Restaurants:</strong>
-          <span>{visitedRestaurantsCount.toLocaleString("en-US")}</span>
+          <span>{reviewed_restaurants.toLocaleString("en-US")}</span>
         </div>
         <div className="flex justify-between text-lg">
           <strong>Dishes:</strong>
-          <span>{reviewsCount.toLocaleString("en-US")}</span>
+          <span>{reviewed_dishes.toLocaleString("en-US")}</span>
         </div>
         <h3 className="text-xl font-semibold text-center mt-4">Achievements</h3>
         {achievements && achievements.length > 0 ? (
