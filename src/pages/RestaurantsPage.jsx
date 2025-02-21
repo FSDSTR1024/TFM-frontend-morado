@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
 import { CardsDisplay } from "/src/components/templates";
-import { ConsumerCard } from "/src/components/atoms";
 import { Logger } from "/src/utils/Logger.js";
+import { RestaurantCard } from "/src/components/atoms";
 import { userAPI } from "/src/api";
 
 /************************************************** Internal logger ***************************************************/
@@ -29,16 +29,46 @@ const RestaurantsPage = () => {
     getRestaurants();
   }, []);
 
-  // const [surnameFilter, setSurnameFilter] = useState("");
-  const filterMethod = (restaurant) => {return true;};
-  const cardProperties = [];
+  const [locationFilter, setLocationFilter] = useState("");
+  const [nameFilter, setNameFilter] = useState("");
+  const filterMethod = (restaurant) => {
+    const locationMatches = restaurant.location.toLowerCase().includes(locationFilter.toLowerCase());
+    const nameMatches = restaurant.name.toLowerCase().includes(nameFilter.toLowerCase());
+    return locationMatches && nameMatches;
+  };
+  const cardProperties = [
+    { text: "Antiquity", value: "createdAt" },
+    { text: "Dishes", value: "nrOfDishes" },
+    // { text: "Email", value: "email" },
+    {
+      filter: {
+        inputType: "text",
+        onChangeMethod: (event) => setLocationFilter(event.target.value),
+        value: locationFilter
+      },
+      text: "Location",
+      value: "location"
+    },
+    {
+      filter: {
+        inputType: "text",
+        onChangeMethod: (event) => setNameFilter(event.target.value),
+        value: nameFilter
+      },
+      text: "Name",
+      value: "name"
+    },
+    { text: "Phone", value: "phone" },
+    { text: "Rating", value: "rating" },
+    { text: "Reviews", value: "nrOfReviews" }
+  ];
 
   return (
     <CardsDisplay
-      CardComponent={ConsumerCard}
+      CardComponent={RestaurantCard}
       cardProperties={cardProperties}
       filterMethod={filterMethod}
-      headerSubtitle="The amazing community members"
+      headerSubtitle="Discover the best places to eat"
       headerTitle="Nyam! Restaurants"
       itemsList={allRestaurants}
     />
