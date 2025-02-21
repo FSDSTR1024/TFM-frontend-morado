@@ -10,6 +10,7 @@ import { HomePage } from "/src/pages";
 import { AuthContextProvider } from "/src/contexts/AuthContext";
 import { LoginPage } from "/src/pages";
 import { RegisterPage } from "/src/pages";
+import { RestaurantsPage } from "./pages";
 import { UsersPage } from "./pages";
 
 /************************************************ Component Definition ************************************************/
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/restaurants" element={<RestaurantsPage />} />
           <Route path="/users" element={<UsersPage />} />
         </Routes>
       </main>
