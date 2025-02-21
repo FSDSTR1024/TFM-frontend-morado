@@ -27,7 +27,7 @@ const RestaurantCard = ({ _id, description, img_url, isTheNewest, location, name
 
   return (
     <div
-      className="card w-96 bg-base-100 shadow-xl cursor-pointer"
+      className="card w-96 bg-base-100 shadow-xl cursor-pointer flex justify-between"
       onClick={handleOnCardClick}
     >
       <div className="flex items-center p-4 pb-0 justify-between h-40">
@@ -68,16 +68,18 @@ const RestaurantCard = ({ _id, description, img_url, isTheNewest, location, name
             <a href={web_page} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">{web_page}</a>
           </div>
         )}
-        <h3 className="text-xl font-semibold text-center mt-6">Achievements</h3>
-        {achievements && achievements.length > 0 ? (
-          <div className="flex justify-center space-x-4 mt-2">
-            {achievements.map((achievement, index) => (
-              <img key={index} alt={`Achievement ${index + 1}`} className="w-12 h-12" src={achievement} />
-            ))}
-          </div>
-        ) : (
-          <div className="h-12"></div>
-        )}
+        <div className="h-24">
+          <h3 className="text-xl font-semibold text-center mt-6">Achievements</h3>
+          {achievements && achievements.length > 0 ? (
+            <div className="flex justify-center space-x-4 mt-2">
+              {achievements.map((achievement, index) => (
+                <img key={index} alt={`Achievement ${index + 1}`} className="w-12 h-12 rounded-full" src={achievement} />
+              ))}
+            </div>
+          ) : (
+            <div className="h-12"></div>
+          )}
+        </div>
       </div>
     </div>
   );
