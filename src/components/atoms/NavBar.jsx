@@ -24,6 +24,11 @@ const NavBar = () => (
         </NavLink>
       </li>
       <li>
+        <NavLink className="text-base" to="/consumers">
+          Consumers
+        </NavLink>
+      </li>
+      <li>
         <NavLink className="text-base" to="/dishes">
           Dishes
         </NavLink>
@@ -31,11 +36,6 @@ const NavBar = () => (
       <li>
         <NavLink className="text-base" to="/restaurants">
           Restaurants
-        </NavLink>
-      </li>
-      <li>
-        <NavLink className="text-base" to="/users">
-          Users
         </NavLink>
       </li>
     </ul>

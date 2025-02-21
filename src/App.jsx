@@ -5,13 +5,13 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
+import { ConsumersPage } from "./pages";
 import { Header } from "/src/components/organisms";
 import { HomePage } from "/src/pages";
 import { AuthContextProvider } from "/src/contexts/AuthContext";
 import { LoginPage } from "/src/pages";
 import { RegisterPage } from "/src/pages";
 import { RestaurantsPage } from "./pages";
-import { UsersPage } from "./pages";
 
 /************************************************ Component Definition ************************************************/
 const App = () => (
@@ -21,10 +21,10 @@ const App = () => (
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/consumers" element={<ConsumersPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/restaurants" element={<RestaurantsPage />} />
-          <Route path="/users" element={<UsersPage />} />
         </Routes>
       </main>
     </BrowserRouter>

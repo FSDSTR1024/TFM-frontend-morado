@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 const ConsumerCard = ({ _id, img_url, isTheNewest, name, reviewed_dishes, reviewed_restaurants, surname }) => {
   const navigate = useNavigate();
 
-  const handleOnUserCardClick = useCallback(() => {
-    navigate(`/users/${_id}`);
+  const handleOnCardClick = useCallback(() => {
+    navigate(`/consumers/${_id}`);
   }, []);
 
   const notDefinedImgUrl = "https://res.cloudinary.com/dkpdltxzm/image/upload/ar_1:1,c_auto,g_auto/r_max/v1739315334/mw7prcgn3nykmaakze6b.png";
@@ -28,7 +28,7 @@ const ConsumerCard = ({ _id, img_url, isTheNewest, name, reviewed_dishes, review
   return (
     <div
       className="card w-72 bg-base-100 shadow-xl cursor-pointer"
-      onClick={handleOnUserCardClick}
+      onClick={handleOnCardClick}
     >
       <div className="flex items-center p-2 pr-4 justify-between h-28">
         <img

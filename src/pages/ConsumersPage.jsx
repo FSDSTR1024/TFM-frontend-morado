@@ -8,10 +8,10 @@ import { Logger } from "/src/utils/Logger.js";
 import { userAPI } from "/src/api";
 
 /************************************************** Internal logger ***************************************************/
-const logger = new Logger("UsersPage");
+const logger = new Logger("ConsumersPage");
 
 /**************************************************** Page Content ****************************************************/
-const UsersPage = () => {
+const ConsumersPage = () => {
   const [allConsumers, setAllConsumers] = useState([]);
 
   useEffect(() => {
@@ -74,4 +74,4 @@ const UsersPage = () => {
 };
 
 /********************************************** Named export (ES module) **********************************************/
-export { UsersPage };
+export { ConsumersPage };
