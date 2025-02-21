@@ -94,7 +94,7 @@ const CardsDisplay = ({ CardComponent, cardProperties, filterMethod, headerSubti
       {/* DisplaySortingSubheader */}
       {cardProperties.some((cardProperty) => cardProperty.filter && cardProperty.filter.value !== "") && (
         <div className="text-center mt-2">
-          <h2 className="text-lg text-gray-600">Showing {sortedFilteredItems.length} filtered consumers:</h2>
+          <h2 className="text-lg text-gray-600">Showing {sortedFilteredItems.length} filtered items:</h2>
         </div>
       )}
 
