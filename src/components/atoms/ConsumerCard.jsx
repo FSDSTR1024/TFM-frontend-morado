@@ -26,10 +26,10 @@ const ConsumerCard = ({ _id, img_url, isTheNewest, name, reviewed_dishes, review
   if (name.includes("u")) achievements.push(achievement4Url);
 
   return (
-    <div
-      className="card w-72 bg-base-100 shadow-xl cursor-pointer"
-      onClick={handleOnCardClick}
-    >
+    <div className="card w-72 bg-base-100 shadow-xl">
+      <div className="flex justify-center">
+        <button className="btn glass btn-block btn-outline btn-info btn-sm" onClick={handleOnCardClick}>View</button>
+      </div>
       <div className="flex items-center p-2 pr-4 justify-between h-28">
         <img
           src={img_url ? img_url : notDefinedImgUrl}
@@ -42,18 +42,19 @@ const ConsumerCard = ({ _id, img_url, isTheNewest, name, reviewed_dishes, review
           <p className="text-lg text-gray-600">{surname}</p>
         </div>
       </div>
-      <div className="border-t border-gray-200"></div>
-      <div className="p-5 pt-2 pb-3">
-        <h3 className="text-xl font-semibold text-center mb-4">Reviews</h3>
-        <div className="flex justify-between text-lg">
+      <div className="divider text-xl font-semibold m-0">Reviews</div>
+      <div className="p-5 pt-2 pb-0">
+        <div className="flex justify-between text-base">
           <strong>Restaurants:</strong>
           <span>{reviewed_restaurants.toLocaleString("en-US")}</span>
         </div>
-        <div className="flex justify-between text-lg">
+        <div className="flex justify-between text-base">
           <strong>Dishes:</strong>
           <span>{reviewed_dishes.toLocaleString("en-US")}</span>
         </div>
-        <h3 className="text-xl font-semibold text-center mt-4">Achievements</h3>
+      </div>
+      <div className="pb-3">
+        <div className="divider text-xl font-semibold mt-6">Achievements</div>
         {achievements && achievements.length > 0 ? (
           <div className="flex justify-center space-x-4 mt-2">
             {achievements.map((achievement, index) => (

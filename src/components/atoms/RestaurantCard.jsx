@@ -26,10 +26,10 @@ const RestaurantCard = ({ _id, description, img_url, isTheNewest, location, name
   if (name.includes("u")) achievements.push(achievement4Url);
 
   return (
-    <div
-      className="card w-96 bg-base-100 shadow-xl cursor-pointer flex justify-between"
-      onClick={handleOnCardClick}
-    >
+    <div className="card w-96 bg-base-100 shadow-xl flex justify-between">
+      <div className="flex justify-center">
+        <button className="btn glass btn-block btn-outline btn-info btn-sm" onClick={handleOnCardClick}>View</button>
+      </div>
       <div className="flex items-center p-4 pb-0 justify-between h-40">
         <div className="flex flex-col items-start p-2">
           {isTheNewest && <div className="badge badge-primary mb-2">NEW</div>}
@@ -47,29 +47,30 @@ const RestaurantCard = ({ _id, description, img_url, isTheNewest, location, name
           <p className="text-md text-gray-500">{description}</p>
         </div>
       )}
-      <div className="border-t border-gray-200"></div>
-      <div className="p-6 pt-2 pb-3">
-        <h3 className="text-xl font-semibold text-center mb-4">Details</h3>
-        <div className="flex justify-between text-lg">
+      <div className="divider text-xl font-semibold m-0">Details</div>
+      <div className="p-6 pt-2 pb-0">
+        <div className="flex justify-between text-base">
           <strong>Rating:</strong>
           <span>{rating}</span>
         </div>
-        <div className="flex justify-between text-lg">
+        <div className="flex justify-between text-base">
           <strong>Number of Dishes:</strong>
           <span>{nrOfDishes.toLocaleString("en-US")}</span>
         </div>
-        <div className="flex justify-between text-lg">
+        <div className="flex justify-between text-base">
           <strong>Number of Reviews:</strong>
           <span>{nrOfReviews.toLocaleString("en-US")}</span>
         </div>
         {web_page && (
-          <div className="flex justify-between text-lg">
+          <div className="flex justify-between text-base">
             <strong>Website:</strong>
             <a href={web_page} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">{web_page}</a>
           </div>
         )}
+      </div>
+      <div className="pb-3">
         <div className="h-24">
-          <h3 className="text-xl font-semibold text-center mt-6">Achievements</h3>
+          <div className="divider text-xl font-semibold mt-6">Achievements</div>
           {achievements && achievements.length > 0 ? (
             <div className="flex justify-center space-x-4 mt-2">
               {achievements.map((achievement, index) => (
