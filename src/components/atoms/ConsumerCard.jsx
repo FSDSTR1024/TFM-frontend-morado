@@ -8,7 +8,7 @@ const ConsumerCard = ({ _id, img_url, isTheNewest, name, reviewed_dishes, review
 
   const handleOnCardClick = useCallback(() => {
     navigate(`/consumers/${_id}`);
-  }, []);
+  }, [_id]);
 
   const notDefinedImgUrl = "https://res.cloudinary.com/dkpdltxzm/image/upload/ar_1:1,c_auto,g_auto/r_max/v1739315334/mw7prcgn3nykmaakze6b.png";
   // const notActiveUserImgUrl = "https://res.cloudinary.com/dkpdltxzm/image/upload/ar_1:1,c_auto_pad,g_auto/r_max/v1739303950/uzhmdi16bdjvilwsaiy4.png";
