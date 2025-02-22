@@ -30,7 +30,7 @@ const RestaurantCard = ({ _id, description, img_url, isTheNewest, location, name
       <div className="flex justify-center">
         <button className="btn glass btn-block btn-outline btn-info btn-sm" onClick={handleOnCardClick}>View</button>
       </div>
-      <div className="flex items-center p-4 pb-0 justify-between h-40">
+      <div className="flex items-center p-4 pt-0 pb-0 justify-between h-40">
         <div className="flex flex-col items-start p-2">
           {isTheNewest && <div className="badge badge-primary mb-2">NEW</div>}
           <h2 className="card-title text-2xl">{name}</h2>
@@ -68,7 +68,7 @@ const RestaurantCard = ({ _id, description, img_url, isTheNewest, location, name
           </div>
         )}
       </div>
-      <div className="pb-3">
+      <div className="pb-0">
         <div className="h-24">
           <div className="divider text-xl font-semibold mt-6">Achievements</div>
           {achievements && achievements.length > 0 ? (
