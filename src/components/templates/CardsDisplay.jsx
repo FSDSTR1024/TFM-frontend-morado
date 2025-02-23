@@ -12,7 +12,7 @@ const CardsDisplay = ({ CardComponent, cardProperties, filterMethod, headerSubti
   const [newestItem, setNewestItem] = useState(null);
 
   const [sortKey, setSortKey] = useState("createdAt");
-  const [sortOrder, setSortOrder] = useState("DESC");
+  const [sortOrder, setSortOrder] = useState("ASC");
 
   const handleSortKeyChange = (event) => setSortKey(event.target.value);
   const handleSortOrderChange = (event) => setSortOrder(event.target.value);
