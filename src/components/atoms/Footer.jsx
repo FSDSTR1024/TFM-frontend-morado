@@ -1,7 +1,7 @@
 /************************************************ Component Definition ************************************************/
 const Footer = () => {
   return (
-    <footer className="bg-base-200 text-base-content py-6">
+    <footer className="bg-base-200 text-base-content py-6 mt-auto">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap justify-center items-center">
           <div className="w-full md:w-2/3 mb-6 md:mb-0 text-center">
