@@ -2,17 +2,19 @@
 import { useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 
+/************************************************* Internal libraries *************************************************/
+import { notActiveUserImgUrl, notDefinedImgUrl } from "/src/constants";
+import { roundImg } from "/src/utils";
+
 /************************************************ Component Definition ************************************************/
-const ConsumerCard = ({ _id, img_url, isTheNewest, name, reviewed_dishes, reviewed_restaurants, surname }) => {
+const ConsumerCard = ({ _id, img_url, is_activated, isTheNewest, name, reviewed_dishes, reviewed_restaurants, surname }) => {
   const navigate = useNavigate();
 
   const handleOnCardClick = useCallback(() => {
     navigate(`/consumers/${_id}`);
   }, [_id]);
 
-  const notDefinedImgUrl = "https://res.cloudinary.com/dkpdltxzm/image/upload/ar_1:1,c_auto,g_auto/r_max/v1739315334/mw7prcgn3nykmaakze6b.png";
-  // const notActiveUserImgUrl = "https://res.cloudinary.com/dkpdltxzm/image/upload/ar_1:1,c_auto_pad,g_auto/r_max/v1739303950/uzhmdi16bdjvilwsaiy4.png";
-  // const badgeSelector = null;
+  const currentUserImgUrl = is_activated ? (img_url ? img_url : notDefinedImgUrl) : notActiveUserImgUrl;
 
   const achievement1Url = "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp";
   const achievement2Url = "https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp";
@@ -32,7 +34,7 @@ const ConsumerCard = ({ _id, img_url, isTheNewest, name, reviewed_dishes, review
       </div>
       <div className="flex items-center p-2 pr-4 justify-between h-28">
         <img
-          src={img_url ? img_url : notDefinedImgUrl}
+          src={roundImg({ imgURL: currentUserImgUrl })}
           alt="Profile"
           className="w-20 h-20 rounded-full mr-6"
         />
