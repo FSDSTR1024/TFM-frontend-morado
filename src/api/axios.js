@@ -28,7 +28,11 @@ axiosInstance.interceptors.request.use(
 
 /**************************************** Axios Instance Response Interceptors ****************************************/
 axiosInstance.interceptors.response.use(
-  (response) => response.data,
+  (response) => {
+    const responseObj = response.data;
+    logger.debug(responseObj.msg);
+    return responseObj;
+  },
   (error) => {
     if (error.response) {
       /* API-specific error handling */
