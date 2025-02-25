@@ -6,13 +6,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
 import { AuthContextProvider } from "/src/contexts/AuthContext";
-import { ConsumersPage } from "./pages";
+import { ConsumersPage, HomePage, LoginPage, RegisterPage, RestaurantsPage } from "./pages";
 import { Footer } from "/src/components/atoms";
 import { Header } from "/src/components/organisms";
-import { HomePage } from "/src/pages";
-import { LoginPage } from "/src/pages";
-import { RegisterPage } from "/src/pages";
-import { RestaurantsPage } from "./pages";
 
 /************************************************ Component Definition ************************************************/
 const App = () => (
