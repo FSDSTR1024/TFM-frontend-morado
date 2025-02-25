@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
 import { AuthContextProvider } from "/src/contexts/AuthContext";
-import { ConsumersPage, HomePage, LoginPage, RegisterPage, RestaurantsPage } from "./pages";
+import { ConsumersPage, HomePage, LoginPage, RegisterPage, RestaurantsPage, SpecificRestaurantPage } from "./pages";
 import { Footer } from "/src/components/atoms";
 import { Header } from "/src/components/organisms";
 
@@ -23,6 +23,7 @@ const App = () => (
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/restaurants" element={<RestaurantsPage />} />
+            <Route path="/restaurants/:restaurantId" element={<SpecificRestaurantPage />} />
           </Routes>
         </main>
         <Footer />

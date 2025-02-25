@@ -7,7 +7,8 @@ const userAPI = {
   createRestaurant: async (formData) => await axiosInstance.post("/users/restaurants", formData),
   getAllConsumers: async () => await axiosInstance.get("/users/consumers"),
   getAllRestaurants: async () => await axiosInstance.get("/users/restaurants"),
-  getLoggedUser: async () => await axiosInstance.get("/user")
+  getLoggedUser: async () => await axiosInstance.get("/user"),
+  getRestaurantById: async ({ restaurantId }) => await axiosInstance.get(`/users/restaurants/${restaurantId}`)
 };
 
 /********************************************* Named exports (ES module) **********************************************/
