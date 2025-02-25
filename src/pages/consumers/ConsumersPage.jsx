@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 /********************************************** Internal library imports **********************************************/
 import { CardsDisplay } from "/src/components/templates";
 import { ConsumerCard } from "/src/components/atoms";
-import { Logger } from "/src/utils/Logger.js";
+import { Logger } from "/src/utils";
 import { userAPI } from "/src/api";
 
 /************************************************** Internal logger ***************************************************/

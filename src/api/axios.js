@@ -2,7 +2,7 @@
 import axios from "axios";
 
 /********************************************** Internal library imports **********************************************/
-import { Logger } from "/src/utils/Logger.js";
+import { Logger } from "/src/utils";
 
 /************************************************** Internal logger ***************************************************/
 const logger = new Logger("axios");

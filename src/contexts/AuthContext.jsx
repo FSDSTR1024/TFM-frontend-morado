@@ -2,7 +2,7 @@
 import { createContext, useEffect, useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
-import { Logger } from "/src/utils/Logger.js";
+import { Logger } from "/src/utils";
 import { userAPI } from "/src/api";
 
 /************************************************** Internal logger ***************************************************/

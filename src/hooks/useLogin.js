@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 /********************************************** Internal library imports **********************************************/
 import { authAPI } from "/src/api";
 import { AuthContext } from "/src/contexts/AuthContext";
-import { Logger } from "/src/utils/Logger.js";
+import { Logger } from "/src/utils";
 
 /************************************************** Internal logger ***************************************************/
 const logger = new Logger("useLogin");

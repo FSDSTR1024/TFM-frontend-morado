@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
 import { CardsDisplay } from "/src/components/templates";
-import { Logger } from "/src/utils/Logger.js";
+import { Logger } from "/src/utils";
 import { RestaurantCard } from "/src/components/atoms";
 import { userAPI } from "/src/api";
 
