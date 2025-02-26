@@ -33,6 +33,10 @@ class Logger {
   }
 
   /* Logging private method */
+  #log(level, message, ...additionalParams) {
+    if (import.meta.env.MODE === "test") {
+      return;
+    }
     if (LOG_LEVELS[level.toUpperCase()] > this.LOG_LEVEL) {
       return;
     }
