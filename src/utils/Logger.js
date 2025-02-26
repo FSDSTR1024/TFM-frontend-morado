@@ -1,11 +1,26 @@
 /*********************************************** External Node modules ************************************************/
 import moment from "moment";
 
+/***************************************************** Log levels *****************************************************/
+// error: Due to a more serious problem, the software has not been able to perform some function.
+// warn: An indication that something unexpected happened, or indicative of some problem in the near future (e.g. 'disk space low'). The software is still working as expected.
+// info: Confirmation that things are working as expected.
+// debug: Detailed information, typically of interest only when diagnosing problems.
+const LOG_LEVELS = {
+  NONE: 0,
+  ERROR: 1,
+  WARN: 2,
+  INFO: 3,
+  DEBUG: 4
+};
+const DEFAULT_LOG_LEVEL = LOG_LEVELS.NONE;
+
 /********************************************* Internal logger definition *********************************************/
 class Logger {
   /* Class instance constructor */
   constructor(filePath) {
     this.fileName = filePath.split('/').pop();
+    this.LOG_LEVEL = import.meta.env.VITE_LOG_LEVEL ? LOG_LEVELS[import.meta.env.VITE_LOG_LEVEL.toUpperCase()] : DEFAULT_LOG_LEVEL;
   }
 
   /* Formatting private methods */
@@ -22,7 +37,10 @@ class Logger {
   }
 
   /* Logging private method */
-  #log(level = "info", message, ...additionalParams) {
+    if (LOG_LEVELS[level.toUpperCase()] > this.LOG_LEVEL) {
+      return;
+    }
+
     const formattedLogStart = this.#getFormattedLogStart(level);
     const formattedMessage = additionalParams ? `${message}\n` : message;
     switch (level) {
