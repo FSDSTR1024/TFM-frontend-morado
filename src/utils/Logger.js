@@ -29,11 +29,7 @@ class Logger {
   }
   #getFormattedLogStart(level) {
     const formattedDateTime = this.#getFormattedDateTime();
-    const maxFileNameLength = 0;  // 18
-    const formattedFileName = this.fileName.padStart(maxFileNameLength, " ");
-    const maxLevelLength = 0;  // 5
-    const formattedLevel = level.toUpperCase().padEnd(maxLevelLength, " ");
-    return `[${formattedDateTime}][${formattedFileName}][${formattedLevel}]`;
+    return `[${formattedDateTime}][${this.fileName}][${level.toUpperCase()}]`;
   }
 
   /* Logging private method */
