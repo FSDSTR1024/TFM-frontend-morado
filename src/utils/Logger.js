@@ -17,10 +17,17 @@ const DEFAULT_LOG_LEVEL = LOG_LEVELS.NONE;
 
 /********************************************* Internal logger definition *********************************************/
 class Logger {
+  /* Class static properties */
+  static LOG_LEVEL = DEFAULT_LOG_LEVEL;
+
   /* Class instance constructor */
   constructor(filePath) {
     this.fileName = filePath.split('/').pop();
-    this.LOG_LEVEL = import.meta.env.VITE_LOG_LEVEL ? LOG_LEVELS[import.meta.env.VITE_LOG_LEVEL.toUpperCase()] : DEFAULT_LOG_LEVEL;
+  }
+
+  /* Static method to set the log level */
+  static setLogLevel(logLevel) {
+    Logger.LOG_LEVEL = logLevel ? LOG_LEVELS[logLevel.toUpperCase()] : DEFAULT_LOG_LEVEL;
   }
 
   /* Formatting private methods */
@@ -37,7 +44,7 @@ class Logger {
     if (import.meta.env.MODE === "test") {
       return;
     }
-    if (LOG_LEVELS[level.toUpperCase()] > this.LOG_LEVEL) {
+    if (LOG_LEVELS[level.toUpperCase()] > Logger.LOG_LEVEL) {
       return;
     }
 

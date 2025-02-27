@@ -9,6 +9,11 @@ import { AuthContextProvider } from "/src/contexts/AuthContext";
 import { ConsumersPage, HomePage, LoginPage, RegisterPage, RestaurantsPage, SpecificRestaurantPage } from "./pages";
 import { Footer } from "/src/components/atoms";
 import { Header } from "/src/components/organisms";
+import { Logger } from "/src/utils";
+
+/************************************************** Internal logger ***************************************************/
+Logger.setLogLevel(import.meta.env.VITE_LOG_LEVEL);
+const logger = new Logger("App");
 
 /************************************************ Component Definition ************************************************/
 const App = () => (
