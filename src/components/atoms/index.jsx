@@ -6,6 +6,7 @@ import { Loading } from "./Loading.jsx";
 import { LogoutButton } from "./LogoutButton.jsx";
 import { NavBar } from "./NavBar.jsx";
 import { RestaurantCard } from "./RestaurantCard.jsx";
+import { StarRating } from "./StarRating.jsx";
 
 /********************************************* Named exports (ES module) **********************************************/
-export { ConsumerCard, Footer, FormField, Loading, LogoutButton, NavBar, RestaurantCard };
+export { ConsumerCard, Footer, FormField, Loading, LogoutButton, NavBar, RestaurantCard, StarRating };
