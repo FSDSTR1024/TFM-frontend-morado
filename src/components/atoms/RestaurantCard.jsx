@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 /************************************************* Internal libraries *************************************************/
 import { notActiveUserImgUrl, notDefinedImgUrl } from "/src/constants";
+import { StarRating } from "/src/components/atoms";
 
 /************************************************ Component Definition ************************************************/
 const RestaurantCard = ({ _id, description, img_url, is_activated, isTheNewest, location, name, nrOfDishes, nrOfReviews, rating, web_page }) => {
@@ -52,7 +53,7 @@ const RestaurantCard = ({ _id, description, img_url, is_activated, isTheNewest, 
       <div className="p-6 pt-2 pb-0">
         <div className="flex justify-between text-base">
           <strong>Rating:</strong>
-          <span>{rating}</span>
+          <StarRating id={_id} rating={rating} size="sm" />
         </div>
         <div className="flex justify-between text-base">
           <strong>Number of Dishes:</strong>
