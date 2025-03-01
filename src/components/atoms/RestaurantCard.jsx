@@ -51,9 +51,9 @@ const RestaurantCard = ({ _id, description, img_url, is_activated, isTheNewest, 
       )}
       <div className="divider text-xl font-semibold m-0">Details</div>
       <div className="p-6 pt-2 pb-0">
-        <div className="flex justify-between text-base">
+        <div className="flex justify-between items-center text-base">
           <strong>Rating:</strong>
-          <StarRating id={_id} rating={rating} size="sm" />
+          <StarRating _id={_id} nrOfReviews={nrOfReviews} rating={rating} starsSize="sm" textSize="sm" />
         </div>
         <div className="flex justify-between text-base">
           <strong>Number of Dishes:</strong>
