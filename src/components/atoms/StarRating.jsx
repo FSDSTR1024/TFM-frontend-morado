@@ -10,15 +10,16 @@ const StarRating = ({ id, rating, size = "md" }) => {
 
   return (
     <div className={`rating rating-${size} rating-half`}>
-      <input className="rating-hidden cursor-default" defaultChecked disabled name={`rating-10_${id}`} type="radio" />
+      <input className="rating-hidden cursor-default" defaultChecked={starsRating === 0} disabled name={`rating-11_${id}`} type="radio" />
       {[...Array(10)].map((_, index) => {
         return (
           <input
+            aria-label={`${index / 2} star`}
             className={`mask mask-star-2 mask-half-${index % 2 === 0 ? 1 : 2} ${starsColor} cursor-default`}
-            defaultChecked={index < starsRating}
+            defaultChecked={(index + 1) === starsRating}
             disabled
             key={index}
-            name={`rating-10_${id}`}
+            name={`rating-11_${id}`}
             type="radio"
           />
         );
