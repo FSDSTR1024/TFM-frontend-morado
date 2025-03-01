@@ -46,17 +46,11 @@ const SpecificRestaurantPage = () => {
     <div className="container mx-auto p-6">
       <div className="bg-base-100 shadow-xl rounded-lg p-6 mb-6">
         <div className="flex justify-between">
-          <img
-            src={restaurantImgUrl}
-            alt={restaurant.name}
-            className="w-60 h-60 rounded-lg mr-6"
-          />
+          <img alt={restaurant.name} className="w-60 h-60 rounded-lg mr-6" src={restaurantImgUrl} />
           <div className="flex flex-col w-full">
-            <div className="flex items-center mb-2 gap-3">
+            <div className="flex justify-between">
               <h1 className="text-4xl font-bold">{restaurant.name}</h1>
-              <StarRating id={restaurant._id} rating={restaurant.rating} />
-              {restaurant.rating && <p className="text-lg text-gray-600">({restaurant.rating})</p>}
-              <p className="text-lg text-gray-600">{restaurant.nrOfReviews} reviews</p>
+              <StarRating textSize="lg" {...restaurant} />
             </div>
             <p className="text-lg text-gray-600 mb-2">📍 {restaurant.location}</p>
             <p className="text-xl text-gray-400 mb-2">{restaurant.description}</p>
@@ -71,7 +65,11 @@ const SpecificRestaurantPage = () => {
             </div>
             <div>
               <span className="text-lg text-gray-400 font-semibold">🌐 Website: </span>
-              <span className="text-lg text-gray-600"><a href={restaurant.web_page} className="text-blue-500 underline">{restaurant.web_page}</a></span>
+              <span className="text-lg text-gray-600">
+                <a href={restaurant.web_page} className="text-blue-500 underline">
+                  {restaurant.web_page}
+                </a>
+              </span>
             </div>
           </div>
         </div>
@@ -82,14 +80,16 @@ const SpecificRestaurantPage = () => {
           {restaurantDishes.map((dish) => (
             <div key={dish._id} className="card bg-base-200 shadow-md p-4">
               <img
-                src={dish.img_url || "https://via.placeholder.com/150"}
                 alt={dish.name}
-                className="w-full h-32 object-cover rounded-lg mb-4"
+                className="w-full h-32 object-scale-down rounded-lg mb-4"
+                src={dish.img_url || notDefinedImgUrl}
               />
-              <h3 className="text-2xl font-bold">{dish.name}</h3>
+              <div className="flex justify-between">
+                <h3 className="text-xl font-bold">{dish.name}</h3>
+                <StarRating starsSize="xs" textSize="xs" {...dish} />
+              </div>
               <p className="text-gray-600">{dish.description}</p>
               <p className="text-gray-600">Price: ${dish.price}</p>
-              <p className="text-gray-600">Rating: {dish.rating}</p>
             </div>
           ))}
         </div>
