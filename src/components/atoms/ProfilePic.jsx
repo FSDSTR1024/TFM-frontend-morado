@@ -1,12 +1,14 @@
 /************************************************ Node modules needed *************************************************/
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 
 /************************************************* Internal libraries *************************************************/
 import { AuthContext } from "/src/contexts/AuthContext";
 import { getUserImgURL, roundImg } from "/src/utils";
+import { LogoutButton } from "/src/components/atoms/LogoutButton";
 
 /************************************************ Component Definition ************************************************/
-const ProfileBtn = () => {
+const ProfilePic = () => {
   const { loggedUser } = useContext(AuthContext);
 
   return (
@@ -16,18 +18,17 @@ const ProfileBtn = () => {
           <img alt={`${loggedUser._id} profile picture`} src={roundImg({ imgURL: getUserImgURL({ ...loggedUser }) })} />
         </div>
       </div>
-      <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow" tabIndex={0}>
+      <ul className="menu menu-md dropdown-content bg-base-100 rounded-box z-1 mt-3 w-auto p-2 shadow" tabIndex={0}>
         <li>
-          <a className="justify-between">
+          <Link to="/profile">
             Profile
-            <span className="badge">New</span>
-          </a>
+          </Link>
         </li>
         <li>
           <a>Settings</a>
         </li>
         <li>
-          <a>Logout</a>
+          <LogoutButton />
         </li>
       </ul>
     </div>
@@ -35,4 +36,4 @@ const ProfileBtn = () => {
 };
 
 /********************************************** Named export (ES module) **********************************************/
-export { ProfileBtn };
+export { ProfilePic };
