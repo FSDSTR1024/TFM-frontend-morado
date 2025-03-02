@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 
 /************************************************* Internal libraries *************************************************/
-import { notActiveUserImgUrl, notDefinedImgUrl } from "/src/constants";
+import { getUserImgURL } from "/src/utils";
 import { StarRating } from "/src/components/atoms";
 
 /************************************************ Component Definition ************************************************/
@@ -13,8 +13,6 @@ const RestaurantCard = ({ _id, description, img_url, is_activated, isTheNewest, 
   const handleOnCardClick = useCallback(() => {
     navigate(`/restaurants/${_id}`);
   }, [_id]);
-
-  const currentUserImgUrl = is_activated ? (img_url ? img_url : notDefinedImgUrl) : notActiveUserImgUrl;
 
   const achievement1Url = "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp";
   const achievement2Url = "https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp";
@@ -40,7 +38,7 @@ const RestaurantCard = ({ _id, description, img_url, is_activated, isTheNewest, 
             <img
               alt={`${_id} restaurant profile picture`}
               className="w-32 h-32 rounded-lg ml-6"
-              src={currentUserImgUrl}
+              src={getUserImgURL ({ img_url, is_activated })}
             />
           </div>
           {description && (

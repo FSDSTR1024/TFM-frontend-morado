@@ -1,6 +1,6 @@
 /****************************************** Import all individual utilities *******************************************/
+import { getImgURL, getUserImgURL, roundImg } from "./imageTransformation.js";
 import { Logger } from "./Logger.js";
-import { roundImg } from "./imageTransformation.js";
 
 /********************************************* Named exports (ES module) **********************************************/
-export { Logger, roundImg };
+export { getImgURL, getUserImgURL, Logger, roundImg };

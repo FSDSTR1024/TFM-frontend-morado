@@ -4,10 +4,8 @@ import { useParams } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
 import { dishAPI, userAPI } from "/src/api";
-import { Loading, StarRating } from "/src/components/atoms";
-import { Logger } from "/src/utils";
-import { notActiveUserImgUrl, notDefinedImgUrl } from "/src/constants";
-import { DishCard } from "../../components/atoms/DishCard";
+import { DishCard, Loading, StarRating } from "/src/components/atoms";
+import { getUserImgURL, Logger } from "/src/utils";
 
 /************************************************** Internal logger ***************************************************/
 const logger = new Logger("SpecificRestaurantPage");
@@ -42,12 +40,11 @@ const SpecificRestaurantPage = () => {
     return <Loading />;
   }
 
-  const restaurantImgUrl = restaurant.is_activated ? (restaurant.img_url ? restaurant.img_url : notDefinedImgUrl) : notActiveUserImgUrl;
   return (
     <div className="container mx-auto p-6">
       <div className="bg-base-100 shadow-xl rounded-lg p-6 mb-6">
         <div className="flex justify-between">
-          <img alt={restaurant.name} className="w-60 h-60 rounded-lg mr-6" src={restaurantImgUrl} />
+          <img alt={restaurant.name} className="w-60 h-60 rounded-lg mr-6" src={getUserImgURL ({ ...restaurant })} />
           <div className="flex flex-col w-full">
             <div className="flex justify-between">
               <h1 className="text-4xl font-bold">{restaurant.name}</h1>

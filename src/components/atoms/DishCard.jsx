@@ -3,7 +3,8 @@ import { useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 
 /************************************************* Internal libraries *************************************************/
-import { foodAllergenImgUrls, notDefinedImgUrl } from "/src/constants";
+import { foodAllergenImgUrls } from "/src/constants";
+import { getImgURL } from "/src/utils";
 import { StarRating } from "/src/components/atoms";
 
 /************************************************ Component Definition ************************************************/
@@ -14,7 +15,6 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
     navigate(`/dishes/${_id}`);
   }, [_id]);
 
-  const currentUserImgUrl = img_url ? img_url : notDefinedImgUrl;
   return (
     <div className="indicator">
       <div className="card border border-base-300 w-96 bg-base-100 shadow-xl indicator">
@@ -23,7 +23,7 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
           <img
             alt={`${_id} food dish picture`}
             className="w-full h-40 rounded-lg object-scale-down mt-4"
-            src={currentUserImgUrl}
+            src={getImgURL({ img_url })}
           />
           <p className="text-md text-gray-600 text-center mt-2">
             <span>{"(from "}</span>

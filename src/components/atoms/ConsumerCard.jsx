@@ -3,18 +3,15 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
-import { notActiveUserImgUrl, notDefinedImgUrl } from "/src/constants";
-import { roundImg } from "/src/utils";
+import { getUserImgURL, roundImg } from "/src/utils";
 
 /************************************************ Component Definition ************************************************/
-const ConsumerCard = ({ _id, img_url, is_activated, isTheNewest, name, reviewed_dishes, reviewed_restaurants, surname }) => {
+const ConsumerCard = ({ _id, img_url, is_activated, is_online, isTheNewest, name, reviewed_dishes, reviewed_restaurants, surname }) => {
   const navigate = useNavigate();
 
   const handleOnCardClick = useCallback(() => {
     navigate(`/consumers/${_id}`);
   }, [_id]);
-
-  const currentUserImgUrl = is_activated ? (img_url ? img_url : notDefinedImgUrl) : notActiveUserImgUrl;
 
   const achievement1Url = "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp";
   const achievement2Url = "https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp";
@@ -33,11 +30,13 @@ const ConsumerCard = ({ _id, img_url, is_activated, isTheNewest, name, reviewed_
         {isTheNewest && <span className="indicator-item badge badge-primary font-semibold">NEW</span>}
         <div className="card-body flex justify-between p-0">
           <div className="flex items-center my-4 mx-2 justify-between">
-            <img
-              alt={`${_id} consumer profile picture`}
-              className="w-20 h-20 rounded-full mr-6"
-              src={roundImg({ imgURL: currentUserImgUrl })}
-            />
+            <div className={`avatar avatar-${is_online ? "online" : "offline"} h-20 w-20`}>
+              <img
+                alt={`${_id} consumer profile picture`}
+                className="border mr-6 rounded-full"
+                src={roundImg({ imgURL: getUserImgURL ({ img_url, is_activated }) })}
+              />
+            </div>
             <div className="card-title flex flex-col items-end gap-0">
               <h2 className="text-2xl">{name}</h2>
               <p className="text-lg text-gray-600">{surname}</p>
