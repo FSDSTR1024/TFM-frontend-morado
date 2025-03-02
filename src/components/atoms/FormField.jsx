@@ -9,8 +9,8 @@ const FormField = ({ formState, name, required=true, register, text, type="text"
 
   return (
     <>
-      <div className="form_field form-control w-full max-w-sm mb-3">
-        <label className="input input-bordered flex items-center gap-2" htmlFor={name}>
+      <div className="form-control w-full max-w-sm mb-3">
+        <label className="input input-bordered flex items-center gap-2 w-full" htmlFor={name}>
           {text}:
           <input
             autoComplete={name}

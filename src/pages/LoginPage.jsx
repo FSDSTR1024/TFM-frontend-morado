@@ -31,7 +31,7 @@ const LoginPage = () => {
           <h1 className="text-4xl font-bold mb-2">Welcome Back to Nyam!</h1>
           <p className="text-lg text-gray-600">Log in to continue your culinary journey</p>
         </div>
-        <div className="w-full max-w-md bg-base-100 p-6 rounded-lg shadow-md">
+        <div className="w-full max-w-sm bg-base-100 p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold mb-4 text-center text-info underline">Log In to Your Account</h2>
           <form onSubmit={handleSubmit(handleOnSubmit)} className="space-y-6">
             <AuthCredentials formState={formState} register={register} />

@@ -19,7 +19,7 @@ const RegisterForm = ({ error, formFields, formTitle, handleOnSubmit }) => {
     <section className="p-6 bg-base-100 rounded-lg shadow-md w-full max-w-lg mx-auto">
       <h4 className="text-2xl font-semibold mb-4 text-center text-info underline">{formTitle}</h4>
       <form onSubmit={handleSubmit(handleOnSubmit)} className="space-y-8 flex flex-col items-center">
-        <div>
+        <div className="w-80">
           <h5 className="text-xl font-medium mb-4 text-success">Account Information</h5>
           <div className="space-y-4">
             {formFields.map((field, index) => (
@@ -29,8 +29,8 @@ const RegisterForm = ({ error, formFields, formTitle, handleOnSubmit }) => {
             ))}
           </div>
         </div>
-        <div>
-          <h5 className="text-lg font-medium mb-4 text-error">Authentication</h5>
+        <div className="w-80">
+          <h5 className="text-xl font-medium mb-4 text-error">Authentication</h5>
           <AuthCredentials formState={formState} is_register register={register} watch={watch} />
         </div>
         <button type="submit" className="btn btn-primary w-full text-base">Sign up</button>

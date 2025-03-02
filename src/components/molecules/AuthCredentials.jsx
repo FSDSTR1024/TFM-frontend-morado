@@ -41,7 +41,7 @@ const AuthCredentials = ({ formState, is_register=false, register, watch=null })
   return (
     <section className="space-y-4">
       {authFields.map((field, index) => (
-        <div className="form_field_container" key={index}>
+        <div key={index}>
           <FormField formState={formState} register={register} {...field} />
         </div>
       ))}
