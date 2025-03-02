@@ -28,40 +28,36 @@ const RestaurantCard = ({ _id, description, img_url, is_activated, isTheNewest, 
   if (name.includes("u")) achievements.push(achievement4Url);
 
   return (
-    <div className="card w-96 bg-base-100 shadow-xl flex justify-between">
+    <div className="card w-72 bg-base-100 shadow-xl flex justify-between">
       <div className="flex justify-center">
         <button className="btn glass btn-block btn-outline btn-info btn-sm" onClick={handleOnCardClick}>View</button>
       </div>
-      <div className="flex items-center p-4 pt-0 pb-0 justify-between h-40">
-        <div className="flex flex-col items-start p-2">
+      <div className="flex items-center my-4 mx-3 justify-between">
+        <div className="flex flex-col items-start">
           {isTheNewest && <div className="badge badge-primary mb-2">NEW</div>}
           <h2 className="card-title text-2xl">{name}</h2>
           <p className="text-lg text-gray-600">{location}</p>
         </div>
         <img
-          alt="Restaurant"
+          alt={`${_id} restaurant profile picture`}
           className="w-32 h-32 rounded-lg ml-6"
           src={currentUserImgUrl}
         />
       </div>
       {description && (
-        <div className="p-4 pt-2">
+        <div className="mx-3">
           <p className="text-md text-gray-500">{description}</p>
         </div>
       )}
-      <div className="divider text-xl font-semibold m-0">Details</div>
-      <div className="p-6 pt-2 pb-0">
+      <div className="divider text-xl font-semibold mx-0 my-4">Details</div>
+      <div className="mx-4 my-0">
+        <div className="flex justify-between text-base">
+          <strong>Dishes:</strong>
+          <span>{nrOfDishes.toLocaleString("en-US")}</span>
+        </div>
         <div className="flex justify-between items-center text-base">
           <strong>Rating:</strong>
           <StarRating _id={_id} nrOfReviews={nrOfReviews} rating={rating} starsSize="sm" textSize="sm" />
-        </div>
-        <div className="flex justify-between text-base">
-          <strong>Number of Dishes:</strong>
-          <span>{nrOfDishes.toLocaleString("en-US")}</span>
-        </div>
-        <div className="flex justify-between text-base">
-          <strong>Number of Reviews:</strong>
-          <span>{nrOfReviews.toLocaleString("en-US")}</span>
         </div>
         {web_page && (
           <div className="flex justify-between text-base">
@@ -70,19 +66,15 @@ const RestaurantCard = ({ _id, description, img_url, is_activated, isTheNewest, 
           </div>
         )}
       </div>
-      <div className="pb-0">
-        <div className="h-24">
-          <div className="divider text-xl font-semibold mt-6">Achievements</div>
-          {achievements && achievements.length > 0 ? (
-            <div className="flex justify-center space-x-4 mt-2">
-              {achievements.map((achievement, index) => (
-                <img key={index} alt={`Achievement ${index + 1}`} className="w-12 h-12 rounded-full" src={achievement} />
-              ))}
-            </div>
-          ) : (
-            <div className="h-12"></div>
-          )}
-        </div>
+      <div className="mb-3">
+        <div className="divider text-xl font-semibold mt-6">Achievements</div>
+        {achievements && achievements.length > 0 && (
+          <div className="flex justify-center space-x-4 mt-2">
+            {achievements.map((achievement, index) => (
+              <img key={index} alt={`Achievement ${index + 1}`} className="w-12 h-12 rounded-full" src={achievement} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
