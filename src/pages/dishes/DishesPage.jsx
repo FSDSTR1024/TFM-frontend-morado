@@ -35,6 +35,7 @@ const DishesPage = () => {
     return nameMatches;
   };
   const cardProperties = [
+    { text: "Antiquity", value: "createdAt" },
     {
       filter: {
         inputType: "text",
@@ -44,6 +45,7 @@ const DishesPage = () => {
       text: "Name",
       value: "name"
     },
+    { text: "Price", value: "price" },
     { text: "Rating", value: "rating" },
     { text: "Reviews", value: "nrOfReviews" }
   ];
