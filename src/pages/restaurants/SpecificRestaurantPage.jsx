@@ -7,6 +7,7 @@ import { dishAPI, userAPI } from "/src/api";
 import { Loading, StarRating } from "/src/components/atoms";
 import { Logger } from "/src/utils";
 import { notActiveUserImgUrl, notDefinedImgUrl } from "/src/constants";
+import { DishCard } from "../../components/atoms/DishCard";
 
 /************************************************** Internal logger ***************************************************/
 const logger = new Logger("SpecificRestaurantPage");
@@ -74,23 +75,11 @@ const SpecificRestaurantPage = () => {
           </div>
         </div>
       </div>
-      <div className="bg-base-100 shadow-xl rounded-lg p-6">
+      <div className="bg-base-200 shadow-xl rounded-lg p-6">
         <h2 className="text-3xl font-bold mb-4">Dishes</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="flex flex-wrap justify-evenly gap-y-8 mb-2">
           {restaurantDishes.map((dish) => (
-            <div key={dish._id} className="card bg-base-200 shadow-md p-4">
-              <img
-                alt={dish.name}
-                className="w-full h-32 object-scale-down rounded-lg mb-4"
-                src={dish.img_url || notDefinedImgUrl}
-              />
-              <div className="flex justify-between">
-                <h3 className="text-xl font-bold">{dish.name}</h3>
-                <StarRating starsSize="xs" textSize="xs" {...dish} />
-              </div>
-              <p className="text-gray-600">{dish.description}</p>
-              <p className="text-gray-600">Price: ${dish.price}</p>
-            </div>
+            <DishCard key={dish._id} {...dish} />
           ))}
         </div>
       </div>
