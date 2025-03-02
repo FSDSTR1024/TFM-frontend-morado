@@ -28,42 +28,46 @@ const ConsumerCard = ({ _id, img_url, is_activated, isTheNewest, name, reviewed_
   if (name.includes("u")) achievements.push(achievement4Url);
 
   return (
-    <div className="card w-60 bg-base-100 shadow-xl flex justify-between">
-      <div className="flex justify-center">
-        <button className="btn glass btn-block btn-outline btn-info btn-sm" onClick={handleOnCardClick}>View</button>
-      </div>
-      <div className="flex items-center my-4 mx-2 justify-between">
-        <img
-          alt={`${_id} consumer profile picture`}
-          className="w-20 h-20 rounded-full mr-6"
-          src={roundImg({ imgURL: currentUserImgUrl })}
-        />
-        <div className="flex flex-col items-end">
-          {isTheNewest && <div className="badge badge-primary mb-2">NEW</div>}
-          <h2 className="card-title text-2xl">{name}</h2>
-          <p className="text-lg text-gray-600">{surname}</p>
-        </div>
-      </div>
-      <div className="divider text-xl font-semibold m-0">Reviews</div>
-      <div className="m-3 mt-2 mb-0">
-        <div className="flex justify-between text-base">
-          <strong>Dishes:</strong>
-          <span>{reviewed_dishes.toLocaleString("en-US")}</span>
-        </div>
-        <div className="flex justify-between text-base">
-          <strong>Restaurants:</strong>
-          <span>{reviewed_restaurants.toLocaleString("en-US")}</span>
-        </div>
-      </div>
-      <div className="mb-3">
-        <div className="divider text-xl font-semibold mt-4">Achievements</div>
-        {achievements && achievements.length > 0 && (
-          <div className="flex justify-center space-x-4 mt-2">
-            {achievements.map((achievement, index) => (
-              <img key={index} alt={`Achievement ${index + 1}`} className="w-10 h-10" src={achievement} />
-            ))}
+    <div className="indicator">
+      <div className="card border border-base-300 w-60 bg-base-100 shadow-xl indicator">
+        {isTheNewest && <span className="indicator-item badge badge-primary font-semibold">NEW</span>}
+        <div className="card-body flex justify-between p-0">
+          <div className="flex items-center my-4 mx-2 justify-between">
+            <img
+              alt={`${_id} consumer profile picture`}
+              className="w-20 h-20 rounded-full mr-6"
+              src={roundImg({ imgURL: currentUserImgUrl })}
+            />
+            <div className="card-title flex flex-col items-end gap-0">
+              <h2 className="text-2xl">{name}</h2>
+              <p className="text-lg text-gray-600">{surname}</p>
+            </div>
           </div>
-        )}
+          <div className="divider text-xl font-semibold m-0">Reviews</div>
+          <div className="m-3 mt-2 mb-0">
+            <div className="flex justify-between text-base">
+              <strong>Dishes:</strong>
+              <span>{reviewed_dishes.toLocaleString("en-US")}</span>
+            </div>
+            <div className="flex justify-between text-base">
+              <strong>Restaurants:</strong>
+              <span>{reviewed_restaurants.toLocaleString("en-US")}</span>
+            </div>
+          </div>
+          <div className="mb-6">
+            <div className="divider text-xl font-semibold mt-4">Achievements</div>
+            {achievements && achievements.length > 0 && (
+              <div className="flex justify-center space-x-4 mt-2">
+                {achievements.map((achievement, index) => (
+                  <img key={index} alt={`Achievement ${index + 1}`} className="w-10 h-10" src={achievement} />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="indicator-item indicator-bottom indicator-center flex justify-center">
+        <button className="btn glass btn-outline btn-info btn-sm" onClick={handleOnCardClick}>View</button>
       </div>
     </div>
   );
