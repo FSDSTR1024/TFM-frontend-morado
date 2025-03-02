@@ -20,7 +20,7 @@ const LoginPage = () => {
     const token = await login(formData);
     if (token) {
       alert("[SUCCESS] User logged in successfully!");
-      navigate("/profile");
+      navigate("/");
     }
   }, []);
 
@@ -42,7 +42,7 @@ const LoginPage = () => {
       </section>
     );
   } else {
-    navigate("/profile")
+    navigate("/")
     return null;
   }
 };
