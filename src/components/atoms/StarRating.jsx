@@ -29,7 +29,7 @@ const StarRating = ({ _id, nrOfReviews, rating, starsSize = "md", textSize = "ba
         </div>
         {nrOfReviews > 0 ? <p className={`text-${textSize} text-gray-600`}>({rating})</p> : null}
       </div>
-      <p className={`text-${textSize} text-gray-600 font-semibold`}>{nrOfReviews} reviews</p>
+      <p className={`text-${textSize} text-gray-600 font-semibold`}>{nrOfReviews.toLocaleString("en-US")} reviews</p>
     </div>
   );
 };
