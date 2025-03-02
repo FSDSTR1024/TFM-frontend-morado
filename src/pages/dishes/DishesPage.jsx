@@ -30,9 +30,11 @@ const DishesPage = () => {
   }, []);
 
   const [nameFilter, setNameFilter] = useState("");
+  const [restaurantFilter, setRestaurantFilter] = useState("");
   const filterMethod = (dish) => {
     const nameMatches = dish.name.toLowerCase().includes(nameFilter.toLowerCase());
-    return nameMatches;
+    const restaurantMatches = dish.restaurant.name.toLowerCase().includes(restaurantFilter.toLowerCase());
+    return nameMatches && restaurantMatches;
   };
   const cardProperties = [
     { text: "Antiquity", value: "createdAt" },
@@ -47,6 +49,15 @@ const DishesPage = () => {
     },
     { text: "Price", value: "price" },
     { text: "Rating", value: "rating" },
+    {
+      filter: {
+        inputType: "text",
+        onChangeMethod: (event) => setRestaurantFilter(event.target.value),
+        value: restaurantFilter
+      },
+      text: "Restaurant",
+      value: "restaurant.name"
+    },
     { text: "Reviews", value: "nrOfReviews" }
   ];
 

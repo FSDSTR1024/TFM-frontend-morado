@@ -99,7 +99,7 @@ const CardsDisplay = ({ CardComponent, cardProperties, filterMethod, headerSubti
       )}
 
       {/* Cards */}
-      <div className="flex flex-wrap justify-center gap-5 max-w-7xl mt-6">
+      <div className="flex flex-wrap justify-center gap-x-5 gap-y-7 max-w-7xl mt-6">
         {sortedFilteredItems &&
           sortedFilteredItems.map((item) => {
             return <CardComponent isTheNewest={item === newestItem} key={item._id} {...item} />;
