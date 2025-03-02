@@ -2,7 +2,7 @@
 import { NavLink } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
-import { LogoutButton } from "/src/components/atoms";
+import { ProfileBtn } from "/src/components/atoms";
 
 /************************************************ Component Definition ************************************************/
 const AuthBtns = ({ loggedUser }) => {
@@ -18,15 +18,12 @@ const AuthBtns = ({ loggedUser }) => {
 
   /* Buttons to display when user is logged in */
   const loggedBtns = [
-    <NavLink className="btn btn-sm btn-outline btn-primary" key="profile" to="/profile">
-      Profile
-    </NavLink>,
-    <LogoutButton key="logout" />
+    <ProfileBtn key="profileBtn" />
   ];
 
   const authBtns = loggedUser ? loggedBtns : unloggedBtns;
   return (
-    <div className="navbar-end">
+    <div className="navbar-end mr-1">
       {authBtns.map((btn, index) => (
         <div className="ml-2" key={index}>
           {btn}
