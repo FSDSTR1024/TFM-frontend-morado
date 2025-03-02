@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 
 /********************************************** Internal library imports **********************************************/
+import { ConsumerProfile, RestaurantProfile } from "/src/components/molecules";
 
 /**************************************************** Page Content ****************************************************/
 const ProfilePage = () => {
@@ -17,16 +18,8 @@ const ProfilePage = () => {
 
   return (
     location.state?.loggedUser &&
-    ((location.state.loggedUser.role === "consumers" && (
-      <div>
-        <h1>Consumers Profile Page</h1>
-      </div>
-    )) ||
-      (location.state.loggedUser.role === "restaurants" && (
-        <div>
-          <h1>Restaurants Profile Page</h1>
-        </div>
-      )))
+    ((location.state.loggedUser.role === "consumers" && <ConsumerProfile />) ||
+      (location.state.loggedUser.role === "restaurants" && <RestaurantProfile />))
   );
 };
 
