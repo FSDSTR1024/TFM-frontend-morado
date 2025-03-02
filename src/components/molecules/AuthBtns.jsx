@@ -8,10 +8,10 @@ import { ProfileBtn } from "/src/components/atoms";
 const AuthBtns = ({ loggedUser }) => {
   /* Buttons to display when user is not logged in */
   const unloggedBtns = [
-    <NavLink className="btn btn-sm btn-outline btn-accent" key="register" to="/register">
+    <NavLink className="btn btn-sm btn-outline btn-accent" key="registerPage" to="/register">
       Sign up
     </NavLink>,
-    <NavLink className="btn btn-sm btn-outline btn-secondary" key="login" to="/login">
+    <NavLink className="btn btn-sm btn-outline btn-secondary" key="loginPage" to="/login">
       Login
     </NavLink>
   ];
