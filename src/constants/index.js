@@ -1,5 +1,5 @@
 /******************************************** Import all individual pages *********************************************/
-import { notActiveUserImgUrl, notDefinedImgUrl } from "./imageURLs.js";
+import { foodAllergenImgUrls, notActiveUserImgUrl, notDefinedImgUrl } from "./imageURLs.js";
 
 /********************************************* Named exports (ES module) **********************************************/
-export { notActiveUserImgUrl, notDefinedImgUrl };
+export { foodAllergenImgUrls, notActiveUserImgUrl, notDefinedImgUrl };
