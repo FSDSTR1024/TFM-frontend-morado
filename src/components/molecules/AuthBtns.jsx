@@ -2,7 +2,7 @@
 import { NavLink } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
-import { ProfilePic } from "/src/components/atoms";
+import { NotificationsButton, ProfilePic } from "/src/components/atoms";
 
 /************************************************ Component Definition ************************************************/
 const AuthBtns = ({ loggedUser }) => {
@@ -18,14 +18,15 @@ const AuthBtns = ({ loggedUser }) => {
 
   /* Buttons to display when user is logged in */
   const loggedBtns = [
+    <NotificationsButton key="NotificationsBtn" />,
     <ProfilePic key="ProfilePic" />
   ];
 
   const authBtns = loggedUser ? loggedBtns : unloggedBtns;
   return (
-    <div className="navbar-end mr-1">
+    <div className="navbar-end mr-2">
       {authBtns.map((btn, index) => (
-        <div className="ml-2" key={index}>
+        <div className="ml-3" key={index}>
           {btn}
         </div>
       ))}
