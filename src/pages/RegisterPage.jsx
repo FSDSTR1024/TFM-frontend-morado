@@ -1,5 +1,5 @@
 /*********************************************** External Node modules ************************************************/
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
@@ -25,12 +25,13 @@ const RegisterPage = () => {
     setViewRestaurantForm(true);
   }, []);
 
-  if (loggedUser) {
-    navigate("/profile");
-    return null;
-  }
+  useEffect(() => {
+    if (loggedUser) {
+      navigate("/");
+    }
+  }, [loggedUser]);
 
-  return (
+  return loggedUser ? null : (
     <section className="p-6 bg-base-200 min-h-screen">
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold mb-2">Join Nyam!</h1>
