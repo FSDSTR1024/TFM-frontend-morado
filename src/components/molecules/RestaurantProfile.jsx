@@ -7,8 +7,6 @@ import { AuthContext } from "/src/contexts/AuthContext";
 import { Loading, StarRating } from "/src/components/atoms";
 import { getUserImgURL } from "/src/utils";
 
-/************************************************** Internal logger ***************************************************/
-
 /************************************************ Component Definition ************************************************/
 const RestaurantProfile = () => {
   const { loggedUser } = useContext(AuthContext);
