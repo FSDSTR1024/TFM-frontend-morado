@@ -7,17 +7,24 @@ import { NotificationsContext } from "/src/contexts";
 
 /************************************************ Component Definition ************************************************/
 const NotificationsButton = () => {
-  const { notifications, setNewNotification } = useContext(NotificationsContext);
+  const { notifications, setNewNotification, setToDeleteNotification } = useContext(NotificationsContext);
 
   const handleOnClick = useCallback(() => {
     const index = notifications.length + 1;
     setNewNotification({ datetime: new Date(), dish: { _id: "1234", name: `Platillo ${index}` }, restaurant: { _id: "1234", name: `Restaurante ${index}` } });
   }, [notifications]);
 
+  const handleOnClick2 = useCallback(() => {
+    setToDeleteNotification(notifications[0]?._id);
+  }, [notifications]);
+
   return (
     <div>
       <button className="btn btn-accent btn-xs" onClick={handleOnClick}>
         +1
+      </button>
+      <button className="btn btn-error btn-xs mx-2" onClick={handleOnClick2}>
+        -
       </button>
       <div className="dropdown dropdown-end">
         <div className="btn btn-circle btn-ghost" role="button" tabIndex={0}>
@@ -42,11 +49,15 @@ const NotificationsButton = () => {
           </div>
         </div>
         <ul className="bg-base-200 dropdown-content flex flex-col items-center max-h-96 mt-1 overflow-y-auto shadow rounded-box z-10" tabIndex={0}>
-          {notifications.map((notification, index) => (
-            <li key={index}>
-              <NotificationCard notification={notification} />
-            </li>
-          ))}
+          {notifications.length === 0 ? (
+            <li className="border card bg-base-200 px-3 py-2 w-64 text-center text-gray-400">There are no new notifications...</li>
+          ) : (
+            notifications.map((notification, index) => (
+              <li key={index}>
+                <NotificationCard notification={notification} />
+              </li>
+            ))
+          )}
         </ul>
       </div>
     </div>

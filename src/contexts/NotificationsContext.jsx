@@ -20,6 +20,7 @@ const NotificationsContextProvider = ({ children }) => {
 
   const [newNotification, setNewNotification] = useState(null);
   const [notifications, setNotifications] = useState(localStorageNotifications ? JSON.parse(localStorageNotifications) : []);
+  const [toDeleteNotification, setToDeleteNotification] = useState(null);
 
   /* Use effect to initialize the notifications in the local storage */
   useEffect(() => {
@@ -42,17 +43,22 @@ const NotificationsContextProvider = ({ children }) => {
     }
   }, [newNotification]);
 
+  /* Use effect to update the notifications when setToDeleteNotification is called outside */
+  useEffect(() => {
+    if (toDeleteNotification) {
+      setToDeleteNotification(null);
+      const updatedNotifications = notifications.filter((notification) => notification._id !== toDeleteNotification);
+      const sortedNotifications = [...updatedNotifications].sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
+      setNotifications(sortedNotifications);
+    }
+  }, [toDeleteNotification]);
+
   /* Use effect to update the local storage when notifications change */
   useEffect(() => {
     localStorage.setItem("notifications", JSON.stringify(notifications));
   }, [notifications]);
 
-  const deleteAllNotifications = useCallback(() => {
-    console.log("All notifications deleted!");
-    // setNotifications([]);
-  }, []);
-
-  const valueObj = { deleteAllNotifications, notifications, setNewNotification };
+  const valueObj = { notifications, setNewNotification, setToDeleteNotification };
   return <NotificationsContext.Provider value={{ ...valueObj }}>{children}</NotificationsContext.Provider>;
 };
 

@@ -1,14 +1,20 @@
 /************************************************ Node modules needed ************************************************/
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
+import { NotificationsContext } from "/src/contexts";
 import { useDateTime } from "/src/hooks";
 
 /************************************************ Component Definition ************************************************/
 const NotificationCard = ({ notification }) => {
   const { getDateTimeStr } = useDateTime();
   const navigate = useNavigate();
+  const { setToDeleteNotification } = useContext(NotificationsContext);
+
+  const handleDeleteNotification = useCallback(() => {
+    setToDeleteNotification(notification._id);
+  }, [notification]);
 
   const handleDishNameClick = useCallback(() => {
     navigate(`/dishes/${notification.dish._id}`);
@@ -22,7 +28,15 @@ const NotificationCard = ({ notification }) => {
 
   return (
     <div className="border card bg-base-200 px-3 py-2 w-64">
-      <p className="text-gray-400 text-xs text-right">{getDateTimeStr(notification.datetime)}</p>
+      <div className="flex justify-between items-center mb-1">
+        <p className="text-gray-400 text-xs">{getDateTimeStr(notification.datetime)}</p>
+        <button className="btn btn-xs btn-outline btn-error flex items-center gap-1" onClick={handleDeleteNotification}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          Delete
+        </button>
+      </div>
       <h1 className="text-center text-lg text-secondary font-bold mb-2">Stay tuned!</h1>
       <p className="text-gray-400 text-sm">
         The &quot;
