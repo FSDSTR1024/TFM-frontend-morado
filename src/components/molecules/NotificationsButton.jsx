@@ -1,7 +1,8 @@
 /*********************************************** External Node modules ************************************************/
-import { useCallback, useContext, useEffect } from "react";
+import { useCallback, useContext } from "react";
 
 /********************************************** Internal library imports **********************************************/
+import { NotificationCard } from "/src/components/atoms";
 import { NotificationsContext } from "/src/contexts";
 
 /************************************************ Component Definition ************************************************/
@@ -9,11 +10,8 @@ const NotificationsButton = () => {
   const { notifications, setNewNotification } = useContext(NotificationsContext);
 
   const handleOnClick = useCallback(() => {
-    setNewNotification({ dish: { _id: "1234", name: "Platillo 1" }, restaurant: { _id: "1234", name: "Restaurante 1" } });
-  }, []);
-
-  useEffect(() => {
-    console.log("Notifications: ", notifications);
+    const index = notifications.length + 1;
+    setNewNotification({ datetime: new Date(), dish: { _id: "1234", name: `Platillo ${index}` }, restaurant: { _id: "1234", name: `Restaurante ${index}` } });
   }, [notifications]);
 
   return (
@@ -44,9 +42,9 @@ const NotificationsButton = () => {
           </div>
         </div>
         <ul className="bg-base-200 dropdown-content flex flex-col items-center max-h-96 mt-1 overflow-y-auto shadow rounded-box z-10" tabIndex={0}>
-          {notifications.reverse().map((notification, index) => (
-            <li className="mb-2" key={index}>
-              <p>{notification.nr}</p>
+          {notifications.map((notification, index) => (
+            <li key={index}>
+              <NotificationCard notification={notification} />
             </li>
           ))}
         </ul>

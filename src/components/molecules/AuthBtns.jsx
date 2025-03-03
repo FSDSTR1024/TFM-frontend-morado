@@ -2,7 +2,8 @@
 import { NavLink } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
-import { NotificationsButton, ProfilePic } from "/src/components/atoms";
+import { NotificationsButton } from "/src/components/molecules";
+import { ProfilePic } from "/src/components/atoms";
 
 /************************************************ Component Definition ************************************************/
 const AuthBtns = ({ loggedUser }) => {

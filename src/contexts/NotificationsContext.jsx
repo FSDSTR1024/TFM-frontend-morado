@@ -1,6 +1,9 @@
 /************************************************ Node modules needed *************************************************/
 import { createContext, useCallback, useEffect, useState } from "react";
 
+/************************************************* Internal libraries *************************************************/
+import { getSHA1Hash } from "/src/utils";
+
 /*********************************************** Initial context object ***********************************************/
 const initialContext = {
   deleteAllNotifications: () => "Out of context",
@@ -27,10 +30,15 @@ const NotificationsContextProvider = ({ children }) => {
 
   /* Use effect to update the notifications when setNewNotification is called outside */
   useEffect(() => {
+    const addNotification = async () => {
+      const notificationHash = await getSHA1Hash(JSON.stringify(newNotification));
+      const sortedNotifications = [...notifications, { ...newNotification, _id: notificationHash }].sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
+      setNotifications(sortedNotifications);
+    };
+
     if (newNotification) {
-      console.log("New notification: ", newNotification);
       setNewNotification(null);
-      setNotifications([...notifications, newNotification]);
+      addNotification();
     }
   }, [newNotification]);
 
