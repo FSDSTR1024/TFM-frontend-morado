@@ -3,7 +3,7 @@ import { useCallback, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
-import { AuthContext } from "/src/contexts/AuthContext";
+import { AuthContext } from "/src/contexts";
 import { ConsumerRegisterForm } from "/src/components/organisms";
 import { RestaurantRegisterForm } from "/src/components/organisms";
 

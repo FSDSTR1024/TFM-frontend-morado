@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
-import { AuthContext } from "/src/contexts/AuthContext";
+import { AuthContext } from "/src/contexts";
 import { AuthCredentials } from "/src/components/molecules";
 import { FormFieldError } from "/src/components/protons";
 import { useLogin } from "/src/hooks";
@@ -42,6 +42,7 @@ const LoginPage = () => {
       </section>
     );
   } else {
+    // TODO: fix error here
     navigate("/")
     return null;
   }

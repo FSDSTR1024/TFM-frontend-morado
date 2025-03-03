@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
 import { authAPI } from "/src/api";
-import { AuthContext } from "/src/contexts/AuthContext";
+import { AuthContext } from "/src/contexts";
 import { Logger } from "/src/utils";
 
 /************************************************** Internal logger ***************************************************/

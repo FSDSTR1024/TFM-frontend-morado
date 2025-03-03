@@ -3,7 +3,7 @@ import { useContext } from "react";
 
 /************************************************* Internal libraries *************************************************/
 import { AuthBtns } from "/src/components/molecules";
-import { AuthContext } from "/src/contexts/AuthContext";
+import { AuthContext } from "/src/contexts";
 import { NavBar } from "/src/components/atoms";
 
 /************************************************ Component Definition ************************************************/

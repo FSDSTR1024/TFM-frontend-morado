@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
-import { AuthContext } from "/src/contexts/AuthContext";
+import { AuthContext } from "/src/contexts";
 import { Loading, StarRating } from "/src/components/atoms";
 import { getUserImgURL } from "/src/utils";
 

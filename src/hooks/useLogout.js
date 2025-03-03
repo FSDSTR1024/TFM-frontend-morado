@@ -2,7 +2,7 @@
 import { useContext } from "react";
 
 /********************************************** Internal library imports **********************************************/
-import { AuthContext } from "/src/contexts/AuthContext";
+import { AuthContext } from "/src/contexts";
 
 /************************************************** Hook Definition ***************************************************/
 const useLogout = () => {

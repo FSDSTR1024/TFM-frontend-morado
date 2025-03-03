@@ -2,7 +2,7 @@
 import { useContext } from "react";
 
 /************************************************* Internal libraries *************************************************/
-import { AuthContext } from "/src/contexts/AuthContext";
+import { AuthContext } from "/src/contexts";
 import { getUserImgURL, roundImg } from "/src/utils";
 import { LogoutButton, ProfileButton } from "/src/components/atoms";
 

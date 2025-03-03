@@ -5,7 +5,7 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
-import { AuthContextProvider } from "/src/contexts/AuthContext";
+import { AuthContextProvider } from "/src/contexts";
 import { ConsumersPage, DishesPage, HomePage, LoginPage, ProfilePage, RegisterPage, RestaurantsPage, SpecificRestaurantPage } from "./pages";
 import { Footer } from "/src/components/atoms";
 import { Header } from "/src/components/organisms";
