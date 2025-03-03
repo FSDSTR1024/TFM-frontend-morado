@@ -19,7 +19,7 @@ const logger = new Logger("App");
 const App = () => (
   <AuthContextProvider>
     <BrowserRouter>
-      <div id="actual_content" className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow">
           <Routes>
