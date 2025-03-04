@@ -25,15 +25,19 @@ const WebSocketContextProvider = ({ children }) => {
   const [isConnected, setIsConnected] = useState(false);
   const socketRef = useRef();
 
+  const loginUser = useCallback(() => {
+    if (loggedUser) {
+      socketRef.current.emit("login", { loggedUser });
+    }
+  }, [loggedUser]);
+
   useEffect(() => {
     logger.debug("----------------------> Mounting WebSocketContextProvider");
     socketRef.current = socket;
 
     const onConnect = () => {
       setIsConnected(true);
-      if (loggedUser) {
-        socketRef.current.emit("login", { loggedUser });
-      }
+      loginUser();
     };
     const onDisconnect = () => {
       setIsConnected(false);
@@ -47,6 +51,10 @@ const WebSocketContextProvider = ({ children }) => {
       socketRef.current.off("disconnect", onDisconnect);
     };
   });
+
+  useEffect(() => {
+    loginUser();
+  }, [loggedUser]);
 
   const valueObj = { isConnected, socket: socketRef.current };
   return <WebSocketContext.Provider value={{ ...valueObj }}>{children}</WebSocketContext.Provider>;
