@@ -1,14 +1,19 @@
 /************************************************ Node modules needed *************************************************/
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 /************************************************* Internal libraries *************************************************/
 import { AuthBtns } from "/src/components/molecules";
-import { WebSocketContext } from "/src/contexts";
 import { NavBar } from "/src/components/atoms";
+import { WebSocketContext } from "/src/contexts";
 
 /************************************************ Component Definition ************************************************/
 const Header = () => {
-  const { isConnected } = useContext(WebSocketContext);
+  const { wsIsConnected } = useContext(WebSocketContext);
+
+  const [isConnected, setIsConnected] = useState(wsIsConnected);
+  useEffect(() => {
+    setIsConnected(wsIsConnected);
+  }, [wsIsConnected]);
 
   return (
     <header className="navbar bg-base-100 flex justify-between items-center w-full sticky top-0 z-50 shadow-md">

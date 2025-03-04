@@ -1,5 +1,5 @@
 /**************************************** Import all individual configurations ****************************************/
-import { socket } from "./socket.js";
+import { websocket } from "./websocket.js";
 
 /********************************************* Named exports (ES module) **********************************************/
-export { socket };
+export { websocket };

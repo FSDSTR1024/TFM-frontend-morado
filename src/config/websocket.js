@@ -6,8 +6,8 @@ import { io } from 'socket.io-client';
 // const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:3000';
 const URL = import.meta.env.VITE_SERVER_URL
 
-const socket = io(URL);
+const websocket = io(URL);
 // const socket = io(URL, { autoConnect: false });
 
 /********************************************** Named export (ES module) **********************************************/
-export { socket };
+export { websocket };

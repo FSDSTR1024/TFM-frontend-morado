@@ -4,16 +4,17 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState } f
 /********************************************** Internal library imports **********************************************/
 import { AuthContext } from "/src/contexts";
 import { Logger } from "/src/utils";
-import { socket } from "/src/config";
+import { websocket } from "/src/config";
 
 /************************************************** Internal logger ***************************************************/
 const logger = new Logger("WebSocketContext");
 
 /*********************************************** Initial context object ***********************************************/
 const initialContext = {
-  isConnected: false,
-  onlineUsers: [],
-  socket: null
+  wsGetOnlineUsers: () => "Out of context",
+  wsIsConnected: false,
+  wsOnlineConsumers: [],
+  wsOnlineRestaurants: [],
 };
 
 /************************************************** Context creation **************************************************/
@@ -23,51 +24,68 @@ const WebSocketContext = createContext(initialContext);
 const WebSocketContextProvider = ({ children }) => {
   const { loggedUser } = useContext(AuthContext);
 
-  const socketRef = useRef();
-  const [isConnected, setIsConnected] = useState(initialContext.isConnected);
-  const [onlineUsers, setOnlineUsers] = useState(initialContext.onlineUsers);
+  const [wsIsConnected, setWsIsConnected] = useState(initialContext.wsIsConnected);
+  const [wsOnlineConsumers, setWsOnlineConsumers] = useState(initialContext.wsOnlineConsumers);
+  const [wsOnlineRestaurants, setWsOnlineRestaurants] = useState(initialContext.wsOnlineRestaurants);
+  const socketRef = useRef(null);
 
-  const loginUser = useCallback(() => {
+  /* Private methods */
+  const getSocket = useCallback(() => {
+    if (socketRef.current == null) {
+      socketRef.current = websocket;
+    }
+    return { socket: socketRef.current };
+  }, [socketRef]);
+
+  const LoginUser = useCallback(() => {
+    const { socket } = getSocket();
     if (loggedUser) {
-      logger.debug(`(${socketRef.current.id}) Logging in the user "${loggedUser.email}".`);
-      socketRef.current.emit("login", { loggedUser });
+      logger.debug(`(${socket.id}) Logging in the user "${loggedUser.email}".`);
+      socket.emit("login", { loggedUser });
     }
   }, [loggedUser]);
 
+  /* Public methods */
+  const wsGetOnlineUsers = useCallback(() => {
+    const { socket } = getSocket();
+    logger.debug(`(${socket.id}) Asking for the online users list.`);
+    socket.emit("get online users");
+  }, []);
+
   useEffect(() => {
-    socketRef.current = socket;
+    const { socket } = getSocket();
 
     const onConnect = () => {
-      logger.debug(`(${socketRef.current.id}) Connected to the websocket server.`);
-      setIsConnected(true);
-      loginUser();
+      logger.debug(`(${socket.id}) Connected to a websocket server.`);
+      setWsIsConnected(true);
+      LoginUser();
     };
     const onDisconnect = () => {
-      logger.debug(`(${socketRef.current.id}) Disconnected from the websocket server.`);
-      setIsConnected(false);
+      logger.debug(`(${socket.id}) Disconnected from the websocket server.`);
+      setWsIsConnected(false);
     };
-
     const onUpdateOnlineUsers = ({ onlineUsers }) => {
-      logger.debug(`(${socketRef.current.id}) Updating the online users list:`, onlineUsers);
-      setOnlineUsers(onlineUsers);
+      logger.debug(`(${socket.id}) Updating the online users list:`, onlineUsers);
+      setWsOnlineConsumers(onlineUsers.filter((user) => user.role === "consumers"));
+      setWsOnlineRestaurants(onlineUsers.filter((user) => user.role === "restaurants"));
     };
 
-    socketRef.current.on("connect", onConnect);
-    socketRef.current.on("disconnect", onDisconnect);
-    socketRef.current.on("update online users", onUpdateOnlineUsers);
+    socket.on("connect", onConnect);
+    socket.on("disconnect", onDisconnect);
+    socket.on("update online users", onUpdateOnlineUsers);
 
     return () => {
-      socketRef.current.off("connect", onConnect);
-      socketRef.current.off("disconnect", onDisconnect);
-      socketRef.current.off("update online users", onUpdateOnlineUsers);
+      socket.off("connect", onConnect);
+      socket.off("disconnect", onDisconnect);
+      socket.off("update online users", onUpdateOnlineUsers);
     };
-  });
+  }, []);
 
   useEffect(() => {
-    loginUser();
+    LoginUser();
   }, [loggedUser]);
 
-  const valueObj = { isConnected, onlineUsers, socket: socketRef.current };
+  const valueObj = { wsGetOnlineUsers, wsIsConnected, wsOnlineConsumers, wsOnlineRestaurants };
   return <WebSocketContext.Provider value={{ ...valueObj }}>{children}</WebSocketContext.Provider>;
 };
 
