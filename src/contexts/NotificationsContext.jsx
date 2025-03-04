@@ -33,7 +33,7 @@ const NotificationsContextProvider = ({ children }) => {
   useEffect(() => {
     const addNotification = async () => {
       const notificationHash = await getSHA1Hash(JSON.stringify(newNotification));
-      const sortedNotifications = [...notifications, { ...newNotification, _id: notificationHash }].sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
+      const sortedNotifications = [...notifications, { ...newNotification, _id: notificationHash }].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
       setNotifications(sortedNotifications);
     };
 
@@ -48,7 +48,7 @@ const NotificationsContextProvider = ({ children }) => {
     if (toDeleteNotification) {
       setToDeleteNotification(null);
       const updatedNotifications = notifications.filter((notification) => notification._id !== toDeleteNotification);
-      const sortedNotifications = [...updatedNotifications].sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
+      const sortedNotifications = [...updatedNotifications].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
       setNotifications(sortedNotifications);
     }
   }, [toDeleteNotification]);

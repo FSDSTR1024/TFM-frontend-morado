@@ -11,7 +11,7 @@ const NotificationsButton = () => {
 
   const handleOnClick = useCallback(() => {
     const index = notifications.length + 1;
-    setNewNotification({ datetime: new Date(), dish: { _id: "1234", name: `Platillo ${index}` }, restaurant: { _id: "1234", name: `Restaurante ${index}` } });
+    setNewNotification({ dish: { _id: "1234", name: `Platillo ${index}` }, restaurant: { _id: "1234", name: `Restaurante ${index}` }, timestamp: new Date() });
   }, [notifications]);
 
   const handleOnClick2 = useCallback(() => {

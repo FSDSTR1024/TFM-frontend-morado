@@ -1,5 +1,5 @@
 /************************************************** Hook Definition ***************************************************/
-const useDateTime = () => {
+const useTimestamp = () => {
   const dateFormat = {
     day: "2-digit",
     month: "short",
@@ -9,10 +9,10 @@ const useDateTime = () => {
     second: "2-digit"
   };
 
-  const getDateTimeStr = (datetime) => new Date(datetime).toLocaleDateString("en-GB", dateFormat);
+  const getTimestampStr = (timestamp) => new Date(timestamp).toLocaleDateString("en-GB", dateFormat);
 
-  return { getDateTimeStr };
+  return { getTimestampStr };
 };
 
 /********************************************** Named export (ES module) **********************************************/
-export { useDateTime };
+export { useTimestamp };
