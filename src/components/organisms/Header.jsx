@@ -19,7 +19,6 @@ const Header = () => {
           className="h-14"
           src="https://static.vecteezy.com/system/resources/thumbnails/026/990/597/small_2x/one-continuous-line-drawing-of-knife-and-fork-with-ribbon-for-restaurant-logo-emblem-luxury-cafe-shop-logotype-template-concept-modern-single-line-draw-design-graphic-illustration-png.png"
         />
-        {/* <h2>Some slogan here?</h2> */}
         <div>
           <div className="flex items-center gap-3">
             <h1 className="text-2xl font-bold">Nyam!</h1>

@@ -1,5 +1,5 @@
 /************************************************ Node modules needed *************************************************/
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
 import { AuthContext } from "/src/contexts";
