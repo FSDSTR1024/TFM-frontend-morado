@@ -5,7 +5,7 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
-import { AuthContextProvider, NotificationsContextProvider } from "/src/contexts";
+import { AuthContextProvider, NotificationsContextProvider, WebSocketContextProvider } from "/src/contexts";
 import { ConsumersPage, DishesPage, HomePage, LoginPage, ProfilePage, RegisterPage, RestaurantsPage, SpecificRestaurantPage } from "./pages";
 import { Footer } from "/src/components/atoms";
 import { Header } from "/src/components/organisms";
@@ -18,26 +18,28 @@ const logger = new Logger("App");
 /************************************************ Component Definition ************************************************/
 const App = () => (
   <AuthContextProvider>
-    <BrowserRouter>
-      <div className="flex flex-col min-h-screen">
-        <NotificationsContextProvider>
-          <Header />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/consumers" element={<ConsumersPage />} />
-              <Route path="/dishes" element={<DishesPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/restaurants" element={<RestaurantsPage />} />
-              <Route path="/restaurants/:restaurantId" element={<SpecificRestaurantPage />} />
-            </Routes>
-          </main>
-          <Footer />
-        </NotificationsContextProvider>
-      </div>
-    </BrowserRouter>
+    <WebSocketContextProvider>
+      <BrowserRouter>
+        <div className="flex flex-col min-h-screen">
+          <NotificationsContextProvider>
+            <Header />
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/consumers" element={<ConsumersPage />} />
+                <Route path="/dishes" element={<DishesPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/restaurants" element={<RestaurantsPage />} />
+                <Route path="/restaurants/:restaurantId" element={<SpecificRestaurantPage />} />
+              </Routes>
+            </main>
+            <Footer />
+          </NotificationsContextProvider>
+        </div>
+      </BrowserRouter>
+    </WebSocketContextProvider>
   </AuthContextProvider>
 );
 

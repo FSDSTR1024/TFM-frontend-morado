@@ -3,11 +3,12 @@ import { useContext } from "react";
 
 /************************************************* Internal libraries *************************************************/
 import { AuthBtns } from "/src/components/molecules";
-import { AuthContext } from "/src/contexts";
+import { AuthContext, WebSocketContext } from "/src/contexts";
 import { NavBar } from "/src/components/atoms";
 
 /************************************************ Component Definition ************************************************/
 const Header = () => {
+  const { isConnected } = useContext(WebSocketContext);
   const { loggedUser } = useContext(AuthContext);
 
   return (
@@ -20,7 +21,13 @@ const Header = () => {
         />
         {/* <h2>Some slogan here?</h2> */}
         <div>
-          <h1 className="text-2xl font-bold">Nyam!</h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl font-bold">Nyam!</h1>
+            <div className="inline-grid *:[grid-area:1/1]">
+              <div className={`status status-${isConnected ? "success animate-ping" : "error animate-bounce"}`}></div>
+              <div className={`status status-${isConnected ? "success" : "error"}`}></div>
+            </div>
+          </div>
           <h2 className="text-sm font-light italic">Discover, Share, Enjoy!</h2>
         </div>
       </div>
