@@ -12,6 +12,7 @@ const logger = new Logger("WebSocketContext");
 /*********************************************** Initial context object ***********************************************/
 const initialContext = {
   isConnected: false,
+  onlineUsers: [],
   socket: null
 };
 
@@ -22,8 +23,9 @@ const WebSocketContext = createContext(initialContext);
 const WebSocketContextProvider = ({ children }) => {
   const { loggedUser } = useContext(AuthContext);
 
-  const [isConnected, setIsConnected] = useState(false);
   const socketRef = useRef();
+  const [isConnected, setIsConnected] = useState(initialContext.isConnected);
+  const [onlineUsers, setOnlineUsers] = useState(initialContext.onlineUsers);
 
   const loginUser = useCallback(() => {
     if (loggedUser) {
@@ -45,12 +47,19 @@ const WebSocketContextProvider = ({ children }) => {
       setIsConnected(false);
     };
 
+    const onUpdateOnlineUsers = ({ onlineUsers }) => {
+      logger.debug(`(${socketRef.current.id}) Updating the online users list:`, onlineUsers);
+      setOnlineUsers(onlineUsers);
+    };
+
     socketRef.current.on("connect", onConnect);
     socketRef.current.on("disconnect", onDisconnect);
+    socketRef.current.on("update online users", onUpdateOnlineUsers);
 
     return () => {
       socketRef.current.off("connect", onConnect);
       socketRef.current.off("disconnect", onDisconnect);
+      socketRef.current.off("update online users", onUpdateOnlineUsers);
     };
   });
 
@@ -58,7 +67,7 @@ const WebSocketContextProvider = ({ children }) => {
     loginUser();
   }, [loggedUser]);
 
-  const valueObj = { isConnected, socket: socketRef.current };
+  const valueObj = { isConnected, onlineUsers, socket: socketRef.current };
   return <WebSocketContext.Provider value={{ ...valueObj }}>{children}</WebSocketContext.Provider>;
 };
 
