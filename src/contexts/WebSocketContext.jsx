@@ -27,19 +27,21 @@ const WebSocketContextProvider = ({ children }) => {
 
   const loginUser = useCallback(() => {
     if (loggedUser) {
+      logger.debug(`(${socketRef.current.id}) Logging in the user "${loggedUser.email}".`);
       socketRef.current.emit("login", { loggedUser });
     }
   }, [loggedUser]);
 
   useEffect(() => {
-    logger.debug("----------------------> Mounting WebSocketContextProvider");
     socketRef.current = socket;
 
     const onConnect = () => {
+      logger.debug(`(${socketRef.current.id}) Connected to the websocket server.`);
       setIsConnected(true);
       loginUser();
     };
     const onDisconnect = () => {
+      logger.debug(`(${socketRef.current.id}) Disconnected from the websocket server.`);
       setIsConnected(false);
     };
 
