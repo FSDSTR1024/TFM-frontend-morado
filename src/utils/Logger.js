@@ -31,12 +31,16 @@ class Logger {
   }
 
   /* Formatting private methods */
-  #getFormattedDateTime() {
+  #getFormattedTimestamp() {
     return moment().format("YYYY/MM/DD HH:mm:ss");
   }
   #getFormattedLogStart(level) {
-    const formattedDateTime = this.#getFormattedDateTime();
-    return `[${formattedDateTime}][${this.fileName}][${level.toUpperCase()}]`;
+    const formattedTimestamp = this.#getFormattedTimestamp();
+    const maxFileNameLength = 0;  // 18
+    const formattedFileName = this.fileName.padStart(maxFileNameLength, " ");
+    const maxLevelLength = 0;  // 5
+    const formattedLevel = level.toUpperCase().padEnd(maxLevelLength, " ");
+    return `[${formattedTimestamp}][${formattedFileName}][${formattedLevel}]`;
   }
 
   /* Logging private method */
