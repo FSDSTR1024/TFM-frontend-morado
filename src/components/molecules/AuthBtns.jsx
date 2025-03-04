@@ -1,12 +1,16 @@
 /************************************************ Node modules needed *************************************************/
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
+import { AuthContext } from "/src/contexts";
 import { NotificationsButton } from "/src/components/molecules";
 import { ProfilePic } from "/src/components/atoms";
 
 /************************************************ Component Definition ************************************************/
-const AuthBtns = ({ loggedUser }) => {
+const AuthBtns = () => {
+  const { loggedUser } = useContext(AuthContext);
+
   /* Buttons to display when user is not logged in */
   const unloggedBtns = [
     <NavLink className="btn btn-sm btn-outline btn-accent" key="registerPage" to="/register">

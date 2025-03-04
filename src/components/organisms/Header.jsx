@@ -3,13 +3,12 @@ import { useContext } from "react";
 
 /************************************************* Internal libraries *************************************************/
 import { AuthBtns } from "/src/components/molecules";
-import { AuthContext, WebSocketContext } from "/src/contexts";
+import { WebSocketContext } from "/src/contexts";
 import { NavBar } from "/src/components/atoms";
 
 /************************************************ Component Definition ************************************************/
 const Header = () => {
   const { isConnected } = useContext(WebSocketContext);
-  const { loggedUser } = useContext(AuthContext);
 
   return (
     <header className="navbar bg-base-100 flex justify-between items-center w-full sticky top-0 z-50 shadow-md">
@@ -31,7 +30,7 @@ const Header = () => {
         </div>
       </div>
       <NavBar />
-      <AuthBtns loggedUser={loggedUser} />
+      <AuthBtns />
     </header>
   );
 };
