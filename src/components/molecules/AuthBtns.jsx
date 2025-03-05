@@ -1,5 +1,5 @@
 /************************************************ Node modules needed *************************************************/
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
@@ -27,7 +27,11 @@ const AuthBtns = () => {
     <ProfilePic key="ProfilePic" />
   ];
 
-  const authBtns = loggedUser ? loggedBtns : unloggedBtns;
+  const [authBtns, setAuthBtns] = useState(loggedUser ? loggedBtns : unloggedBtns);
+  useEffect(() => {
+    setAuthBtns(loggedUser ? loggedBtns : unloggedBtns);
+  }, [loggedUser]);
+
   return (
     <div className="navbar-end mr-2">
       {authBtns.map((btn, index) => (

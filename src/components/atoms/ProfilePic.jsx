@@ -10,7 +10,7 @@ import { LogoutButton, ProfileButton } from "/src/components/atoms";
 const ProfilePic = () => {
   const { loggedUser } = useContext(AuthContext);
 
-  return (
+  return !loggedUser ? null : (
     <div className="dropdown dropdown-end">
       <div className="avatar btn btn-circle btn-ghost" role="button" tabIndex={0}>
         <div className="ring-1 ring-offset-2 ring-offset-base-100 ring-primary rounded-full w-12">
