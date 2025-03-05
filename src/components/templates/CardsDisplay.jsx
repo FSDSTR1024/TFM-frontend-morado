@@ -58,21 +58,22 @@ const CardsDisplay = ({ CardComponent, cardProperties, filterMethod, headerSubti
             {cardProperties.map((cardProperty) => {
               if (cardProperty.filter) {
                 return (
-                  <div key={cardProperty.value}>
-                    <label className="block text-sm font-medium text-gray-700">
+                  <fieldset className="fieldset" key={cardProperty.value}>
+                    <legend className="fieldset-legend text-sm font-medium text-gray-700">
                       Filter By &quot;{cardProperty.text}&quot;
-                    </label>
+                    </legend>
                     <input
-                      className="mt-1 block pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
+                      className="input"
                       onChange={cardProperty.filter.onChangeMethod}
                       placeholder={`Enter ${cardProperty.text.toLowerCase()}...`}
                       type={cardProperty.filter.inputType}
                       value={cardProperty.filter.value}
                     />
-                  </div>
+                  </fieldset>
                 );
+              } else {
+                return null;
               }
-              return null;
             })}
           </div>
         </aside>
@@ -80,31 +81,23 @@ const CardsDisplay = ({ CardComponent, cardProperties, filterMethod, headerSubti
         {/* DisplaySortingBtns */}
         <div className="flex justify-center">
           <div className="flex gap-5 items-center">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Sort By</label>
-              <select
-                className="mt-1 block pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
-                onChange={handleSortKeyChange}
-                value={sortKey}
-              >
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend text-sm font-medium text-gray-700">Sort By</legend>
+              <select className="select" onChange={handleSortKeyChange} value={sortKey}>
                 {cardProperties.map((cardProperty, index) => (
                   <option key={index} value={cardProperty.value}>
                     {cardProperty.text}
                   </option>
                 ))}
               </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Order</label>
-              <select
-                className="mt-1 block pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
-                onChange={handleSortOrderChange}
-                value={sortOrder}
-              >
+            </fieldset>
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend text-sm font-medium text-gray-700">Order</legend>
+              <select className="select" onChange={handleSortOrderChange} value={sortOrder}>
                 <option value="ASC">Ascending</option>
                 <option value="DESC">Descending</option>
               </select>
-            </div>
+            </fieldset>
           </div>
         </div>
       </div>
