@@ -1,17 +1,20 @@
+/************************************************ Node modules needed ************************************************/
+import { useCallback } from "react";
+
 /************************************************** Hook Definition ***************************************************/
 const useCards = () => {
-  const getNewestItem = (itemsList) => {
+  const getNewestItem = useCallback((itemsList) => {
     const newestItem = itemsList.reduce((newest, item) => {
       return new Date(item.createdAt) > new Date(newest.createdAt) ? item : newest;
     }, itemsList[0]);
     return newestItem;
-  };
+  }, []);
 
-  const getFilteredItems = ({ filterMethod, itemsList }) => {
+  const getFilteredItems = useCallback(({ filterMethod, itemsList }) => {
     return itemsList.filter((item) => filterMethod(item));
-  };
+  }, []);
 
-  const getSortedItems = ({ itemsList, sortKey, sortOrder }) => {
+  const getSortedItems = useCallback(({ itemsList, sortKey, sortOrder }) => {
     if (sortOrder !== "ASC" && sortOrder !== "DESC") {
       return itemsList;
     }
@@ -23,11 +26,11 @@ const useCards = () => {
       }
     });
     return sortedItems;
-  };
+  }, []);
 
-  const getSortedFilteredItems = ({ filterMethod, itemsList, sortKey, sortOrder }) => {
+  const getSortedFilteredItems = useCallback(({ filterMethod, itemsList, sortKey, sortOrder }) => {
     return getSortedItems({ itemsList: getFilteredItems({ filterMethod, itemsList }), sortKey, sortOrder });
-  };
+  }, [getFilteredItems, getSortedItems]);
 
   return { getNewestItem, getSortedFilteredItems };
 };
