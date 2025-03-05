@@ -13,6 +13,7 @@ const logger = new Logger("WebSocketContext");
 const initialContext = {
   wsGetOnlineUsers: () => "Out of context",
   wsIsConnected: false,
+  wsLogoutUser: () => "Out of context",
   wsOnlineConsumers: [],
   wsOnlineRestaurants: [],
 };
@@ -52,6 +53,14 @@ const WebSocketContextProvider = ({ children }) => {
     socket.emit("get online users");
   }, []);
 
+  const wsLogoutUser = useCallback(() => {
+    const { socket } = getSocket();
+    if (loggedUser) {
+      logger.debug(`(${socket.id}) Logging out the user "${loggedUser.email}".`);
+      socket.emit("logout");
+    }
+  }, [loggedUser]);
+
   useEffect(() => {
     const { socket } = getSocket();
 
@@ -85,7 +94,7 @@ const WebSocketContextProvider = ({ children }) => {
     LoginUser();
   }, [loggedUser]);
 
-  const valueObj = { wsGetOnlineUsers, wsIsConnected, wsOnlineConsumers, wsOnlineRestaurants };
+  const valueObj = { wsGetOnlineUsers, wsIsConnected, wsLogoutUser, wsOnlineConsumers, wsOnlineRestaurants };
   return <WebSocketContext.Provider value={{ ...valueObj }}>{children}</WebSocketContext.Provider>;
 };
 
