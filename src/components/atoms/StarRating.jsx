@@ -1,8 +1,3 @@
-/*********************************************** External Node modules ************************************************/
-import { useEffect, useState } from "react";
-
-/***************************************************** Constants ******************************************************/
-
 /************************************************ Component Definition ************************************************/
 const StarRating = ({ _id, nrOfReviews, rating, starsSize = "md", textSize = "base" }) => {
   const starsColor = "bg-orange-400";
