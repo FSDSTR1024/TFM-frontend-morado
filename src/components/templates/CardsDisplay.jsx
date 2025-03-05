@@ -38,7 +38,7 @@ const CardsDisplay = ({ CardComponent, cardProperties, filterMethod, headerSubti
   useEffect(() => {
     setNewestItem(getNewestItem(itemsList));
     setSortedFilteredItems(getSortedFilteredItems({ filterMethod, itemsList, sortKey, sortOrder }));
-  }, [filterMethod, itemsList, sortKey, sortOrder]);
+  }, [filterMethod, getNewestItem, getSortedFilteredItems, itemsList, sortKey, sortOrder]);
 
   return (
     <section className="p-6 bg-base-200 min-h-screen flex flex-col items-center">
