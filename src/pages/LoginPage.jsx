@@ -19,8 +19,8 @@ const LoginPage = () => {
   const handleOnSubmit = useCallback(async (formData) => {
     const token = await login(formData);
     if (token) {
-      alert("[SUCCESS] User logged in successfully!");
       navigate("/");
+      document.getElementById("on_login_modal").showModal();
     }
   }, []);
 

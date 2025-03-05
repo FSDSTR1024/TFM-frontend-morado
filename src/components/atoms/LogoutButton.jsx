@@ -12,8 +12,8 @@ const LogoutButton = () => {
 
   const handleLogout = useCallback(() => {
     logout();
-    alert("[SUCCESS] User logged out successfully!");
     navigate("/");
+    document.getElementById("on_logout_modal").showModal();
   }, []);
 
   return (
