@@ -40,6 +40,7 @@ const AuthContextProvider = ({ children }) => {
       getLoggedUser();
     } else {
       localStorage.removeItem("token");
+      setLoggedUser(null);
     }
   }, [token]);
 
