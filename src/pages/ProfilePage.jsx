@@ -1,6 +1,6 @@
 /*********************************************** External Node modules ************************************************/
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
 import { ConsumerProfile, RestaurantProfile } from "/src/components/molecules";
