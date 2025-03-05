@@ -113,7 +113,15 @@ const CardsDisplay = ({ CardComponent, cardProperties, filterMethod, headerSubti
       <div className="flex flex-wrap justify-center gap-x-5 gap-y-7 max-w-7xl mt-6">
         {sortedFilteredItems &&
           sortedFilteredItems.map((item) => {
-            return <CardComponent isTheNewest={item === newestItem} key={item._id} {...item} />;
+            return (
+              <CardComponent
+                isConsumerOnline={getIsOnline({ list: onlineConsumers, _id: item._id })}
+                isRestaurantOnline={getIsOnline({ list: onlineRestaurants, _id: item._id })}
+                isTheNewest={item === newestItem}
+                key={item._id}
+                {...item}
+              />
+            );
           })}
       </div>
     </section>
