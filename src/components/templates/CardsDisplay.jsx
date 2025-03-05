@@ -1,12 +1,30 @@
 /*********************************************** External Node modules ************************************************/
-import { useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
 import { useCards } from "/src/hooks";
+import { WebSocketContext } from "/src/contexts";
 
 /************************************************ Component Definition ************************************************/
 const CardsDisplay = ({ CardComponent, cardProperties, filterMethod, headerSubtitle, headerTitle, itemsList }) => {
   const { getNewestItem, getSortedFilteredItems } = useCards();
+  const { wsGetOnlineUsers, wsOnlineConsumers, wsOnlineRestaurants } = useContext(WebSocketContext);
+
+  const getIsOnline = useCallback(({ list, _id }) => {
+    return list.some((user) => user._id === _id);
+  }, []);
+
+  const [onlineConsumers, setOnlineConsumers] = useState(wsOnlineConsumers);
+  const [onlineRestaurants, setOnlineRestaurants] = useState(wsOnlineRestaurants);
+  useEffect(() => {
+    setOnlineConsumers(wsOnlineConsumers);
+    setOnlineRestaurants(wsOnlineRestaurants);
+  }, [wsOnlineConsumers, wsOnlineRestaurants]);
+
+  /* Ask for the updated list of online users */
+  useEffect(() => {
+    wsGetOnlineUsers();
+  }, [wsGetOnlineUsers]);
 
   const [sortedFilteredItems, setSortedFilteredItems] = useState(itemsList);
   const [newestItem, setNewestItem] = useState(null);
