@@ -18,12 +18,10 @@ const NotificationCard = ({ notification }) => {
 
   const handleDishNameClick = useCallback(() => {
     navigate(`/dishes/${notification.dish._id}`);
-    window.location.reload();
   }, [notification]);
 
   const handleRestaurantNameClick = useCallback(() => {
     navigate(`/restaurants/${notification.restaurant._id}`);
-    window.location.reload();
   }, [notification]);
 
   return (

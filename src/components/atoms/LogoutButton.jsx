@@ -14,7 +14,6 @@ const LogoutButton = () => {
     logout();
     alert("[SUCCESS] User logged out successfully!");
     navigate("/");
-    window.location.reload();
   }, []);
 
   return (
