@@ -21,6 +21,9 @@ const RestaurantProfile = () => {
     document.getElementById("on_restaurant_edit_modal").showModal();
   }, []);
 
+  const handleProfilePicChange = useCallback((event) => {
+    console.log(event.target);
+  }, []);
 
   if (!loggedUser) {
     return <Loading />;
@@ -31,8 +34,14 @@ const RestaurantProfile = () => {
       <ModalOnRestaurantEdit {...loggedUser} />
       <div className="container mx-auto p-6">
         <div className="bg-base-100 shadow-xl rounded-lg p-6 mb-6">
-          <div className="flex justify-between">
-            <img alt={loggedUser.name} className="w-60 h-60 rounded-lg mr-6" src={getUserImgURL({ ...loggedUser })} />
+          <div className="flex justify-between gap-6">
+            <div className="flex flex-col justify-start items-center gap-2 w-96">
+              <img alt={loggedUser.name} className="w-60 h-60 rounded-lg" src={getUserImgURL({ ...loggedUser })} />
+              <fieldset className="fieldset">
+                <legend className="fieldset-legend">Change profile picture</legend>
+                <input type="file" className="file-input file-input-xs" onChange={handleProfilePicChange} />
+              </fieldset>
+            </div>
             <div className="flex flex-col w-full">
               <div className="flex justify-between">
                 <h1 className="text-4xl font-bold">{loggedUser.name}</h1>
