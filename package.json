@@ -52,7 +52,7 @@
     "build": "vite build",
     "dev": "vite",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "preview": "vite preview"
   },
   "type": "module",
   "version": "2.0.0"
