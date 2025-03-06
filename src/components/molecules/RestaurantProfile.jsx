@@ -57,8 +57,9 @@ const RestaurantProfile = () => {
                   </a>
                 </span>
               </div>
-              <div className="mt-4">
-                <button className="btn btn-primary mr-2" onClick={handleEditClick}>Edit</button>
+              <div className="divider text-xl font-semibold mt-6 mb-3">Actions</div>
+              <div className="flex gap-3 justify-evenly">
+                <button className="btn btn-primary mr-2" onClick={handleEditClick}>Edit Profile</button>
                 <button className="btn btn-secondary" onClick={handleAddDishClick}>Add a Dish</button>
               </div>
             </div>
