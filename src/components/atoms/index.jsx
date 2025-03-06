@@ -7,6 +7,7 @@ import { Loading } from "./Loading.jsx";
 import { LogoutButton } from "./LogoutButton.jsx";
 import { ModalOnLogin } from "./ModalOnLogin.jsx";
 import { ModalOnLogout } from "./ModalOnLogout.jsx";
+import { ModalOnRegister } from "./ModalOnRegister.jsx";
 import { NavBar } from "./NavBar.jsx";
 import { NotificationCard } from "./NotificationCard.jsx";
 import { ProfileButton } from "./ProfileButton.jsx";
@@ -15,4 +16,4 @@ import { RestaurantCard } from "./RestaurantCard.jsx";
 import { StarRating } from "./StarRating.jsx";
 
 /********************************************* Named exports (ES module) **********************************************/
-export { ConsumerCard, DishCard, Footer, FormField, Loading, LogoutButton, ModalOnLogin, ModalOnLogout, NavBar, NotificationCard, ProfileButton, ProfilePic, RestaurantCard, StarRating };
+export { ConsumerCard, DishCard, Footer, FormField, Loading, LogoutButton, ModalOnLogin, ModalOnLogout, ModalOnRegister, NavBar, NotificationCard, ProfileButton, ProfilePic, RestaurantCard, StarRating };

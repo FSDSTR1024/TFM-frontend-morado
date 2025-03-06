@@ -14,7 +14,7 @@ const ConsumerRegisterForm = () => {
   const handleOnSubmit = useCallback(async (formData) => {
     const newConsumerID = await registerConsumer(formData);
     if (newConsumerID) {
-      alert("[SUCCESS] Consumer user created successfully!");
+      document.getElementById("on_register_modal").showModal();
       navigate("/login");
     }
   }, []);

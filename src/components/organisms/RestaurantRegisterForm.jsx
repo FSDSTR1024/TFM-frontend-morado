@@ -14,7 +14,7 @@ const RestaurantRegisterForm = () => {
   const handleOnSubmit = useCallback(async (formData) => {
     const newRestaurantID = await registerRestaurant(formData);
     if (newRestaurantID) {
-      alert("[SUCCESS] Restaurant user created successfully!");
+      document.getElementById("on_register_modal").showModal();
       navigate("/login");
     }
   }, []);
