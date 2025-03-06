@@ -13,13 +13,14 @@ const RestaurantProfile = () => {
   const { loggedUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const handleAddDishClick = useCallback(() => {
+    navigate(`/restaurants/${loggedUser._id}/add-dish`);
+  }, [loggedUser]);
+
   const handleEditClick = useCallback(() => {
     document.getElementById("on_restaurant_edit_modal").showModal();
   }, []);
 
-  const handleAddDishClick = useContext(() => {
-    navigate(`/restaurants/${loggedUser._id}/add-dish`);
-  }, [loggedUser]);
 
   if (!loggedUser) {
     return <Loading />;
