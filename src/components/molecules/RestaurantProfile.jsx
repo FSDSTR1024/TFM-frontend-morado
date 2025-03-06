@@ -25,11 +25,9 @@ const RestaurantProfile = () => {
     console.log(event.target);
   }, []);
 
-  if (!loggedUser) {
-    return <Loading />;
-  }
-
-  return (
+  return !loggedUser ? (
+    <Loading />
+  ) : (
     <>
       <ModalOnRestaurantEdit {...loggedUser} />
       <div className="container mx-auto p-6">
@@ -68,8 +66,12 @@ const RestaurantProfile = () => {
               </div>
               <div className="divider text-xl font-semibold mt-6 mb-3">Actions</div>
               <div className="flex gap-3 justify-evenly">
-                <button className="btn btn-primary mr-2" onClick={handleEditClick}>Edit Profile</button>
-                <button className="btn btn-secondary" onClick={handleAddDishClick}>Add a Dish</button>
+                <button className="btn btn-primary" onClick={handleEditClick}>
+                  Edit Profile
+                </button>
+                <button className="btn btn-secondary" onClick={handleAddDishClick}>
+                  Add a Dish
+                </button>
               </div>
             </div>
           </div>
