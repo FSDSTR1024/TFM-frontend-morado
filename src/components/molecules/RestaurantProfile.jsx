@@ -4,11 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
 import { AuthContext } from "/src/contexts";
-import { CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET } from "/src/constants";
 import { getUserImgURL } from "/src/utils";
-import { Loading, ModalOnWrongFileType, StarRating } from "/src/components/atoms";
+import { ChangeProfilePictureButton, Loading, ModalOnWrongFileType, StarRating } from "/src/components/atoms";
 import { ModalOnRestaurantEdit } from "/src/components/molecules";
-import { cloudinaryAPI, userAPI } from "/src/api";
 
 /************************************************ Component Definition ************************************************/
 const RestaurantProfile = () => {
@@ -23,25 +21,6 @@ const RestaurantProfile = () => {
     document.getElementById("on_restaurant_edit_modal").showModal();
   }, []);
 
-  const handleProfilePicChange = useCallback(async (fileToUpload) => {
-    if (!fileToUpload.type.startsWith("image/")) {
-      document.getElementById("on_wrong_file_type_modal").showModal();
-      document.getElementById("profilePictureInput").value = "";
-      return;
-    }
-
-    // Prepare the form data to upload the image to Cloudinary
-    const uploadData = new FormData();
-    uploadData.append("file", fileToUpload);
-    uploadData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);  /* Preset name in Cloudinary */
-    uploadData.append("cloud_name", CLOUDINARY_CLOUD_NAME);  /* User name in Cloudinary */
-
-    // Upload the image to Cloudinary
-    const img_url = await cloudinaryAPI.uploadImage({ uploadData});
-
-    // Update the user profile picture in the database
-    await userAPI.updateRestaurantProfilePicture({ img_url, restaurantId: loggedUser._id });
-  }, [loggedUser]);
 
   return !loggedUser ? (
     <Loading />
@@ -54,16 +33,7 @@ const RestaurantProfile = () => {
           <div className="flex justify-between gap-6">
             <div className="flex flex-col justify-start items-center gap-2 w-96">
               <img alt={loggedUser.name} className="w-60 h-60 rounded-lg" src={getUserImgURL({ ...loggedUser })} />
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Change profile picture</legend>
-                <input
-                  accept="image/*"
-                  className="file-input file-input-xs"
-                  id="profilePictureInput"
-                  onChange={(e) => handleProfilePicChange(e.target.files[0])}
-                  type="file"
-                />
-              </fieldset>
+              <ChangeProfilePictureButton />
             </div>
             <div className="flex flex-col w-full">
               <div className="flex justify-between">

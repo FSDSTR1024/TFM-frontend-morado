@@ -9,7 +9,7 @@ const userAPI = {
   getAllRestaurants: async () => await axiosInstance.get("/users/restaurants"),
   getLoggedUser: async () => await axiosInstance.get("/user"),
   getRestaurantById: async ({ restaurantId }) => await axiosInstance.get(`/users/restaurants/${restaurantId}`),
-  updateRestaurantProfilePicture: async ({ img_url, restaurantId }) => await axiosInstance.patch(`/users/restaurants/${restaurantId}/img_url`, { img_url })
+  updateProfilePicture: async ({ _id, img_url, role }) => await axiosInstance.patch(`/users/${role}/${_id}/img_url`, { img_url })
 };
 
 /********************************************* Named exports (ES module) **********************************************/

@@ -1,4 +1,5 @@
 /*************************************** Import all individual atom components ****************************************/
+import { ChangeProfilePictureButton } from "./ChangeProfilePictureButton.jsx";
 import { ConsumerCard } from "./ConsumerCard.jsx";
 import { DishCard } from "./DishCard.jsx";
 import { Footer } from "./Footer.jsx";
@@ -17,4 +18,22 @@ import { RestaurantCard } from "./RestaurantCard.jsx";
 import { StarRating } from "./StarRating.jsx";
 
 /********************************************* Named exports (ES module) **********************************************/
-export { ConsumerCard, DishCard, Footer, FormField, Loading, LogoutButton, ModalOnLogin, ModalOnLogout, ModalOnRegister, ModalOnWrongFileType, NavBar, NotificationCard, ProfileButton, ProfilePic, RestaurantCard, StarRating };
+export {
+  ChangeProfilePictureButton,
+  ConsumerCard,
+  DishCard,
+  Footer,
+  FormField,
+  Loading,
+  LogoutButton,
+  ModalOnLogin,
+  ModalOnLogout,
+  ModalOnRegister,
+  ModalOnWrongFileType,
+  NavBar,
+  NotificationCard,
+  ProfileButton,
+  ProfilePic,
+  RestaurantCard,
+  StarRating
+};
