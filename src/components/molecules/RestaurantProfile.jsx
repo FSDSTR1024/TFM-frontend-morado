@@ -1,6 +1,5 @@
 /************************************************ Node modules needed ************************************************/
 import { useCallback, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
 import { AuthContext } from "/src/contexts";
@@ -11,7 +10,6 @@ import { ModalOnRestaurantEdit } from "/src/components/molecules";
 /************************************************ Component Definition ************************************************/
 const RestaurantProfile = () => {
   const { loggedUser } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   const handleAddDishClick = useCallback(() => {
     navigate(`/restaurants/${loggedUser._id}/add-dish`);
