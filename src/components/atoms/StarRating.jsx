@@ -1,12 +1,12 @@
 /************************************************ Component Definition ************************************************/
-const StarRating = ({ _id, nrOfReviews, rating, starsSize = "md", textSize = "base" }) => {
+const StarRating = ({ _id, nrOfReviews, rating }) => {
   const starsColor = "bg-orange-400";
   const starsRating = Math.floor(rating);
 
   return (
     <div className="flex flex-col items-end">
       <div className="flex items-center gap-2">
-        <div className={`rating rating-${starsSize} rating-half`}>
+        <div className="rating rating-sm rating-half">
           <input className="rating-hidden cursor-default" defaultChecked={starsRating === 0} disabled name={`rating-11_${_id}`} type="radio" />
           {[...Array(10)].map((_, index) => {
             return (
@@ -22,9 +22,9 @@ const StarRating = ({ _id, nrOfReviews, rating, starsSize = "md", textSize = "ba
             );
           })}
         </div>
-        {nrOfReviews > 0 ? <p className={`text-${textSize} text-gray-600`}>({rating})</p> : null}
+        {nrOfReviews > 0 ? <p className="text-sm text-gray-600">({rating})</p> : null}
       </div>
-      <p className={`text-${textSize} text-gray-600 font-semibold`}>{nrOfReviews.toLocaleString("en-US")} reviews</p>
+      <p className="text-sm text-gray-600 font-semibold">{nrOfReviews.toLocaleString("en-US")} reviews</p>
     </div>
   );
 };
