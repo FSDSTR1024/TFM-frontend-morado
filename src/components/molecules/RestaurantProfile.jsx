@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
 import { AuthContext } from "/src/contexts";
+import { CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET } from "/src/constants";
 import { getUserImgURL } from "/src/utils";
 import { Loading, ModalOnWrongFileType, StarRating } from "/src/components/atoms";
 import { ModalOnRestaurantEdit } from "/src/components/molecules";
+import { cloudinaryAPI, userAPI } from "/src/api";
 
 /************************************************ Component Definition ************************************************/
 const RestaurantProfile = () => {
@@ -21,13 +23,25 @@ const RestaurantProfile = () => {
     document.getElementById("on_restaurant_edit_modal").showModal();
   }, []);
 
-  const handleProfilePicChange = useCallback((fileToUpload) => {
+  const handleProfilePicChange = useCallback(async (fileToUpload) => {
     if (!fileToUpload.type.startsWith("image/")) {
       document.getElementById("on_wrong_file_type_modal").showModal();
       document.getElementById("profilePictureInput").value = "";
       return;
     }
-  }, []);
+
+    // Prepare the form data to upload the image to Cloudinary
+    const uploadData = new FormData();
+    uploadData.append("file", fileToUpload);
+    uploadData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);  /* Preset name in Cloudinary */
+    uploadData.append("cloud_name", CLOUDINARY_CLOUD_NAME);  /* User name in Cloudinary */
+
+    // Upload the image to Cloudinary
+    const img_url = await cloudinaryAPI.uploadImage({ uploadData});
+
+    // Update the user profile picture in the database
+    await userAPI.updateRestaurantProfilePicture({ img_url, restaurantId: loggedUser._id });
+  }, [loggedUser]);
 
   return !loggedUser ? (
     <Loading />

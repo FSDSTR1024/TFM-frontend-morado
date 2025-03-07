@@ -15,5 +15,10 @@ const roundImg = ({ imgURL, radius = "max" }) => {
   return imgURL.replace(regEx, `$1$2/r_${radius}$3`);
 };
 
+const tramsformCloudinaryURL = ({ url }) => {
+  const regEx = /(.*\/image\/upload\/)(v\d+\/.*)/;
+  return url.replace(regEx, `$1ar_1:1,c_auto,g_auto/$2`);
+};
+
 /********************************************** Named export (ES module) **********************************************/
-export { getImgURL, getUserImgURL, roundImg };
+export { getImgURL, getUserImgURL, roundImg, tramsformCloudinaryURL };
