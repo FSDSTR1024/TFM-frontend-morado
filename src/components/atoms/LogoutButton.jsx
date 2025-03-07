@@ -17,7 +17,7 @@ const LogoutButton = () => {
     logout();
     navigate("/");
     document.getElementById("on_logout_modal").showModal();
-  }, []);
+  }, [wsLogoutUser]);
 
   return (
     <button className="btn btn-sm btn-error btn-outline" onClick={handleLogout}>
