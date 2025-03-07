@@ -1,10 +1,24 @@
 /************************************************ Node modules needed *************************************************/
-import { useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 
 /************************************************* Internal libraries *************************************************/
 import { AuthBtns } from "/src/components/molecules";
 import { NavBar } from "/src/components/atoms";
 import { WebSocketContext } from "/src/contexts";
+
+/********************************************** Subcomponents Definition **********************************************/
+const OfflineWsIcon = memo(() => (
+  <div className="inline-grid *:[grid-area:1/1]">
+    <div className="status status-error animate-bounce"></div>
+    <div className="status status-error"></div>
+  </div>
+));
+const OnlineWsIcon = memo(() => (
+  <div className="inline-grid *:[grid-area:1/1]">
+    <div className="status status-success animate-ping"></div>
+    <div className="status status-success"></div>
+  </div>
+));
 
 /************************************************ Component Definition ************************************************/
 const Header = () => {
@@ -26,10 +40,7 @@ const Header = () => {
         <div>
           <div className="flex items-center gap-3">
             <h1 className="text-2xl font-bold">Nyam!</h1>
-            <div className="inline-grid *:[grid-area:1/1]">
-              <div className={`status status-${isConnected ? "success animate-ping" : "error animate-bounce"}`}></div>
-              <div className={`status status-${isConnected ? "success" : "error"}`}></div>
-            </div>
+            {isConnected ? <OnlineWsIcon /> : <OfflineWsIcon />}
           </div>
           <h2 className="text-sm font-light italic">Discover, Share, Enjoy!</h2>
         </div>
