@@ -77,11 +77,14 @@ const RestaurantProfile = () => {
               </div>
               <div className="divider text-xl font-semibold mt-6 mb-3">Actions</div>
               <div className="flex gap-3 justify-evenly">
-                <button className="btn btn-primary" onClick={handleEditClick}>
+                <button className="btn btn-primary btn-outline" onClick={handleChangeCredentialsClick}>
+                  Change Credentials
+                </button>
+                <button className="btn btn-secondary btn-outline" onClick={handleEditProfileClick}>
                   Edit Profile
                 </button>
-                <button className="btn btn-secondary" onClick={handleAddDishClick}>
-                  Add a Dish
+                <button className="btn btn-accent btn-outline" onClick={handleAddDishClick}>
+                  Add Dish
                 </button>
               </div>
             </div>
