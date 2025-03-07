@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 /********************************************** Internal library imports **********************************************/
 import { AuthContext } from "/src/contexts";
 import { getUserImgURL } from "/src/utils";
-import { Loading, StarRating } from "/src/components/atoms";
+import { Loading, ModalOnWrongFileType, StarRating } from "/src/components/atoms";
 import { ModalOnRestaurantEdit } from "/src/components/molecules";
 
 /************************************************ Component Definition ************************************************/
@@ -21,8 +21,12 @@ const RestaurantProfile = () => {
     document.getElementById("on_restaurant_edit_modal").showModal();
   }, []);
 
-  const handleProfilePicChange = useCallback((event) => {
-    console.log(event.target);
+  const handleProfilePicChange = useCallback((fileToUpload) => {
+    if (!fileToUpload.type.startsWith("image/")) {
+      document.getElementById("on_wrong_file_type_modal").showModal();
+      document.getElementById("profilePictureInput").value = "";
+      return;
+    }
   }, []);
 
   return !loggedUser ? (
@@ -30,6 +34,7 @@ const RestaurantProfile = () => {
   ) : (
     <>
       <ModalOnRestaurantEdit {...loggedUser} />
+      <ModalOnWrongFileType />
       <div className="container mx-auto p-6">
         <div className="bg-base-100 shadow-xl rounded-lg p-6 mb-6">
           <div className="flex justify-between gap-6">
@@ -37,7 +42,13 @@ const RestaurantProfile = () => {
               <img alt={loggedUser.name} className="w-60 h-60 rounded-lg" src={getUserImgURL({ ...loggedUser })} />
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Change profile picture</legend>
-                <input type="file" className="file-input file-input-xs" onChange={handleProfilePicChange} />
+                <input
+                  accept="image/*"
+                  className="file-input file-input-xs"
+                  id="profilePictureInput"
+                  onChange={(e) => handleProfilePicChange(e.target.files[0])}
+                  type="file"
+                />
               </fieldset>
             </div>
             <div className="flex flex-col w-full">
