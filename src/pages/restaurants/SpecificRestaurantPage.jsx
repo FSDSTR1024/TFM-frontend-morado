@@ -36,11 +36,9 @@ const SpecificRestaurantPage = () => {
     getRestaurant();
   }, [restaurantId]);
 
-  if (!restaurant) {
-    return <Loading />;
-  }
-
-  return (
+  return !restaurant ? (
+    <Loading />
+  ) : (
     <div className="container mx-auto p-6">
       <div className="bg-base-100 shadow-xl rounded-lg p-6 mb-6">
         <div className="flex justify-between">
