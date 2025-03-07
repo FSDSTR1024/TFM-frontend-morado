@@ -2,13 +2,14 @@
 import { useCallback, useContext } from "react";
 
 /********************************************** Internal library imports **********************************************/
-import { AuthContext } from "/src/contexts";
+import { AuthContext, WebSocketContext } from "/src/contexts";
 import { CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET } from "/src/constants";
 import { cloudinaryAPI, userAPI } from "/src/api";
 
 /************************************************ Component Definition ************************************************/
 const ChangeProfilePictureButton = () => {
   const { loggedUser } = useContext(AuthContext);
+  const { wsUpdateUserProfilePicture } = useContext(WebSocketContext);
 
   const handleProfilePicChange = useCallback(async (fileToUpload) => {
     if (!fileToUpload.type.startsWith("image/")) {
@@ -28,7 +29,8 @@ const ChangeProfilePictureButton = () => {
 
     // Update the user profile picture in the database
     await userAPI.updateProfilePicture({ ...loggedUser, img_url: cloudinary_url });
-  }, [loggedUser]);
+    wsUpdateUserProfilePicture();
+  }, [loggedUser, wsUpdateUserProfilePicture]);
 
   return (
     <fieldset className="fieldset">

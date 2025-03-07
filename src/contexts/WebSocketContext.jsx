@@ -16,6 +16,7 @@ const initialContext = {
   wsLogoutUser: () => "Out of context",
   wsOnlineConsumers: [],
   wsOnlineRestaurants: [],
+  wsUpdateUserProfilePicture: () => "Out of context"
 };
 
 /************************************************** Context creation **************************************************/
@@ -23,7 +24,7 @@ const WebSocketContext = createContext(initialContext);
 
 /************************************************** Context provider **************************************************/
 const WebSocketContextProvider = ({ children }) => {
-  const { loggedUser } = useContext(AuthContext);
+  const { loggedUser, refresh } = useContext(AuthContext);
 
   const [wsIsConnected, setWsIsConnected] = useState(initialContext.wsIsConnected);
   const [wsOnlineConsumers, setWsOnlineConsumers] = useState(initialContext.wsOnlineConsumers);
@@ -61,18 +62,32 @@ const WebSocketContextProvider = ({ children }) => {
     }
   }, [loggedUser]);
 
+  const wsUpdateUserProfilePicture = useCallback(() => {
+    const { socket } = getSocket();
+    if (loggedUser) {
+      logger.debug(`(${socket.id}) Changing the profile picture of the user "${loggedUser.email}".`);
+      socket.emit("update profile picture");
+    }
+  }, [loggedUser]);
+
   useEffect(() => {
     const { socket } = getSocket();
 
     const onConnect = () => {
       logger.debug(`(${socket.id}) Connected to a websocket server.`);
       setWsIsConnected(true);
+      refresh((prevState) => !prevState);
       LoginUser();
     };
     const onDisconnect = () => {
       logger.debug(`(${socket.id}) Disconnected from the websocket server.`);
       setWsIsConnected(false);
     };
+
+    const onReloadLoggedUser = () => {
+      refresh((prevState) => !prevState);
+    };
+
     const onUpdateOnlineUsers = ({ onlineUsers }) => {
       logger.debug(`(${socket.id}) Updating the online users list:`, onlineUsers);
       setWsOnlineConsumers(onlineUsers.filter((user) => user.role === "consumers"));
@@ -81,11 +96,13 @@ const WebSocketContextProvider = ({ children }) => {
 
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
+    socket.on("reload logged user", onReloadLoggedUser);
     socket.on("update online users", onUpdateOnlineUsers);
 
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
+      socket.off("reload logged user", onReloadLoggedUser);
       socket.off("update online users", onUpdateOnlineUsers);
     };
   }, []);
@@ -94,7 +111,14 @@ const WebSocketContextProvider = ({ children }) => {
     LoginUser();
   }, [loggedUser]);
 
-  const valueObj = { wsGetOnlineUsers, wsIsConnected, wsLogoutUser, wsOnlineConsumers, wsOnlineRestaurants };
+  const valueObj = {
+    wsGetOnlineUsers,
+    wsIsConnected,
+    wsLogoutUser,
+    wsOnlineConsumers,
+    wsOnlineRestaurants,
+    wsUpdateUserProfilePicture
+  };
   return <WebSocketContext.Provider value={{ ...valueObj }}>{children}</WebSocketContext.Provider>;
 };
 

@@ -11,6 +11,7 @@ const logger = new Logger("AuthContext");
 /*********************************************** Initial context object ***********************************************/
 const initialContext = {
   loggedUser: null,
+  refresh: () => "Out of context",
   setToken: () => "Out of context"
 };
 
@@ -20,6 +21,7 @@ const AuthContext = createContext(initialContext);
 /************************************************** Context provider **************************************************/
 const AuthContextProvider = ({ children }) => {
   const [loggedUser, setLoggedUser] = useState(initialContext.loggedUser);
+  const [state, refresh] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
@@ -42,9 +44,9 @@ const AuthContextProvider = ({ children }) => {
       localStorage.removeItem("token");
       setLoggedUser(null);
     }
-  }, [token]);
+  }, [state, token]);
 
-  const valueObj = { loggedUser, setToken };
+  const valueObj = { loggedUser, refresh, setToken };
   return <AuthContext.Provider value={{ ...valueObj }}>{children}</AuthContext.Provider>;
 };
 
