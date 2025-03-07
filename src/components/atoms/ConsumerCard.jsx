@@ -1,9 +1,29 @@
 /*********************************************** External Node modules ************************************************/
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
 import { getUserImgURL, roundImg } from "/src/utils";
+
+/********************************************** Subcomponents Definition **********************************************/
+const OfflineAvatar = memo(({ _id, img_url, is_activated }) => (
+  <div className="avatar avatar-offline h-20 w-20">
+    <img
+      alt={`${_id} consumer profile picture`}
+      className="border mr-6 rounded-full"
+      src={roundImg({ imgURL: getUserImgURL({ img_url, is_activated }) })}
+    />
+  </div>
+));
+const OnlineAvatar = memo(({ _id, img_url, is_activated }) => (
+  <div className="avatar avatar-online h-20 w-20">
+    <img
+      alt={`${_id} consumer profile picture`}
+      className="border mr-6 rounded-full"
+      src={roundImg({ imgURL: getUserImgURL({ img_url, is_activated }) })}
+    />
+  </div>
+));
 
 /************************************************ Component Definition ************************************************/
 const ConsumerCard = ({ _id, img_url, is_activated, isConsumerOnline, isTheNewest, name, reviewed_dishes, reviewed_restaurants, surname }) => {
@@ -30,13 +50,11 @@ const ConsumerCard = ({ _id, img_url, is_activated, isConsumerOnline, isTheNewes
         {isTheNewest && <span className="indicator-item badge badge-primary font-semibold">NEW</span>}
         <div className="card-body flex justify-between p-0">
           <div className="flex items-center my-4 mx-2 justify-between">
-            <div className={`avatar avatar-${isConsumerOnline ? "online" : "offline"} h-20 w-20`}>
-              <img
-                alt={`${_id} consumer profile picture`}
-                className="border mr-6 rounded-full"
-                src={roundImg({ imgURL: getUserImgURL ({ img_url, is_activated }) })}
-              />
-            </div>
+            {isConsumerOnline ? (
+              <OnlineAvatar _id={_id} img_url={img_url} is_activated={is_activated} />
+            ) : (
+              <OfflineAvatar _id={_id} img_url={img_url} is_activated={is_activated} />
+            )}
             <div className="card-title flex flex-col items-end gap-0">
               <h2 className="text-2xl">{name}</h2>
               <p className="text-lg text-gray-600">{surname}</p>
