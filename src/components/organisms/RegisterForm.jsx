@@ -35,8 +35,10 @@ const RegisterForm = ({ error, formFields, formTitle, handleOnSubmit }) => {
             <AuthCredentials formState={formState} is_register register={register} watch={watch} />
           </div>
         </div>
-        <button type="submit" className="btn btn-primary w-full text-base">Sign up</button>
-        {error && <FormFieldError error={{message: error}} />}
+        <div className="flex flex-col items-center w-full">
+          <button type="submit" className="btn btn-primary btn-wide text-base">Sign up</button>
+          {error && <FormFieldError error={{message: error}} />}
+        </div>
       </form>
     </section>
   );

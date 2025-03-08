@@ -34,7 +34,9 @@ const ModalOnRestaurantEdit = ({ editableFields, ...loggedUser }) => {
               ))}
             </div>
           </div>
-          <button className="btn btn-primary mt-6 w-full text-base" type="submit">Sign up</button>
+          <div className="flex flex-col items-center">
+            <button className="btn btn-primary mt-6 w-full text-base" type="submit">Sign up</button>
+          </div>
         </form>
       </div>
     </dialog>

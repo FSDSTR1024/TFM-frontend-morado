@@ -40,8 +40,10 @@ const LoginPage = () => {
         <h2 className="text-2xl font-semibold mb-4 text-center text-info underline">Log In to Your Account</h2>
         <form onSubmit={handleSubmit(handleOnSubmit)} className="space-y-8">
           <AuthCredentials formState={formState} register={register} />
-          <button type="submit" className="btn btn-primary w-full text-base">Log In</button>
-          {error && <FormFieldError error={{message: error}} />}
+          <div className="flex flex-col items-center">
+            <button type="submit" className="btn btn-primary btn-wide text-base">Log In</button>
+            {error && <FormFieldError error={{message: error}} />}
+          </div>
         </form>
       </div>
     </section>
