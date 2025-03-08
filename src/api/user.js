@@ -8,7 +8,7 @@ const userAPI = {
   getAllConsumers: async () => await axiosInstance.get("/users/consumers"),
   getAllRestaurants: async () => await axiosInstance.get("/users/restaurants"),
   getLoggedUser: async () => await axiosInstance.get("/user"),
-  getRestaurantById: async ({ restaurantId }) => await axiosInstance.get(`/users/restaurants/${restaurantId}`),
+  getRestaurantById: async (restaurantId) => await axiosInstance.get(`/users/restaurants/${restaurantId}`),
   updateProfile: async ({ formData, loggedUser }) => {
     const newUserData = {
       email: loggedUser.email,

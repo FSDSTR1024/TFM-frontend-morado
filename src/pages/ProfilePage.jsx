@@ -1,5 +1,5 @@
 /*********************************************** External Node modules ************************************************/
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
@@ -11,15 +11,20 @@ const ProfilePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!location.state?.loggedUser) {
+    if (!location?.state?.loggedUser) {
       navigate("/");
     }
   }, [location]);
 
+  const [loggedUser, setLoggedUser] = useState(location?.state?.loggedUser);
+  useEffect(() => {
+    setLoggedUser(location?.state?.loggedUser);
+  }, [location]);
+
   return (
-    location.state?.loggedUser &&
-    ((location.state.loggedUser.role === "consumers" && <ConsumerProfile />) ||
-      (location.state.loggedUser.role === "restaurants" && <RestaurantProfile />))
+    loggedUser &&
+    ((loggedUser.role === "consumers" && <ConsumerProfile />) ||
+      (loggedUser.role === "restaurants" && <RestaurantProfile restaurantId={loggedUser._id}/>))
   );
 };
 
