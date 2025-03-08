@@ -21,7 +21,7 @@ const RestaurantRegisterForm = () => {
 
   const formFields = [
     { name: "name", text: "Name" },
-    { name: "description", required: false, text: "Description" },
+    { name: "description", required: false, text: "Description", type: "textarea" },
     { name: "location", text: "Location" },
     { name: "phone", required: false, text: "Phone" },
     { name: "web_page", required: false, text: "Web Page" }
