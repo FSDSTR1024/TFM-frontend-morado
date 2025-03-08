@@ -41,7 +41,7 @@ const SpecificRestaurantPage = () => {
   ) : (
     <div className="container mx-auto p-6">
       <div className="bg-base-100 shadow-xl rounded-lg p-6 mb-6">
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-6">
           <img alt={restaurant.name} className="w-60 h-60 rounded-lg mr-6" src={getUserImgURL ({ ...restaurant })} />
           <div className="flex flex-col w-full">
             <div className="flex justify-between">

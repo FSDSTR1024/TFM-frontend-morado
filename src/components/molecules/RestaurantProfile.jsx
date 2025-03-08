@@ -1,5 +1,5 @@
 /************************************************ Node modules needed ************************************************/
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
 import { AuthContext } from "/src/contexts";
@@ -36,6 +36,22 @@ const RestaurantProfile = () => {
     { name: "web_page", required: false, text: "Web Page" }
   ];
 
+  const [restaurantDishes, setRestaurantDishes] = useState([]);
+  useEffect(() => {
+    const getRestaurantDishes = async () => {
+      try {
+        const { restaurantDishes } = await dishAPI.getDishesByRestaurantId({ restaurantId: loggedUser._id });
+        setRestaurantDishes(restaurantDishes);
+      } catch (error) {
+        setRestaurantDishes([]);
+        const errorText = "There was an error while trying to fetch the Restaurant dishes!";
+        logger.error(errorText, error);
+      }
+    };
+
+    getRestaurantDishes();
+  }, [loggedUser]);
+
   return !loggedUser ? (
     <Loading />
   ) : (
@@ -43,7 +59,7 @@ const RestaurantProfile = () => {
       <ModalOnRestaurantEdit editableFields={editableFields} {...loggedUser} />
       <ModalOnWrongFileType />
       <div className="container mx-auto p-6">
-        <div className="bg-base-100 shadow-xl rounded-lg p-6">
+        <div className="bg-base-100 shadow-xl rounded-lg p-6 mb-6">
           <div className="flex justify-between gap-6">
             <div className="flex flex-col justify-start items-center gap-2 w-96">
               <img alt={loggedUser.name} className="w-60 h-60 rounded-lg" src={getUserImgURL({ ...loggedUser })} />
@@ -93,6 +109,18 @@ const RestaurantProfile = () => {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="bg-base-200 shadow-xl rounded-lg p-6">
+          <h2 className="text-3xl font-bold mb-4">Dishes</h2>
+          <div className="flex flex-wrap justify-evenly gap-y-8 mb-2">
+            {restaurantDishes.length === 0 ? (
+              <p className="text-lg text-gray-400">No dishes found for this restaurant.</p>
+            ) : (
+              restaurantDishes.map((dish) => (
+                <DishCard key={dish._id} {...dish} />
+              ))
+            )}
           </div>
         </div>
       </div>

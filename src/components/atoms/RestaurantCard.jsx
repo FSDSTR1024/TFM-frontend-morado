@@ -24,8 +24,12 @@ const RestaurantCard = ({ _id, description, followers, img_url, is_activated, is
   }, [_id]);
 
   const handleOnCardClick = useCallback(() => {
-    navigate(`/restaurants/${_id}`);
-  }, [_id]);
+    if (_id === loggedUser?._id) {
+      navigate("/profile", { state: { loggedUser } });
+    } else {
+      navigate(`/restaurants/${_id}`);
+    }
+  }, [_id, loggedUser]);
 
   const handleUnfollowClick = useCallback(() => {
     navigate(`/restaurants/${_id}`);
