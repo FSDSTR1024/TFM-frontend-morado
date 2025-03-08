@@ -12,10 +12,18 @@ const RestaurantProfile = () => {
   const { loggedUser } = useContext(AuthContext);
 
   const handleAddDishClick = useCallback(() => {
-    navigate(`/restaurants/${loggedUser._id}/add-dish`);
+    console.log("Add dish clicked");
   }, [loggedUser]);
 
-  const handleEditClick = useCallback(() => {
+  const handleChangeCredentialsClick = useCallback(() => {
+    console.log("Change credentials clicked");
+  }, []);
+
+  const handleDeleteAccountClick = useCallback(() => {
+    console.log("Delete account clicked");
+  }, []);
+
+  const handleEditProfileClick = useCallback(() => {
     document.getElementById("on_restaurant_edit_modal").showModal();
   }, []);
 
@@ -59,14 +67,17 @@ const RestaurantProfile = () => {
               </div>
               <div className="divider text-xl font-semibold mt-6 mb-5">Actions</div>
               <div className="flex gap-3 justify-evenly">
-                <button className="btn btn-primary btn-outline" onClick={handleChangeCredentialsClick}>
-                  Change Credentials
+                <button className="btn btn-primary btn-outline" onClick={handleAddDishClick}>
+                  Add Dish
                 </button>
                 <button className="btn btn-secondary btn-outline" onClick={handleEditProfileClick}>
                   Edit Profile
                 </button>
-                <button className="btn btn-accent btn-outline" onClick={handleAddDishClick}>
-                  Add Dish
+                <button className="btn btn-accent btn-outline" onClick={handleChangeCredentialsClick}>
+                  Change Credentials
+                </button>
+                <button className="btn btn-error btn-outline" onClick={handleDeleteAccountClick}>
+                  Delete Account
                 </button>
               </div>
             </div>
