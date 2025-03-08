@@ -27,12 +27,19 @@ const RestaurantProfile = () => {
     document.getElementById("on_restaurant_edit_modal").showModal();
   }, []);
 
+  const editableFields = [
+    { name: "name", text: "Name" },
+    { name: "description", required: false, text: "Description", type: "textarea" },
+    { name: "location", text: "Location" },
+    { name: "phone", required: false, text: "Phone" },
+    { name: "web_page", required: false, text: "Web Page" }
+  ];
 
   return !loggedUser ? (
     <Loading />
   ) : (
     <>
-      <ModalOnRestaurantEdit {...loggedUser} />
+      <ModalOnRestaurantEdit editableFields={editableFields} {...loggedUser} />
       <ModalOnWrongFileType />
       <div className="container mx-auto p-6">
         <div className="bg-base-100 shadow-xl rounded-lg p-6">
