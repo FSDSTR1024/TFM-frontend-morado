@@ -3,10 +3,15 @@ import { useCallback, useContext, useEffect, useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
 import { AuthContext } from "/src/contexts";
+import { ChangeProfilePictureButton, DishCard, Loading, ModalOnWrongFileType, StarRating } from "/src/components/atoms";
+import { dishAPI } from "/src/api";
 import { getUserImgURL } from "/src/utils";
-import { ChangeProfilePictureButton, Loading, ModalOnWrongFileType, StarRating } from "/src/components/atoms";
+import { Logger } from "/src/utils";
 import { ModalOnRestaurantEdit } from "/src/components/molecules";
 import { TextParagraph } from "/src/components/protons";
+
+/************************************************** Internal logger ***************************************************/
+const logger = new Logger("RestaurantProfile");
 
 /************************************************ Component Definition ************************************************/
 const RestaurantProfile = () => {

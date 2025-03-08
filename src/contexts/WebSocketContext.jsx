@@ -16,7 +16,7 @@ const initialContext = {
   wsLogoutUser: () => "Out of context",
   wsOnlineConsumers: [],
   wsOnlineRestaurants: [],
-  wsUpdateUserProfilePicture: () => "Out of context"
+  wsUpdateUserProfile: () => "Out of context"
 };
 
 /************************************************** Context creation **************************************************/
@@ -62,11 +62,11 @@ const WebSocketContextProvider = ({ children }) => {
     }
   }, [loggedUser]);
 
-  const wsUpdateUserProfilePicture = useCallback(() => {
+  const wsUpdateUserProfile = useCallback(() => {
     const { socket } = getSocket();
     if (loggedUser) {
-      logger.debug(`(${socket.id}) Changing the profile picture of the user "${loggedUser.email}".`);
-      socket.emit("update profile picture");
+      logger.debug(`(${socket.id}) Changing the profile of the logged user "${loggedUser.email}".`);
+      socket.emit("update profile");
     }
   }, [loggedUser]);
 
@@ -117,7 +117,7 @@ const WebSocketContextProvider = ({ children }) => {
     wsLogoutUser,
     wsOnlineConsumers,
     wsOnlineRestaurants,
-    wsUpdateUserProfilePicture
+    wsUpdateUserProfile
   };
   return <WebSocketContext.Provider value={{ ...valueObj }}>{children}</WebSocketContext.Provider>;
 };

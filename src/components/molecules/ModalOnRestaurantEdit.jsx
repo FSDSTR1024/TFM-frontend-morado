@@ -1,14 +1,17 @@
 /*********************************************** External Node modules ************************************************/
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
 /********************************************** Internal library imports **********************************************/
 import { FormField } from "/src/components/atoms";
 import { FormFieldError } from "/src/components/protons";
 import { useProfile } from "/src/hooks";
+import { WebSocketContext } from "/src/contexts";
 
 /************************************************ Component Definition ************************************************/
 const ModalOnRestaurantEdit = ({ editableFields, ...loggedUser }) => {
+  const { wsUpdateUserProfile } = useContext(WebSocketContext);
+
   const { error, updateRestaurant } = useProfile();
   const { formState, handleSubmit, register } = useForm({
     defaultValues: editableFields.reduce((accumulator, field) => {
@@ -31,9 +34,10 @@ const ModalOnRestaurantEdit = ({ editableFields, ...loggedUser }) => {
       const error = await updateRestaurant({ formData });
       if (!error) {
         closeModal();
+        wsUpdateUserProfile();
       }
     }
-  }, [submitForm]);
+  }, [submitForm, updateRestaurant, wsUpdateUserProfile]);
 
   return (
     <dialog className="modal" id="on_restaurant_edit_modal">

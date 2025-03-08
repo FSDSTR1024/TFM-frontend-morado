@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { dishAPI, userAPI } from "/src/api";
 import { DishCard, Loading, StarRating } from "/src/components/atoms";
 import { getUserImgURL, Logger } from "/src/utils";
+import { TextParagraph } from "/src/components/protons";
 
 /************************************************** Internal logger ***************************************************/
 const logger = new Logger("SpecificRestaurantPage");
@@ -49,7 +50,11 @@ const SpecificRestaurantPage = () => {
               <StarRating textSize="lg" {...restaurant} />
             </div>
             <p className="text-lg text-gray-600 mb-2">📍 {restaurant.location}</p>
-            <p className="text-xl text-gray-400 mb-2">{restaurant.description}</p>
+            {restaurant.description && (
+              <div className="mb-2 text-xl text-gray-400">
+                <TextParagraph text={restaurant.description} />
+              </div>
+            )}
             <div className="divider text-xl font-semibold mt-6 mb-3">Contact Information</div>
             <div className="mb-2">
               <span className="text-lg text-gray-400 font-semibold">📧 Email: </span>
