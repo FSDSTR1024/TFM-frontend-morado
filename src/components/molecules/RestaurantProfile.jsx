@@ -6,6 +6,7 @@ import { AuthContext } from "/src/contexts";
 import { getUserImgURL } from "/src/utils";
 import { ChangeProfilePictureButton, Loading, ModalOnWrongFileType, StarRating } from "/src/components/atoms";
 import { ModalOnRestaurantEdit } from "/src/components/molecules";
+import { TextParagraph } from "/src/components/protons";
 
 /************************************************ Component Definition ************************************************/
 const RestaurantProfile = () => {
@@ -54,7 +55,11 @@ const RestaurantProfile = () => {
                 <StarRating textSize="lg" {...loggedUser} />
               </div>
               <p className="text-lg text-gray-600 mb-2">📍 {loggedUser.location}</p>
-              <p className="text-xl text-gray-400 mb-2">{loggedUser.description}</p>
+              {loggedUser.description && (
+                <div className="mb-2 text-xl text-gray-400">
+                  <TextParagraph text={loggedUser.description} />
+                </div>
+              )}
               <div className="divider text-xl font-semibold mt-6 mb-3">Contact Information</div>
               <div className="mb-2">
                 <span className="text-lg text-gray-400 font-semibold">📧 Email: </span>
