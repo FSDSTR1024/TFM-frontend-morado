@@ -14,21 +14,20 @@ const useProfile = () => {
   const { loggedUser } = useContext(AuthContext);
   const [error, setError] = useState(null);
 
-  const updateConsumer = async (formData) => {
-    setError(null);
-  };
-
-  const updateRestaurant = useCallback(async ({ formData }) => {
+  const _updateUser = useCallback(async ({ formData, userKind }) => {
     setError(null);
     try {
       await userAPI.updateProfile({ formData, loggedUser });
     } catch (error) {
       setError(error);
-      const errorText = "Restaurant user could not be updated!";
+      const errorText = `${userKind} user could not be updated!`;
       logger.error(errorText, error);
       return error;
     }
   }, [loggedUser]);
+
+  const updateConsumer = useCallback(async ({ formData }) => _updateUser({ formData, userKind: "Consumer" }), []);
+  const updateRestaurant = useCallback(async ({ formData }) => _updateUser({ formData, userKind: "Restaurant" }), []);
 
   return { error, updateConsumer, updateRestaurant };
 };
