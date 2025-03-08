@@ -75,7 +75,7 @@ const StarRating = ({ _id, nrOfReviews, rating }) => {
             <FullUncheckedStar _id={_id} key={index} />
           ))}
         </div>
-        {nrOfReviews > 0 ? <p className="text-sm text-gray-600">({rating})</p> : null}
+        {nrOfReviews > 0 ? <p className="text-sm text-gray-600">({rating.toFixed(1)})</p> : null}
       </div>
       <p className="text-sm text-gray-600 font-semibold">{nrOfReviews.toLocaleString("en-US")} reviews</p>
     </div>
