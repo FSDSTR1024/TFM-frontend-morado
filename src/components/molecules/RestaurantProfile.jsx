@@ -41,13 +41,11 @@ const RestaurantProfile = ({ restaurantId }) => {
   }, [loggedUser, restaurantId]);
 
   const [restaurantDishes, setRestaurantDishes] = useState([]);
-  // const [bestDishes, setBestDishes] = useState([]);
   useEffect(() => {
     const getRestaurantDishes = async () => {
       try {
         const { restaurantDishes } = await dishAPI.getDishesByRestaurantId(restaurant._id);
         setRestaurantDishes(restaurantDishes);
-        // setBestDishes(response.data.dishes.slice(0, 3)); // Assuming the first 3 dishes are the best
       } catch (error) {
         setRestaurantDishes([]);
         const errorText = "There was an error while trying to fetch the Restaurant dishes!";
@@ -83,6 +81,7 @@ const RestaurantProfile = ({ restaurantId }) => {
     { name: "web_page", required: false, text: "Web Page" }
   ];
 
+  const maxBestDishes = 3;
   return !restaurant ? (
     <Loading />
   ) : (
@@ -150,8 +149,18 @@ const RestaurantProfile = ({ restaurantId }) => {
             </div>
           </div>
         </div>
+        {restaurantDishes.length !== 0 && (
+          <div className="bg-base-200 shadow-xl rounded-lg p-6 mb-6">
+            <h2 className="text-3xl font-bold mb-4">Best Dishes</h2>
+            <div className="flex flex-wrap justify-evenly gap-y-8 mb-2">
+              {restaurantDishes.sort((a, b) => b.rating - a.rating).slice(0, maxBestDishes).map((dish) => (
+                <DishCard key={dish._id} {...dish} />
+              ))}
+            </div>
+          </div>
+        )}
         <div className="bg-base-200 shadow-xl rounded-lg p-6">
-          <h2 className="text-3xl font-bold mb-4">Dishes</h2>
+          <h2 className="text-3xl font-bold mb-4">All Dishes</h2>
           <div className="flex flex-wrap justify-evenly gap-y-8 mb-2">
             {restaurantDishes.length === 0 ? (
               <p className="text-lg text-gray-400">No dishes found for this restaurant.</p>
