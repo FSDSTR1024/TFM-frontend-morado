@@ -15,6 +15,10 @@ const FormField = ({ formState, name, required=true, register, text, type="text"
           {type === "textarea" ? (
             <textarea
               className="textarea h-24"
+              {...register(name, {
+                required: { message: required ? "This field is mandatory! Please fill it." : undefined, value: required },
+                validate: validate ? validate : (required ? getEmptyFieldError : undefined)
+              })}
             ></textarea>
           ) : (
             <input
