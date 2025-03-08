@@ -9,8 +9,7 @@ const userAPI = {
   getAllRestaurants: async () => await axiosInstance.get("/users/restaurants"),
   getLoggedUser: async () => await axiosInstance.get("/user"),
   getRestaurantById: async ({ restaurantId }) => await axiosInstance.get(`/users/restaurants/${restaurantId}`),
-  updateProfilePicture: async ({ _id, img_url, role }) => await axiosInstance.patch(`/users/${role}/${_id}/img_url`, { img_url }),
-  updateUser: async ({ formData, loggedUser }) => {
+  updateProfile: async ({ formData, loggedUser }) => {
     const newUserData = {
       email: loggedUser.email,
       password: loggedUser.password,
@@ -18,7 +17,8 @@ const userAPI = {
     }
     const route = `/users/${loggedUser.role}/${loggedUser._id}`
     await axiosInstance.put(route, newUserData);
-  }
+  },
+  updateProfilePicture: async ({ _id, img_url, role }) => await axiosInstance.patch(`/users/${role}/${_id}/img_url`, { img_url })
 };
 
 /********************************************* Named exports (ES module) **********************************************/

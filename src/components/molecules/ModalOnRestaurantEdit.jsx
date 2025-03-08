@@ -28,12 +28,12 @@ const ModalOnRestaurantEdit = ({ editableFields, ...loggedUser }) => {
   }, []);
   const handleOnSubmit = useCallback(async (formData) => {
     if (submitForm) {
-      const error = await updateRestaurant({ formData, loggedUser });
+      const error = await updateRestaurant({ formData });
       if (!error) {
         closeModal();
       }
     }
-  }, [loggedUser, submitForm]);
+  }, [submitForm]);
 
   return (
     <dialog className="modal" id="on_restaurant_edit_modal">
