@@ -9,21 +9,31 @@ const FormField = ({ formState, name, required=true, register, text, type="text"
 
   return (
     <>
-      <div className="form-control w-full max-w-sm mb-3">
-        <label className="input input-bordered flex items-center gap-2 w-full" htmlFor={name}>
-          {text}:
-          <input
-            autoComplete={name}
-            className="grow"
-            name={name}
-            type={type}
-            {...register(name, {
-              required: { message: required ? "This field is mandatory! Please fill it." : undefined, value: required },
-              validate: validate ? validate : (required ? getEmptyFieldError : undefined)
-            })}
-          />
-          {!required && <span className="badge badge-warning text-xs">Optional</span>}
-        </label>
+      <div className="form-control w-full max-w-sm mb-0">
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend">{text}</legend>
+          {type === "textarea" ? (
+            <textarea
+              className="textarea h-24"
+            ></textarea>
+          ) : (
+            <input
+              autoComplete={name}
+              className="input"
+              name={name}
+              type={type}
+              {...register(name, {
+                required: { message: required ? "This field is mandatory! Please fill it." : undefined, value: required },
+                validate: validate ? validate : (required ? getEmptyFieldError : undefined)
+              })}
+            />
+          )}
+          {!required && (
+            <div className="flex flex-col items-end">
+              <span className="badge badge-warning text-xs fieldset-label">Optional</span>
+            </div>
+          )}
+        </fieldset>
       </div>
       <FormFieldError error={formState.errors[name]} />
     </>

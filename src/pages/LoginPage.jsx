@@ -38,7 +38,7 @@ const LoginPage = () => {
       </div>
       <div className="w-full max-w-sm bg-base-100 p-6 rounded-lg shadow-md">
         <h2 className="text-2xl font-semibold mb-4 text-center text-info underline">Log In to Your Account</h2>
-        <form onSubmit={handleSubmit(handleOnSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(handleOnSubmit)} className="space-y-8">
           <AuthCredentials formState={formState} register={register} />
           <button type="submit" className="btn btn-primary w-full text-base">Log In</button>
           {error && <FormFieldError error={{message: error}} />}
