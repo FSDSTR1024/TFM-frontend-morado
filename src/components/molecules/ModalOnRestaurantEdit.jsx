@@ -45,6 +45,7 @@ const ModalOnRestaurantEdit = ({ editableFields, ...loggedUser }) => {
         <form method="dialog">
           <button className="btn btn-sm btn-circle btn-outline btn-error absolute right-2 top-2">✕</button>
         </form>
+        <h3 className="font-bold text-2xl text-info text-center">Editing profile...</h3>
         <form className="flex flex-col items-center" id="restaurant_edit_form" onSubmit={handleSubmit(handleOnSubmit)}>
           <div className="w-80">
             <div>
