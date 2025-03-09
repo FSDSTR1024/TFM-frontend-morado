@@ -35,22 +35,11 @@ const RestaurantCard = ({ _id, description, email, followers, img_url, is_activa
     navigate(`/restaurants/${_id}`);
   }, [_id]);
 
-  const achievement1Url = "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp";
-  const achievement2Url = "https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp";
-  const achievement3Url = "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp";
-  const achievement4Url = "https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp";
-
-  let achievements = [];
-  if (name.includes("e")) achievements.push(achievement1Url);
-  if (name.includes("i")) achievements.push(achievement2Url);
-  if (name.includes("o")) achievements.push(achievement3Url);
-  if (name.includes("u")) achievements.push(achievement4Url);
-
   return (
     <div className="indicator">
       <div className="card border border-base-300 w-96 bg-base-100 shadow-xl indicator">
         {isTheNewest && <span className="indicator-item badge badge-primary font-semibold">NEW</span>}
-        <div className="card-body flex justify-between p-0 gap-0">
+        <div className="card-body flex justify-between p-0 gap-0 mb-8">
           <div className="flex items-center mt-4 mx-4 justify-between gap-6">
             <div className="flex flex-col items-start">
               <h2 className="card-title text-2xl">{name}</h2>
@@ -94,16 +83,6 @@ const RestaurantCard = ({ _id, description, email, followers, img_url, is_activa
               <div className="flex justify-between text-lg">
                 <p className="text-gray-400 font-semibold">🌐 Website: </p>
                 <a href={web_page} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">{web_page}</a>
-              </div>
-            )}
-          </div>
-          <div className="mb-6">
-            <div className="divider text-md font-semibold mt-6">Achievements</div>
-            {achievements && achievements.length > 0 && (
-              <div className="flex flex-wrap justify-center gap-y-2 gap-x-4 mt-2">
-                {achievements.map((achievement, index) => (
-                  <img key={index} alt={`Achievement ${index + 1}`} className="w-12 h-12 rounded-full" src={achievement} />
-                ))}
               </div>
             )}
           </div>
