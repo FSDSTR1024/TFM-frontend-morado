@@ -23,12 +23,12 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
           <div className="flex flex-col mx-3 my-3">
             <StarRating _id={_id} rating={rating} nrOfReviews={nrOfReviews} />
           </div>
-          <img
-            alt={`${_id} food dish picture`}
-            className="w-full h-40 rounded-lg object-scale-down"
-            src={getImgURL({ img_url })}
-          />
           <div className="flex flex-col items-center mx-3">
+            <img
+              alt={`${_id} food dish picture`}
+              className="h-40 rounded-lg object-scale-down"
+              src={getImgURL({ img_url })}
+            />
             <p className="text-md text-gray-600 text-center">
               <span>{"(from "}</span>
               <a href={`/restaurants/${restaurant._id}`} rel="noopener noreferrer" className="text-blue-500 underline">{restaurant.name}</a>
