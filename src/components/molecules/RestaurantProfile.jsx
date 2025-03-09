@@ -7,7 +7,7 @@ import { ChangeProfilePictureButton, DishCard, Loading, ModalOnWrongFileType, St
 import { dishAPI, userAPI } from "/src/api";
 import { getUserImgURL } from "/src/utils";
 import { Logger } from "/src/utils";
-import { ModalOnRestaurantEdit } from "/src/components/molecules";
+import { ModalOnDishAdd, ModalOnRestaurantEdit } from "/src/components/molecules";
 import { TextParagraph } from "/src/components/protons";
 
 /************************************************** Internal logger ***************************************************/
@@ -58,7 +58,7 @@ const RestaurantProfile = ({ restaurantId }) => {
     }
   }, [restaurant]);
   const handleAddDishClick = useCallback(() => {
-    console.log("Add dish clicked");
+    document.getElementById("on_dish_add_modal").showModal();
   }, []);
 
 
@@ -127,7 +127,7 @@ const RestaurantProfile = ({ restaurantId }) => {
               {isLoggedRestaurant && (
                 <>
                   <div className="divider text-xl font-semibold mt-6 mb-5">Actions</div>
-                  <div className="flex gap-3 justify-evenly">
+                  <div className="flex justify-evenly">
                     <button className="btn btn-primary btn-outline" onClick={handleAddDishClick}>
                       Add Dish
                     </button>

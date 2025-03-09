@@ -2,8 +2,8 @@
 import { useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
+import { dishAPI, userAPI } from "/src/api";
 import { Logger } from "/src/utils";
-import { userAPI } from "/src/api";
 
 /************************************************** Internal logger ***************************************************/
 const logger = new Logger("useRegister");
@@ -25,6 +25,19 @@ const useRegister = () => {
     }
   };
 
+  const registerDish = async (formData) => {
+    setError(null);
+    try {
+      const { newDishID } = await dishAPI.createDish(formData);
+      return newDishID;
+    } catch (error) {
+      setError(error);
+      const errorText = "Food dish could not be created!";
+      logger.error(errorText, error);
+      return null;
+    }
+  };
+
   const registerRestaurant = async (formData) => {
     setError(null);
     try {
@@ -38,7 +51,7 @@ const useRegister = () => {
     }
   };
 
-  return { error, registerConsumer, registerRestaurant };
+  return { error, registerConsumer, registerDish, registerRestaurant };
 };
 
 /********************************************** Named export (ES module) **********************************************/

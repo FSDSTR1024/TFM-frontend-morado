@@ -22,7 +22,7 @@ const FormField = ({ formState, list = undefined, name, required=true, register,
               })}
             ></textarea>
           ) : (type === "checkbox" ? (
-            <div className="flex flex-col flex-wrap w-full gap-2 max-h-56 overflow-y-auto">
+            <div className="flex flex-col flex-wrap w-full gap-2 max-h-44 overflow-y-auto">
               {list.map((item) => (
                 <label className="fieldset-label" key={item}>
                   <input
