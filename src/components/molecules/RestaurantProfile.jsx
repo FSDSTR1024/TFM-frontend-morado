@@ -61,9 +61,6 @@ const RestaurantProfile = ({ restaurantId }) => {
     console.log("Add dish clicked");
   }, []);
 
-  const handleChangeCredentialsClick = useCallback(() => {
-    console.log("Change credentials clicked");
-  }, []);
 
   const handleDeleteAccountClick = useCallback(() => {
     console.log("Delete account clicked");
@@ -136,9 +133,6 @@ const RestaurantProfile = ({ restaurantId }) => {
                     </button>
                     <button className="btn btn-secondary btn-outline" onClick={handleEditProfileClick}>
                       Edit Profile
-                    </button>
-                    <button className="btn btn-accent btn-outline" onClick={handleChangeCredentialsClick}>
-                      Change Credentials
                     </button>
                     <button className="btn btn-error btn-outline" onClick={handleDeleteAccountClick}>
                       Delete Account
