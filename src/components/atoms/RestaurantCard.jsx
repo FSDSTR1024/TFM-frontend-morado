@@ -8,7 +8,7 @@ import { getUserImgURL } from "/src/utils";
 import { StarRating } from "/src/components/atoms";
 
 /************************************************ Component Definition ************************************************/
-const RestaurantCard = ({ _id, description, followers, img_url, is_activated, isTheNewest, location, name, nrOfDishes, nrOfReviews, rating, web_page }) => {
+const RestaurantCard = ({ _id, description, email, followers, img_url, is_activated, isTheNewest, location, name, nrOfDishes, nrOfReviews, phone, rating, web_page }) => {
   const { loggedUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -54,33 +54,51 @@ const RestaurantCard = ({ _id, description, followers, img_url, is_activated, is
           <div className="flex items-center mt-4 mx-4 justify-between gap-6">
             <div className="flex flex-col items-start">
               <h2 className="card-title text-2xl">{name}</h2>
+              <p className="text-lg text-gray-400">
+                <span>{"🍽️ "}</span>
+                <span>{nrOfDishes.toLocaleString("en-US")}</span>
+                <span>{" dishes"}</span>
+              </p>
               <p className="text-lg text-gray-600">{location}</p>
-              {description && <p className="text-md text-gray-500 mt-3">{description}</p>}
+              {description && <p className="text-base text-gray-400 mt-3">{description}</p>}
             </div>
             <div className="flex flex-col items-end gap-3">
+              <StarRating _id={_id} nrOfReviews={nrOfReviews} rating={rating} />
               <img
                 alt={`${_id} restaurant profile picture`}
                 className="w-32 h-32 rounded-lg"
                 src={getUserImgURL ({ img_url, is_activated })}
               />
-              <StarRating _id={_id} nrOfReviews={nrOfReviews} rating={rating} />
+              <div className="flex gap-1 items-center text-error">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]"><path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
+                <span>{followers.length.toLocaleString("en-US")}</span>
+                <span>followers</span>
+              </div>
             </div>
           </div>
-          <div className="divider text-base font-semibold mx-0 my-4">Details</div>
-          <div className="mx-4 my-0">
-            <div className="flex justify-between text-base">
-              <strong>Dishes:</strong>
-              <span>{nrOfDishes.toLocaleString("en-US")}</span>
-            </div>
+          <div className="divider text-md font-semibold mx-0 my-4">Details</div>
+          <div className="mx-4 my-0 gap-2">
+            {email && (
+              <div className="flex justify-between text-lg">
+                <p className="text-gray-400 font-semibold">📧 Email: </p>
+                <p className="text-gray-600 text-right">{email}</p>
+              </div>
+            )}
+            {phone && (
+              <div className="flex justify-between text-lg">
+                <p className="text-gray-400 font-semibold">📞 Phone: </p>
+                <p className="text-gray-600 text-right">{phone}</p>
+              </div>
+            )}
             {web_page && (
-              <div className="flex justify-between text-base">
-                <strong>Website:</strong>
+              <div className="flex justify-between text-lg">
+                <p className="text-gray-400 font-semibold">🌐 Website: </p>
                 <a href={web_page} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">{web_page}</a>
               </div>
             )}
           </div>
           <div className="mb-6">
-            <div className="divider text-base font-semibold mt-6">Achievements</div>
+            <div className="divider text-md font-semibold mt-6">Achievements</div>
             {achievements && achievements.length > 0 && (
               <div className="flex flex-wrap justify-center gap-y-2 gap-x-4 mt-2">
                 {achievements.map((achievement, index) => (
