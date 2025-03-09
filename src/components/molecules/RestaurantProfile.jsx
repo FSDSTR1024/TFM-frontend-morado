@@ -102,7 +102,7 @@ const RestaurantProfile = ({ restaurantId }) => {
             <div className="flex flex-col w-full">
               <div className="flex justify-between">
                 <h1 className="text-4xl font-bold">{restaurant.name}</h1>
-                <StarRating textSize="lg" {...restaurant} />
+                <StarRating {...restaurant} />
               </div>
               <p className="text-lg text-gray-600 mb-2">📍 {restaurant.location}</p>
               {restaurant.description && (

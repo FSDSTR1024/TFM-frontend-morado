@@ -48,34 +48,29 @@ const RestaurantCard = ({ _id, description, followers, img_url, is_activated, is
 
   return (
     <div className="indicator">
-      <div className="card border border-base-300 w-72 bg-base-100 shadow-xl indicator">
+      <div className="card border border-base-300 w-96 bg-base-100 shadow-xl indicator">
         {isTheNewest && <span className="indicator-item badge badge-primary font-semibold">NEW</span>}
         <div className="card-body flex justify-between p-0 gap-0">
-          <div className="flex items-center my-4 mx-3 justify-between">
+          <div className="flex items-center mt-4 mx-4 justify-between gap-6">
             <div className="flex flex-col items-start">
               <h2 className="card-title text-2xl">{name}</h2>
               <p className="text-lg text-gray-600">{location}</p>
+              {description && <p className="text-md text-gray-500 mt-3">{description}</p>}
             </div>
-            <img
-              alt={`${_id} restaurant profile picture`}
-              className="w-32 h-32 rounded-lg ml-6"
-              src={getUserImgURL ({ img_url, is_activated })}
-            />
+            <div className="flex flex-col items-end gap-3">
+              <img
+                alt={`${_id} restaurant profile picture`}
+                className="w-32 h-32 rounded-lg"
+                src={getUserImgURL ({ img_url, is_activated })}
+              />
+              <StarRating _id={_id} nrOfReviews={nrOfReviews} rating={rating} />
+            </div>
           </div>
-          {description && (
-            <div className="mx-3">
-              <p className="text-md text-gray-500">{description}</p>
-            </div>
-          )}
-          <div className="divider text-xl font-semibold mx-0 my-4">Details</div>
+          <div className="divider text-base font-semibold mx-0 my-4">Details</div>
           <div className="mx-4 my-0">
             <div className="flex justify-between text-base">
               <strong>Dishes:</strong>
               <span>{nrOfDishes.toLocaleString("en-US")}</span>
-            </div>
-            <div className="flex justify-between items-center text-base">
-              <strong>Rating:</strong>
-              <StarRating _id={_id} nrOfReviews={nrOfReviews} rating={rating} starsSize="sm" textSize="sm" />
             </div>
             {web_page && (
               <div className="flex justify-between text-base">
@@ -85,9 +80,9 @@ const RestaurantCard = ({ _id, description, followers, img_url, is_activated, is
             )}
           </div>
           <div className="mb-6">
-            <div className="divider text-xl font-semibold mt-6">Achievements</div>
+            <div className="divider text-base font-semibold mt-6">Achievements</div>
             {achievements && achievements.length > 0 && (
-              <div className="flex justify-center space-x-4 mt-2">
+              <div className="flex flex-wrap justify-center gap-y-2 gap-x-4 mt-2">
                 {achievements.map((achievement, index) => (
                   <img key={index} alt={`Achievement ${index + 1}`} className="w-12 h-12 rounded-full" src={achievement} />
                 ))}

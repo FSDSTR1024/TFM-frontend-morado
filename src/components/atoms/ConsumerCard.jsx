@@ -46,7 +46,7 @@ const ConsumerCard = ({ _id, img_url, is_activated, isConsumerOnline, isTheNewes
 
   return (
     <div className="indicator">
-      <div className="card border border-base-300 w-60 bg-base-100 shadow-xl indicator">
+      <div className="card border border-base-300 w-56 bg-base-100 shadow-xl indicator">
         {isTheNewest && <span className="indicator-item badge badge-primary font-semibold">NEW</span>}
         <div className="card-body flex justify-between p-0">
           <div className="flex items-center my-4 mx-2 justify-between">
@@ -60,7 +60,7 @@ const ConsumerCard = ({ _id, img_url, is_activated, isConsumerOnline, isTheNewes
               <p className="text-lg text-gray-600">{surname}</p>
             </div>
           </div>
-          <div className="divider text-xl font-semibold m-0">Reviews</div>
+          <div className="divider text-sm font-semibold m-0">Reviews</div>
           <div className="m-3 mt-2 mb-0">
             <div className="flex justify-between text-base">
               <strong>Dishes:</strong>
@@ -72,9 +72,9 @@ const ConsumerCard = ({ _id, img_url, is_activated, isConsumerOnline, isTheNewes
             </div>
           </div>
           <div className="mb-6">
-            <div className="divider text-xl font-semibold mt-4">Achievements</div>
+            <div className="divider text-sm font-semibold mt-4">Achievements</div>
             {achievements && achievements.length > 0 && (
-              <div className="flex justify-center space-x-4 mt-2">
+              <div className="flex flex-wrap justify-center gap-y-2 gap-x-4 mt-2">
                 {achievements.map((achievement, index) => (
                   <img key={index} alt={`Achievement ${index + 1}`} className="w-10 h-10" src={achievement} />
                 ))}
