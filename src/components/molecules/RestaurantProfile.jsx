@@ -85,6 +85,7 @@ const RestaurantProfile = ({ restaurantId }) => {
     <>
       {isLoggedRestaurant && (
         <>
+          <ModalOnDishAdd {...restaurant} />
           <ModalOnRestaurantEdit editableFields={editableFields} {...restaurant} />
           <ModalOnWrongFileType />
         </>

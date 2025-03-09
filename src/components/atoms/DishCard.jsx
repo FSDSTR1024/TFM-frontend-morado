@@ -1,19 +1,42 @@
 /*********************************************** External Node modules ************************************************/
-import { useCallback } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 /************************************************* Internal libraries *************************************************/
+import { AuthContext, WebSocketContext } from "/src/contexts";
+import { dishAPI } from "/src/api";
 import { foodAllergenImgUrls } from "/src/constants";
 import { getImgURL } from "/src/utils";
 import { StarRating } from "/src/components/atoms";
 
 /************************************************ Component Definition ************************************************/
 const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrOfReviews, price, rating, restaurant }) => {
+  const { loggedUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { wsUpdateUserProfile } = useContext(WebSocketContext);
 
   const handleOnCardClick = useCallback(() => {
     navigate(`/dishes/${_id}`);
   }, [_id]);
+
+  const handleOnDeleteClick = useCallback(async() => {
+    if (confirm("Are you sure you want to delete this dish?") === true) {
+      try {
+        await dishAPI.deleteDish(_id);
+        wsUpdateUserProfile();
+      } catch (error) {
+        const errorText = `Food dish ${_id} could not be deleted!`;
+        logger.error(errorText, error);
+      }
+    }
+  }, []);
+
+  const [isOwnDish, setIsOwnDish] = useState(false);
+  useEffect(() => {
+    if (loggedUser) {
+      setIsOwnDish(loggedUser.role === "restaurants" && loggedUser._id === restaurant._id);
+    }
+  }, [loggedUser, restaurant]);
 
   return (
     <div className="indicator">
@@ -52,8 +75,11 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
           </div>
         </div>
       </div>
-      <div className="indicator-item indicator-bottom indicator-center flex justify-center">
+      <div className="indicator-item indicator-bottom indicator-center flex justify-center gap-7">
         <button className="btn glass btn-outline btn-info btn-sm" onClick={handleOnCardClick}>View</button>
+        {isOwnDish && (
+          <button className="btn glass btn-outline btn-error btn-sm" onClick={handleOnDeleteClick}>Delete</button>
+        )}
       </div>
     </div>
   );
