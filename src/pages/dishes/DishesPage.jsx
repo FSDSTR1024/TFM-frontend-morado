@@ -14,11 +14,13 @@ const logger = new Logger("DishesPage");
 const DishesPage = () => {
   const [allDishes, setAllDishes] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const getDishes = async () => {
       try {
         const { allDishes } = await dishAPI.getAllDishes();
         setAllDishes(allDishes);
+        setIsLoading(false);
       } catch (error) {
         setAllDishes([]);
         const errorText = "There was an error while trying to fetch all food Dishes!";
@@ -68,6 +70,8 @@ const DishesPage = () => {
       filterMethod={filterMethod}
       headerSubtitle="Find the perfect food plate to satisfy your cravings"
       headerTitle="Nyam! Dishes"
+      isLoading={isLoading}
+      itemsKind="food dishes"
       itemsList={allDishes}
     />
   );

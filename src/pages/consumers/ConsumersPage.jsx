@@ -14,11 +14,13 @@ const logger = new Logger("ConsumersPage");
 const ConsumersPage = () => {
   const [allConsumers, setAllConsumers] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const getConsumers = async () => {
       try {
         const { allConsumers } = await userAPI.getAllConsumers();
         setAllConsumers(allConsumers);
+        setIsLoading(false);
       } catch (error) {
         setAllConsumers([]);
         const errorText = "There was an error while trying to fetch all Consumer users!";
@@ -68,6 +70,8 @@ const ConsumersPage = () => {
       filterMethod={filterMethod}
       headerSubtitle="The amazing community members"
       headerTitle="Nyam! Consumers"
+      isLoading={isLoading}
+      itemsKind="consumer users"
       itemsList={allConsumers}
     />
   );

@@ -14,11 +14,13 @@ const logger = new Logger("RestaurantsPage");
 const RestaurantsPage = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const getRestaurants = async () => {
       try {
         const { allRestaurants } = await userAPI.getAllRestaurants();
         setAllRestaurants(allRestaurants);
+        setIsLoading(false);
       } catch (error) {
         setAllRestaurants([]);
         const errorText = "There was an error while trying to fetch all Restaurant users!";
@@ -70,6 +72,8 @@ const RestaurantsPage = () => {
       filterMethod={filterMethod}
       headerSubtitle="Discover the best places to eat"
       headerTitle="Nyam! Restaurants"
+      isLoading={isLoading}
+      itemsKind="restaurant users"
       itemsList={allRestaurants}
     />
   );

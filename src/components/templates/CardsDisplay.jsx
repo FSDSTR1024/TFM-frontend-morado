@@ -2,11 +2,12 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
+import { Loading } from "/src/components/atoms";
 import { useCards } from "/src/hooks";
 import { WebSocketContext } from "/src/contexts";
 
 /************************************************ Component Definition ************************************************/
-const CardsDisplay = ({ CardComponent, cardProperties, filterMethod, headerSubtitle, headerTitle, itemsList }) => {
+const CardsDisplay = ({ CardComponent, cardProperties, filterMethod, headerSubtitle, headerTitle, itemsKind, itemsList, isLoading }) => {
   const { getNewestItem, getSortedFilteredItems } = useCards();
   const { wsGetOnlineUsers, wsOnlineConsumers, wsOnlineRestaurants } = useContext(WebSocketContext);
 
@@ -46,7 +47,8 @@ const CardsDisplay = ({ CardComponent, cardProperties, filterMethod, headerSubti
       <div className="text-center mb-4">
         <h1 className="text-4xl font-bold mb-2">{headerTitle}</h1>
         <p className="text-lg text-gray-600">
-          {headerSubtitle} (total: {itemsList.length})
+          <span>{headerSubtitle}</span>
+          {!isLoading && <span> (total: {itemsList.length})</span>}
         </p>
       </div>
 
@@ -111,7 +113,17 @@ const CardsDisplay = ({ CardComponent, cardProperties, filterMethod, headerSubti
 
       {/* Cards */}
       <div className="flex flex-wrap justify-center gap-x-5 gap-y-7 max-w-7xl mt-6">
-        {sortedFilteredItems &&
+        {isLoading ? (
+          <Loading />
+        ) : !sortedFilteredItems ? (
+          <div className="px-6 py-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            <p className="text-lg font-semibold">
+              <span>No </span>
+              <span className="underline">{itemsKind}</span>
+              <span> were found in the database...</span>
+            </p>
+          </div>
+        ) : (
           sortedFilteredItems.map((item) => {
             return (
               <CardComponent
@@ -122,7 +134,8 @@ const CardsDisplay = ({ CardComponent, cardProperties, filterMethod, headerSubti
                 {...item}
               />
             );
-          })}
+          })
+        )}
       </div>
     </section>
   );

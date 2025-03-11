@@ -56,7 +56,6 @@ const HalfUncheckedStar = memo(({ _id }) => (
 
 /************************************************ Component Definition ************************************************/
 const StarRating = ({ _id, nrOfReviews, rating }) => {
-
   return (
     <div className="flex flex-col items-end">
       <div className="flex items-center gap-2">

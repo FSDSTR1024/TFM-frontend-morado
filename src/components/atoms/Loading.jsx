@@ -25,7 +25,7 @@ const Loading = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-full bg-base-200">
+    <div className="flex flex-col items-center justify-center w-full bg-base-200">
       <p className="text-2xl text-gray-600 mb-4">Loading, please wait...</p>
       <span className={`loading loading-infinity loading-lg text-${colors[colorIndex]}`}></span>
     </div>
