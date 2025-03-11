@@ -22,12 +22,17 @@ const OnlineWsIcon = memo(() => (
 
 /************************************************ Component Definition ************************************************/
 const Header = () => {
-  const { wsIsConnected } = useContext(WebSocketContext);
+  const { wsGetIsConnected, wsIsConnected } = useContext(WebSocketContext);
 
   const [isConnected, setIsConnected] = useState(wsIsConnected);
   useEffect(() => {
     setIsConnected(wsIsConnected);
   }, [wsIsConnected]);
+
+  /* Ask if the WebSocket is on live */
+  useEffect(() => {
+    wsGetIsConnected();
+  }, [wsGetIsConnected]);
 
   return (
     <header className="navbar bg-base-100 flex justify-between items-center w-full sticky top-0 z-50 shadow-md">

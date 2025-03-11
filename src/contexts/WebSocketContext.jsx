@@ -11,6 +11,7 @@ const logger = new Logger("WebSocketContext");
 
 /*********************************************** Initial context object ***********************************************/
 const initialContext = {
+  wsGetIsConnected: () => "Out of context",
   wsGetOnlineUsers: () => "Out of context",
   wsIsConnected: false,
   wsLogoutUser: () => "Out of context",
@@ -48,6 +49,12 @@ const WebSocketContextProvider = ({ children }) => {
   }, [loggedUser]);
 
   /* Public methods */
+  const wsGetIsConnected = useCallback(() => {
+    const { socket } = getSocket();
+    logger.debug(`(${socket.id}) Asking if the websocket is still on live.`);
+    socket.emit("get is connected");
+  }, []);
+
   const wsGetOnlineUsers = useCallback(() => {
     const { socket } = getSocket();
     logger.debug(`(${socket.id}) Asking for the online users list.`);
@@ -84,6 +91,11 @@ const WebSocketContextProvider = ({ children }) => {
       setWsIsConnected(false);
     };
 
+    const onIsConnected = () => {
+      logger.debug(`(${socket.id}) Still connected to the websocket server.`);
+      setWsIsConnected(true);
+    };
+
     const onReloadLoggedUser = () => {
       refresh((prevState) => !prevState);
     };
@@ -96,12 +108,14 @@ const WebSocketContextProvider = ({ children }) => {
 
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
+    socket.on("is connected", onIsConnected);
     socket.on("reload logged user", onReloadLoggedUser);
     socket.on("update online users", onUpdateOnlineUsers);
 
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
+      socket.off("is connected", onIsConnected);
       socket.off("reload logged user", onReloadLoggedUser);
       socket.off("update online users", onUpdateOnlineUsers);
     };
@@ -112,6 +126,7 @@ const WebSocketContextProvider = ({ children }) => {
   }, [loggedUser]);
 
   const valueObj = {
+    wsGetIsConnected,
     wsGetOnlineUsers,
     wsIsConnected,
     wsLogoutUser,
