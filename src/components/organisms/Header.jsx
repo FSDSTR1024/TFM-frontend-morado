@@ -4,6 +4,7 @@ import { memo, useContext, useEffect, useState } from "react";
 /************************************************* Internal libraries *************************************************/
 import { AuthBtns } from "/src/components/molecules";
 import { NavBar } from "/src/components/atoms";
+import NyamLogo from "/NyamLogo.png";
 import { WebSocketContext } from "/src/contexts";
 
 /********************************************** Subcomponents Definition **********************************************/
@@ -40,7 +41,7 @@ const Header = () => {
         <img
           alt="Nyam! application logo"
           className="h-14"
-          src="https://static.vecteezy.com/system/resources/thumbnails/026/990/597/small_2x/one-continuous-line-drawing-of-knife-and-fork-with-ribbon-for-restaurant-logo-emblem-luxury-cafe-shop-logotype-template-concept-modern-single-line-draw-design-graphic-illustration-png.png"
+          src={NyamLogo}
         />
         <div>
           <div className="flex items-center gap-3">

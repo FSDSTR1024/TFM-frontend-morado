@@ -1,3 +1,6 @@
+/************************************************* Internal libraries *************************************************/
+import NyamLogo from "/NyamLogo.png";
+
 /************************************************ Component Definition ************************************************/
 const Footer = () => {
   return (
@@ -5,11 +8,10 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap justify-center items-center">
           <div className="w-full md:w-2/3 mb-6 md:mb-0 text-center">
-            <h2 className="text-2xl font-bold mb-2">Nyam! App</h2>
             <img
               alt="Nyam! application logo"
               className="mx-auto mb-4 h-14"
-              src="https://static.vecteezy.com/system/resources/thumbnails/026/990/597/small_2x/one-continuous-line-drawing-of-knife-and-fork-with-ribbon-for-restaurant-logo-emblem-luxury-cafe-shop-logotype-template-concept-modern-single-line-draw-design-graphic-illustration-png.png"
+              src={NyamLogo}
             />
             <p className="text-gray-600">A TFM project developed by Martí Planagumà Solà.</p>
           </div>
