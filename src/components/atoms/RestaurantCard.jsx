@@ -1,6 +1,6 @@
 /*********************************************** External Node modules ************************************************/
 import { useCallback, useContext, useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
 import { AuthContext } from "/src/contexts";
