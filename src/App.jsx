@@ -6,8 +6,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
 import { AuthContextProvider, NotificationsContextProvider, WebSocketContextProvider } from "/src/contexts";
-import { ConsumersPage, DishesPage, HomePage, LoginPage, ProfilePage, RegisterPage, RestaurantsPage, SpecificRestaurantPage } from "./pages";
-import { Footer, ModalOnLogin, ModalOnLogout, ModalOnRegister } from "/src/components/atoms";
+import { ConsumersPage, DishesPage, HomePage, LoginPage, ProfilePage, RegisterPage, RestaurantsPage, SpecificRestaurantPage, UserActivationPage } from "./pages";
+import { Footer, ModalOnLogin, ModalOnLogout, ModalOnRegister, ModalOnUserInvalidActivation, ModalOnUserPreviousActivation, ModalOnUserValidActivation } from "/src/components/atoms";
 import { Header } from "/src/components/organisms";
 import { Logger } from "/src/utils";
 
@@ -27,6 +27,9 @@ const App = () => (
               <ModalOnLogin />
               <ModalOnLogout />
               <ModalOnRegister />
+              <ModalOnUserInvalidActivation />
+              <ModalOnUserPreviousActivation />
+              <ModalOnUserValidActivation />
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/consumers" element={<ConsumersPage />} />
@@ -36,6 +39,7 @@ const App = () => (
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/restaurants" element={<RestaurantsPage />} />
                 <Route path="/restaurants/:restaurantId" element={<SpecificRestaurantPage />} />
+                <Route path="/:userKind/:userId/activate" element={<UserActivationPage />} />
               </Routes>
             </main>
             <Footer />

@@ -7,6 +7,17 @@ import { ProfilePage } from "./ProfilePage.jsx";
 import { RegisterPage } from "./RegisterPage.jsx";
 import { RestaurantsPage } from "./restaurants/RestaurantsPage.jsx";
 import { SpecificRestaurantPage } from "./restaurants/SpecificRestaurantPage.jsx";
+import { UserActivationPage } from "./UserActivationPage.jsx";
 
 /********************************************* Named exports (ES module) **********************************************/
-export { ConsumersPage, DishesPage, HomePage, LoginPage, ProfilePage, RegisterPage, RestaurantsPage, SpecificRestaurantPage };
+export {
+  ConsumersPage,
+  DishesPage,
+  HomePage,
+  LoginPage,
+  ProfilePage,
+  RegisterPage,
+  RestaurantsPage,
+  SpecificRestaurantPage,
+  UserActivationPage
+};

@@ -9,6 +9,9 @@ import { LogoutButton } from "./LogoutButton.jsx";
 import { ModalOnLogin } from "./ModalOnLogin.jsx";
 import { ModalOnLogout } from "./ModalOnLogout.jsx";
 import { ModalOnRegister } from "./ModalOnRegister.jsx";
+import { ModalOnUserInvalidActivation } from "./ModalOnUserInvalidActivation.jsx";
+import { ModalOnUserPreviousActivation } from "./ModalOnUserPreviousActivation.jsx";
+import { ModalOnUserValidActivation } from "./ModalOnUserValidActivation.jsx";
 import { ModalOnWrongFileType } from "./ModalOnWrongFileType.jsx";
 import { NavBar } from "./NavBar.jsx";
 import { NotificationCard } from "./NotificationCard.jsx";
@@ -29,6 +32,9 @@ export {
   ModalOnLogin,
   ModalOnLogout,
   ModalOnRegister,
+  ModalOnUserInvalidActivation,
+  ModalOnUserPreviousActivation,
+  ModalOnUserValidActivation,
   ModalOnWrongFileType,
   NavBar,
   NotificationCard,
