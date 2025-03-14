@@ -2,7 +2,7 @@
 import { CLOUDINARY_URL } from "/src/constants";
 import { tramsformCloudinaryURL } from "/src/utils";
 
-/************************************************** User APIs object **************************************************/
+/*********************************************** Cloudinary APIs object ***********************************************/
 const cloudinaryAPI = {
   uploadImage: async ({ uploadData }) => {
     const response = await fetch(`${CLOUDINARY_URL}/image/upload`, { body: uploadData, method: "POST" });
