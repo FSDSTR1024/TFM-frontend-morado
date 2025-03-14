@@ -13,7 +13,7 @@ const ProfilePic = () => {
   return !loggedUser ? null : (
     <div className="dropdown dropdown-end">
       <div className="avatar btn btn-circle btn-ghost" role="button" tabIndex={0}>
-        <div className="ring-1 ring-offset-2 ring-offset-base-100 ring-primary rounded-full w-12">
+        <div className="ring-1 ring-offset-2 ring-offset-base-100 ring-primary rounded-full w-10">
           <img alt={`${loggedUser._id} profile picture`} src={roundImg({ imgURL: getUserImgURL({ ...loggedUser }) })} />
         </div>
       </div>

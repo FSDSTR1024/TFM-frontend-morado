@@ -4,11 +4,11 @@ import { NavLink } from "react-router-dom";
 /************************************************ Component Definition ************************************************/
 const NavBar = () => (
   <nav className="navbar-center hidden lg:flex">
-    <ul className="menu menu-horizontal gap-2">
+    <ul className="menu menu-horizontal gap-5 flex items-center">
       <li>
-        <NavLink className="text-base" to="/">
+        <NavLink to="/">
           <svg
-            className="h-5 w-5"
+            className="h-7 w-7"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -24,17 +24,17 @@ const NavBar = () => (
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-base" to="/consumers">
+        <NavLink className="text-lg" to="/consumers">
           Consumers
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-base" to="/dishes">
+        <NavLink className="text-lg" to="/dishes">
           Dishes
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-base" to="/restaurants">
+        <NavLink className="text-lg" to="/restaurants">
           Restaurants
         </NavLink>
       </li>

@@ -20,7 +20,7 @@ const LogoutButton = () => {
   }, [wsLogoutUser]);
 
   return (
-    <button className="btn btn-sm btn-error btn-outline" onClick={handleLogout}>
+    <button className="btn btn-error btn-outline" onClick={handleLogout}>
       Logout
     </button>
   );

@@ -15,7 +15,7 @@ const ProfileButton = () => {
   }, [loggedUser]);
 
   return (
-    <button className="btn btn-sm btn-warning btn-outline" onClick={handleOnClick}>
+    <button className="btn btn-warning btn-outline" onClick={handleOnClick}>
       Profile
     </button>
   );
