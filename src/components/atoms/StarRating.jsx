@@ -55,12 +55,12 @@ const HalfUncheckedStar = memo(({ _id }) => (
 ));
 
 /************************************************ Component Definition ************************************************/
-const StarRating = ({ _id, nrOfReviews, rating }) => {
+const StarRating = ({ _id, nrOfReviews, rating, showReviews = true }) => {
   const intRating = Math.floor(rating);
   const timestamp = Date.now();
   return (
     <div className="flex flex-col items-end">
-      <div className="flex items-center gap-2">
+      <div className="flex gap-2">
         <div className="rating rating-sm rating-half">
           <input className="rating-hidden cursor-default" defaultChecked name={`rating-11_${_id}`} type="radio" />
           {[...Array(Math.floor(intRating / 2))].map((_, index) => (
@@ -78,7 +78,7 @@ const StarRating = ({ _id, nrOfReviews, rating }) => {
         </div>
         {nrOfReviews > 0 ? <p className="text-sm text-gray-600">({rating.toFixed(1)})</p> : null}
       </div>
-      <p className="text-sm text-gray-600 font-semibold">{nrOfReviews.toLocaleString("en-US")} reviews</p>
+      {showReviews && <p className="text-sm text-gray-600 font-semibold">{nrOfReviews.toLocaleString("en-US")} reviews</p>}
     </div>
   );
 };
