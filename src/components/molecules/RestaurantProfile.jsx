@@ -160,8 +160,8 @@ const RestaurantProfile = ({ restaurantId }) => {
             {restaurantDishes.length === 0 ? (
               <p className="text-lg text-gray-400">No dishes found for this restaurant.</p>
             ) : (
-              restaurantDishes.map((dish) => (
-                <DishCard key={dish._id} {...dish} />
+              restaurantDishes.map((dish, index) => (
+                <DishCard isTheNewest={index === restaurantDishes.length - 1} key={dish._id} {...dish} />
               ))
             )}
           </div>
