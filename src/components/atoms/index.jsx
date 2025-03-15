@@ -6,6 +6,7 @@ import { Footer } from "./Footer.jsx";
 import { FormField } from "./FormField.jsx";
 import { Loading } from "./Loading.jsx";
 import { LogoutButton } from "./LogoutButton.jsx";
+import { ModalOnLoading } from "./ModalOnLoading.jsx";
 import { ModalOnLogin } from "./ModalOnLogin.jsx";
 import { ModalOnLogout } from "./ModalOnLogout.jsx";
 import { ModalOnRegister } from "./ModalOnRegister.jsx";
@@ -29,6 +30,7 @@ export {
   FormField,
   Loading,
   LogoutButton,
+  ModalOnLoading,
   ModalOnLogin,
   ModalOnLogout,
   ModalOnRegister,
