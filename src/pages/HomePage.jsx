@@ -1,8 +1,9 @@
 /*********************************************** External Node modules ************************************************/
-import { memo, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
+import { AuthContext } from "/src/contexts";
 import { dishAPI, userAPI } from "/src/api";
 import HomeImage from "/src/assets/HomeImage.png";  // DALL·E 2025-03-14 19.18.34 - A warm and inviting display of beautifully plated dishes on a wooden restaurant table. The table is set with a variety of dishes, including a salad, a pasta dish, and a dessert. The dishes are garnished with fresh herbs and edible flowers. The table is set with a white tablecloth and a small vase of flowers. The background is a warm, inviting restaurant setting with soft lighting and a cozy atmosphere. - Image by OpenAI
 import { StarRating } from "/src/components/atoms";
@@ -19,6 +20,7 @@ const LoadingDots = memo(() => (
 
 /**************************************************** Page Content ****************************************************/
 const HomePage = () => {
+  const { loggedUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [isLoadingConsumers, setIsLoadingConsumers] = useState(true);
@@ -141,7 +143,7 @@ const HomePage = () => {
                             <div className={`badge ${index < 3 ? 'badge-primary' : 'badge-ghost'} mr-2 px-2`}>
                               {index + 1}
                             </div>
-                            <span>{restaurant.name}</span>
+                            <span className={`${loggedUser?.email === restaurant.email ? "text-emerald-300 text-xl font-semibold" : ""}`}>{restaurant.name}</span>
                           </div>
                           <div className="badge py-4 pl-0 pr-2">
                             <StarRating showReviews={false} {...restaurant} />
@@ -211,7 +213,7 @@ const HomePage = () => {
                             <div className={`badge ${index < 3 ? 'badge-accent' : 'badge-ghost'} mr-2 px-2`}>
                               {index + 1}
                             </div>
-                            <span>{consumer.name} {consumer.surname}</span>
+                            <span className={`${loggedUser?.email === consumer.email ? "text-yellow-300 text-xl font-semibold" : ""}`}>{consumer.name} {consumer.surname}</span>
                           </div>
                           <span className="font-mono badge px-2 py-3">{consumer.reviewed_dishes} revs.</span>
                         </li>
