@@ -121,7 +121,7 @@ const HomePage = () => {
             {/* Top Restaurants Leaderboard */}
             <div className="card bg-gradient-to-b from-violet-900/80 to-violet-800/80 shadow-xl border border-violet-500/30 backdrop-blur-sm hover:shadow-violet-500/20 transition-all duration-300 transform hover:-translate-y-1">
               <div className="card-body p-5">
-                <h2 className="card-title text-center justify-center text-violet-200 font-bold mb-0">
+                <h2 className="card-title text-center justify-center text-violet-200 font-bold mb-0 cursor-pointer" onClick={() => navigate("/restaurants")}>
                   <span>🍽️</span>
                   <span>Top-Rated Restaurants</span>
                 </h2>
@@ -156,7 +156,7 @@ const HomePage = () => {
             {/* Top Dishes Leaderboard */}
             <div className="card bg-gradient-to-b from-pink-900/80 to-pink-800/80 shadow-xl border border-pink-500/30 backdrop-blur-sm hover:shadow-pink-500/20 transition-all duration-300 transform hover:-translate-y-1">
               <div className="card-body p-5">
-                <h2 className="card-title text-center justify-center text-pink-200 font-bold mb-0">
+                <h2 className="card-title text-center justify-center text-pink-200 font-bold mb-0 cursor-pointer" onClick={() => navigate("/dishes")}>
                   <span>🤤</span>
                   <span>Fan Favorite Dishes</span>
                 </h2>
@@ -191,7 +191,7 @@ const HomePage = () => {
             {/* Top Consumers Leaderboard */}
             <div className="card bg-gradient-to-b from-teal-900/80 to-teal-800/80 shadow-xl border border-teal-500/30 backdrop-blur-sm hover:shadow-teal-500/20 transition-all duration-300 transform hover:-translate-y-1">
               <div className="card-body p-5">
-                <h2 className="card-title text-center justify-center text-teal-200 font-bold mb-0">
+                <h2 className="card-title text-center justify-center text-teal-200 font-bold mb-0 cursor-pointer" onClick={() => navigate("/consumers")}>
                   <span>🏆</span>
                   <span>Most Active Foodies</span>
                 </h2>
