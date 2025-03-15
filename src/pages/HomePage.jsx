@@ -223,7 +223,7 @@ const HomePage = () => {
             </div>
           </div>
           {/* Call to Action */}
-          <button className="btn btn-primary btn-lg glass animate-pulse">Start Exploring</button>
+          <button className="btn btn-primary btn-lg glass animate-pulse" onClick={() => navigate("/dishes")}>Start Exploring</button>
         </div>
       </div>
     </div>
