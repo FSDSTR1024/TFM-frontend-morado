@@ -61,6 +61,7 @@ const ModalOnDishAdd = ({ _id }) => {
       if (newDishID) {
         closeModal();
         wsUpdateUserProfile();
+        window.location.reload();
       }
     }
   }, [submitForm, registerDish]);
