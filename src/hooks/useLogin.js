@@ -17,7 +17,7 @@ const useLogin = () => {
   const login = async (credentials) => {
     setError(null);
     try {
-      const token = await authAPI.login(credentials);
+      const { token } = await authAPI.login(credentials);
       setToken(token);
       return token;
     } catch (error) {
