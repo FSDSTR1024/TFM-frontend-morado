@@ -12,6 +12,7 @@ const ProfileButton = () => {
 
   const handleOnClick = useCallback(() => {
     navigate("/profile", { state: { loggedUser } });
+    window.location.reload();
   }, [loggedUser]);
 
   return (
