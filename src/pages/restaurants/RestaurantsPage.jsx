@@ -33,10 +33,23 @@ const RestaurantsPage = () => {
 
   const [locationFilter, setLocationFilter] = useState("");
   const [nameFilter, setNameFilter] = useState("");
+  const [phoneFilter, setPhoneFilter] = useState("");
+  const [webPageFilter, setWebPageFilter] = useState("");
   const filterMethod = (restaurant) => {
     const locationMatches = restaurant.location.toLowerCase().includes(locationFilter.toLowerCase());
     const nameMatches = restaurant.name.toLowerCase().includes(nameFilter.toLowerCase());
-    return locationMatches && nameMatches;
+    let phoneMatches, webPageMatches;
+    if (!restaurant.phone) {
+      phoneMatches = false;
+    } else {
+      phoneMatches = restaurant.phone.toString().toLowerCase().includes(phoneFilter.toLowerCase());
+    }
+    if (!restaurant.web_page) {
+      webPageMatches = false;
+    } else {
+      webPageMatches = restaurant.web_page.toLowerCase().includes(webPageFilter.toLowerCase());
+    }
+    return locationMatches && nameMatches && phoneMatches && webPageMatches;
   };
   const cardProperties = [
     { text: "Antiquity", value: "createdAt" },
@@ -60,9 +73,26 @@ const RestaurantsPage = () => {
       text: "Name",
       value: "name"
     },
-    { text: "Phone", value: "phone" },
+    {
+      filter: {
+        inputType: "text",
+        onChangeMethod: (event) => setPhoneFilter(event.target.value),
+        value: phoneFilter
+      },
+      text: "Phone",
+      value: "phone"
+    },
     { text: "Rating", value: "rating" },
-    { text: "Reviews", value: "nrOfReviews" }
+    { text: "Reviews", value: "nrOfReviews" },
+    {
+      filter: {
+        inputType: "text",
+        onChangeMethod: (event) => setWebPageFilter(event.target.value),
+        value: webPageFilter
+      },
+      text: "Web Page",
+      value: "web_page"
+    }
   ];
 
   return (
