@@ -1,5 +1,6 @@
 /************************************************ Node modules needed ************************************************/
 import { useCallback, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
 import { AuthContext } from "/src/contexts";
@@ -16,8 +17,9 @@ const logger = new Logger("RestaurantProfile");
 /************************************************ Component Definition ************************************************/
 const RestaurantProfile = ({ restaurantId }) => {
   const { loggedUser } = useContext(AuthContext);
-  const [isLoggedRestaurant, setIsLoggedRestaurant] = useState(false);
+  const navigate = useNavigate();
 
+  const [isLoggedRestaurant, setIsLoggedRestaurant] = useState(false);
   const [restaurant, setRestaurant] = useState(null);
   useEffect(() => {
     const getRestaurant = async () => {
@@ -57,14 +59,34 @@ const RestaurantProfile = ({ restaurantId }) => {
       getRestaurantDishes();
     }
   }, [restaurant]);
+
   const handleAddDishClick = useCallback(() => {
     document.getElementById("on_dish_add_modal").showModal();
   }, []);
 
+  const [isLoadingDelete, setIsLoadingDelete] = useState(true);
+  const handleDeleteAccountClick = useCallback(async () => {
+    if (!isLoggedRestaurant) return;
+    if (confirm("Are you sure you want to delete this restaurant account?") === true) {
+      if (confirm("This will be FOREVER. There will not be any going back, or CTRL+Z. Are you REALLY sure?") === true) {
+        document.getElementById("on_loading_modal").showModal();
+        try {
+          await userAPI.deleteUser(loggedUser._id, loggedUser.role);
+          setIsLoadingDelete(false);
+          navigate("/");
+        } catch (error) {
+          const errorText = `Restaurant user ${loggedUser._id} could not be deleted!`;
+          logger.error(errorText, error);
+        }
+      }
+    }
+  }, [isLoggedRestaurant, loggedUser]);
 
-  const handleDeleteAccountClick = useCallback(() => {
-    console.log("Delete account clicked");
-  }, []);
+  useEffect(() => {
+    if (!isLoadingDelete) {
+      document.getElementById("on_loading_modal").close();
+    }
+  }, [isLoadingDelete]);
 
   const handleEditProfileClick = useCallback(() => {
     document.getElementById("on_restaurant_edit_modal").showModal();

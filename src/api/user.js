@@ -5,6 +5,7 @@ import { axiosInstance } from "./axios.js";
 const userAPI = {
   createConsumer: async (formData) => await axiosInstance.post("/users/consumers", formData),
   createRestaurant: async (formData) => await axiosInstance.post("/users/restaurants", formData),
+  deleteUser: async (userId, userRole) => await axiosInstance.delete(`/users/${userRole}/${userId}`),
   getAllConsumers: async () => await axiosInstance.get("/users/consumers"),
   getAllRestaurants: async () => await axiosInstance.get("/users/restaurants"),
   getConsumerById: async (consumerId) => await axiosInstance.get(`/users/consumers/${consumerId}`),
