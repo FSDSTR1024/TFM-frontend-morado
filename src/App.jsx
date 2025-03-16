@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthContextProvider, NotificationsContextProvider, WebSocketContextProvider } from "/src/contexts";
 import { ConsumersPage, DishesPage, HomePage, LoginPage, ProfilePage, RegisterPage, RestaurantsPage, SpecificRestaurantPage, UserActivationPage } from "./pages";
 import { Footer, ModalOnLoading, ModalOnLogin, ModalOnLogout, ModalOnRegister, ModalOnUserInvalidActivation, ModalOnUserPreviousActivation, ModalOnUserValidActivation } from "/src/components/atoms";
+import { GoToTopButton } from "./components/protons";
 import { Header } from "/src/components/organisms";
 import { Logger } from "/src/utils";
 
@@ -42,6 +43,7 @@ const App = () => (
                 <Route path="/restaurants/:restaurantId" element={<SpecificRestaurantPage />} />
                 <Route path="/:userKind/:userId/activate" element={<UserActivationPage />} />
               </Routes>
+              <GoToTopButton />
             </main>
             <Footer />
           </NotificationsContextProvider>
