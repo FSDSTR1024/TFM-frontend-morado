@@ -42,12 +42,14 @@ const RestaurantProfile = ({ restaurantId }) => {
     }
   }, [loggedUser, restaurantId]);
 
+  const [isLoadingDishes, setIsLoadingDishes] = useState(true);
   const [restaurantDishes, setRestaurantDishes] = useState([]);
   useEffect(() => {
     const getRestaurantDishes = async () => {
       try {
         const { restaurantDishes } = await dishAPI.getDishesByRestaurantId(restaurant._id);
         setRestaurantDishes(restaurantDishes);
+        setIsLoadingDishes(false);
       } catch (error) {
         setRestaurantDishes([]);
         const errorText = "There was an error while trying to fetch the Restaurant dishes!";
@@ -179,13 +181,16 @@ const RestaurantProfile = ({ restaurantId }) => {
         <div className="bg-base-200 shadow-xl rounded-lg p-6">
           <h2 className="text-3xl font-bold mb-4">All Dishes</h2>
           <div className="flex flex-wrap justify-evenly gap-y-8 mb-2">
-            {restaurantDishes.length === 0 ? (
+            {isLoadingDishes ? (
+              <Loading />
+            ) :(
+            restaurantDishes.length === 0 ? (
               <p className="text-lg text-gray-400">No dishes found for this restaurant.</p>
             ) : (
               restaurantDishes.map((dish, index) => (
                 <DishCard isTheNewest={index === restaurantDishes.length - 1} key={dish._id} {...dish} />
               ))
-            )}
+            ))}
           </div>
         </div>
       </div>
