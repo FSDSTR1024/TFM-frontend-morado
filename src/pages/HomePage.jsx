@@ -6,7 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "/src/contexts";
 import { dishAPI, userAPI } from "/src/api";
 import HomeImage from "/src/assets/HomeImage.png";  // DALL·E 2025-03-14 19.18.34 - A warm and inviting display of beautifully plated dishes on a wooden restaurant table. The table is set with a variety of dishes, including a salad, a pasta dish, and a dessert. The dishes are garnished with fresh herbs and edible flowers. The table is set with a white tablecloth and a small vase of flowers. The background is a warm, inviting restaurant setting with soft lighting and a cozy atmosphere. - Image by OpenAI
+import { Logger } from "/src/utils";
 import { StarRating } from "/src/components/atoms";
+
+/************************************************** Internal logger ***************************************************/
+const logger = new Logger("HomePage");
 
 /***************************************************** Constants ******************************************************/
 const nrOfLeaderboardsItems = 5;
