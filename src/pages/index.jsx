@@ -6,6 +6,7 @@ import { LoginPage } from "./LoginPage.jsx";
 import { ProfilePage } from "./ProfilePage.jsx";
 import { RegisterPage } from "./RegisterPage.jsx";
 import { RestaurantsPage } from "./restaurants/RestaurantsPage.jsx";
+import { SpecificDishPage } from "./dishes/SpecificDishPage.jsx";
 import { SpecificRestaurantPage } from "./restaurants/SpecificRestaurantPage.jsx";
 import { UserActivationPage } from "./UserActivationPage.jsx";
 
@@ -18,6 +19,7 @@ export {
   ProfilePage,
   RegisterPage,
   RestaurantsPage,
+  SpecificDishPage,
   SpecificRestaurantPage,
   UserActivationPage
 };

@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
 import { AuthContextProvider, NotificationsContextProvider, WebSocketContextProvider } from "/src/contexts";
-import { ConsumersPage, DishesPage, HomePage, LoginPage, ProfilePage, RegisterPage, RestaurantsPage, SpecificRestaurantPage, UserActivationPage } from "./pages";
+import { ConsumersPage, DishesPage, HomePage, LoginPage, ProfilePage, RegisterPage, RestaurantsPage, SpecificDishPage, SpecificRestaurantPage, UserActivationPage } from "./pages";
 import { Footer, ModalOnLoading, ModalOnLogin, ModalOnLogout, ModalOnRegister, ModalOnUserInvalidActivation, ModalOnUserPreviousActivation, ModalOnUserValidActivation } from "/src/components/atoms";
 import { GoToTopButton } from "./components/protons";
 import { Header } from "/src/components/organisms";
@@ -36,6 +36,7 @@ const App = () => (
                 <Route path="/" element={<HomePage />} />
                 <Route path="/consumers" element={<ConsumersPage />} />
                 <Route path="/dishes" element={<DishesPage />} />
+                <Route path="/dishes/:dishId" element={<SpecificDishPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/register" element={<RegisterPage />} />

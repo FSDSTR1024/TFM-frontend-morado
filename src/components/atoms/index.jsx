@@ -19,6 +19,7 @@ import { NotificationCard } from "./NotificationCard.jsx";
 import { ProfileButton } from "./ProfileButton.jsx";
 import { ProfilePic } from "./ProfilePic.jsx";
 import { RestaurantCard } from "./RestaurantCard.jsx";
+import { ReviewCard } from "./ReviewCard.jsx";
 import { StarRating } from "./StarRating.jsx";
 
 /********************************************* Named exports (ES module) **********************************************/
@@ -43,5 +44,6 @@ export {
   ProfileButton,
   ProfilePic,
   RestaurantCard,
+  ReviewCard,
   StarRating
 };

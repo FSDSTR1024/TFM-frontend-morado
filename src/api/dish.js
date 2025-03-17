@@ -6,6 +6,7 @@ const dishAPI = {
   createDish: async (formData) => await axiosInstance.post("/dishes", formData),
   deleteDish: async (dishId) => await axiosInstance.delete(`/dishes/${dishId}`),
   getAllDishes: async () => await axiosInstance.get("/dishes"),
+  getDishById: async (dishId) => await axiosInstance.get(`/dishes/${dishId}`),
   getDishesByRestaurantId: async (restaurantId) => await axiosInstance.get(`/dishes/byRestaurant/${restaurantId}`)
 };
 
