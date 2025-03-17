@@ -128,7 +128,7 @@ const RestaurantProfile = ({ restaurantId }) => {
               </div>
               <p className="text-lg text-gray-600 mb-2">📍 {restaurant.location}</p>
               {restaurant.description && (
-                <div className="mb-2 text-xl text-gray-400">
+                <div className="mb-2 text-xl text-gray-400 italic">
                   <TextParagraph text={restaurant.description} />
                 </div>
               )}

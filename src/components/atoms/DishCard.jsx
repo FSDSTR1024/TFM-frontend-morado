@@ -77,7 +77,7 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
             <h2 className="card-title text-xl text-center mt-2 mb-4">{name}</h2>
           </div>
           <div className="divider text-sm font-semibold mx-0 my-2">Description</div>
-          <p className="text-md text-gray-500 mx-4">{description}</p>
+          <p className="text-md text-gray-500 mx-4 italic">{description}</p>
           <div className="divider text-sm font-semibold mx-0 my-2">Price</div>
           <p className="text-md text-gray-500 mx-4 font-semibold text-base text-center">{price} €</p>
           <div className="mb-7">

@@ -49,10 +49,10 @@ const RestaurantCard = ({ _id, description, email, followers, img_url, is_activa
                 <span>{" dishes"}</span>
               </p>
               <p className="text-lg text-gray-600">{location}</p>
-              {description && <p className="text-base text-gray-400 mt-3">{description}</p>}
+              {description && <p className="text-base text-gray-400 mt-3 italic">{description}</p>}
             </div>
             <div className="flex flex-col items-end gap-3">
-              <StarRating _id={_id} nrOfReviews={nrOfReviews} rating={rating} />
+              <StarRating _id={_id} name={name} nrOfReviews={nrOfReviews} rating={rating} role={role} />
               <div className="h-32 w-32">
                 <img
                   alt={`${_id} restaurant profile picture`}
