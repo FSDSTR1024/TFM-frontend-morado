@@ -8,7 +8,7 @@ import { getUserImgURL } from "/src/utils";
 import { StarRating } from "/src/components/atoms";
 
 /************************************************ Component Definition ************************************************/
-const RestaurantCard = ({ _id, description, email, followers, img_url, is_activated, isTheNewest, location, name, nrOfDishes, nrOfReviews, phone, rating, web_page }) => {
+const RestaurantCard = ({ _id, description, email, followers, img_url, is_activated, isTheNewest, location, name, nrOfDishes, nrOfReviews, phone, rating, role, web_page }) => {
   const { loggedUser } = useContext(AuthContext);
   const navigate = useNavigate();
 

@@ -1,5 +1,6 @@
 /************************************************ Node modules needed *************************************************/
-import { memo } from "react";
+import { memo, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 /********************************************** Subcomponents Definition **********************************************/
 const FullCheckedStar = memo(({ _id }) => (
@@ -55,9 +56,16 @@ const HalfUncheckedStar = memo(({ _id }) => (
 ));
 
 /************************************************ Component Definition ************************************************/
-const StarRating = ({ _id, nrOfReviews, rating, showReviews = true }) => {
+const StarRating = ({ _id, nrOfReviews, rating, role, showReviews = true }) => {
+  const navigate = useNavigate();
+
   const intRating = Math.floor(rating);
   const timestamp = Date.now();
+
+  const handleOnReviewsClick = useCallback(() => {
+    navigate(`/${role}/${_id}#reviews`);
+  }, []);
+
   return (
     <div className="flex flex-col items-end">
       <div className="flex gap-2">
@@ -78,7 +86,14 @@ const StarRating = ({ _id, nrOfReviews, rating, showReviews = true }) => {
         </div>
         {nrOfReviews > 0 ? <p className="text-sm text-gray-600">({rating.toFixed(1)})</p> : null}
       </div>
-      {showReviews && <p className="text-sm text-gray-600 font-semibold">{nrOfReviews.toLocaleString("en-US")} reviews</p>}
+      {showReviews && (
+        <p
+          className={`text-sm font-semibold ${nrOfReviews > 0 ? "text-blue-500 cursor-pointer hover:underline" : "text-gray-600"}`}
+          onClick={handleOnReviewsClick}
+        >
+          {nrOfReviews.toLocaleString("en-US")} reviews
+        </p>
+      )}
     </div>
   );
 };
