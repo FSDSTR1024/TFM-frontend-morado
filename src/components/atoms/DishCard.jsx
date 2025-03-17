@@ -4,10 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 /************************************************* Internal libraries *************************************************/
 import { AuthContext, WebSocketContext } from "/src/contexts";
-import { dishAPI } from "/src/api";
+import { dishAPI, reviewAPI } from "/src/api";
 import { foodAllergenImgUrls } from "/src/constants";
-import { getImgURL } from "/src/utils";
+import { getImgURL, Logger } from "/src/utils";
 import { StarRating } from "/src/components/atoms";
+
+/************************************************** Internal logger ***************************************************/
+const logger = new Logger("DishCard");
 
 /************************************************ Component Definition ************************************************/
 const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrOfReviews, price, rating, restaurant }) => {
@@ -16,12 +19,25 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
   const { wsUpdateUserProfile } = useContext(WebSocketContext);
 
   const [isConsumer, setIsConsumer] = useState(false);
-  const [isRated, setIsRated] = useState(false);
   useEffect(() => {
     setIsConsumer(loggedUser?.role === "consumers");
-    // setIsRated(
-    setIsRated(false);
   }, [loggedUser]);
+
+  const [isRated, setIsRated] = useState(false);
+  useEffect(() => {
+    const getIsRated = async () => {
+      try {
+        const { dishReviews } = await reviewAPI.getDishReviews(_id);
+        setIsRated(dishReviews.some((review) => review.user._id === loggedUser._id));
+      } catch (error) {
+        setIsRated(false);
+        const errorText = "There was an error while trying to fetch the dish Reviews!";
+        logger.error(errorText, error);
+      }
+    };
+
+    getIsRated();
+  }, [_id, loggedUser]);
 
   const handleOnCardClick = useCallback(() => {
     navigate(`/dishes/${_id}`);
@@ -97,6 +113,7 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
           isRated ? (
             <button
               className="btn glass btn-outline btn-warning btn-sm flex items-center gap-1"
+              onClick={() => navigate(`/dishes/${_id}#reviews`)}
             >
               <svg
                 className="size-[1.2em]"
