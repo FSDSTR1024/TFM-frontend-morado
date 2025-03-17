@@ -146,7 +146,7 @@ const HomePage = () => {
                       restaurant.nrOfReviews > 0 && (
                         <li
                           className="flex justify-between items-center px-2 py-1 rounded-lg cursor-pointer bg-violet-700/40 hover:bg-violet-600/50 transition-all duration-200"
-                          key={restaurant._idid}
+                          key={restaurant._id}
                           onClick={() => navigate(`/restaurants/${restaurant._id}`)}
                         >
                           <div className="flex items-center">
