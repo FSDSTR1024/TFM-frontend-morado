@@ -117,10 +117,16 @@ const HomePage = () => {
       <div className="hero-content text-neutral-content w-full">
         <div className="flex flex-col items-center gap-10 w-full max-w-7xl">
           {/* Main Title */}
-          <div className="badge bg-white/70 shadow-xl border border-white/20 backdrop-blur-sm px-4 pt-6 pb-7 flex gap-10">
-            <h1 className="text-5xl font-bold text-primary">Find</h1>
-            <h1 className="text-5xl font-bold text-secondary">Taste</h1>
-            <h1 className="text-5xl font-bold text-accent">Rate</h1>
+          <div className="flex items-center w-full max-w-7xl justify-evenly">
+            <div className="badge bg-white/70 shadow-xl border border-white/20 backdrop-blur-sm px-2 pt-6 pb-7">
+              <h1 className="text-5xl font-bold text-primary">Find</h1>
+            </div>
+            <div className="badge bg-white/70 shadow-xl border border-white/20 backdrop-blur-sm px-2 pt-6 pb-7">
+              <h1 className="text-5xl font-bold text-secondary">Taste</h1>
+            </div>
+            <div className="badge bg-white/70 shadow-xl border border-white/20 backdrop-blur-sm px-2 pt-6 pb-7">
+              <h1 className="text-5xl font-bold text-accent">Rate</h1>
+            </div>
           </div>
           {/* Leaderboards Section */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full animate-fadeIn">
