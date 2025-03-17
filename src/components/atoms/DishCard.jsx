@@ -15,6 +15,14 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
   const navigate = useNavigate();
   const { wsUpdateUserProfile } = useContext(WebSocketContext);
 
+  const [isConsumer, setIsConsumer] = useState(false);
+  const [isRated, setIsRated] = useState(false);
+  useEffect(() => {
+    setIsConsumer(loggedUser?.role === "consumers");
+    // setIsRated(
+    setIsRated(false);
+  }, [loggedUser]);
+
   const handleOnCardClick = useCallback(() => {
     navigate(`/dishes/${_id}`);
   }, [_id]);
@@ -85,6 +93,49 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
         </div>
       </div>
       <div className="indicator-item indicator-bottom indicator-center flex justify-center gap-7">
+        {isConsumer && (
+          isRated ? (
+            <button
+              className="btn glass btn-outline btn-warning btn-sm flex items-center gap-1"
+            >
+              <svg
+                className="size-[1.2em]"
+                fill="currentColor"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 3l2.83 5.74L21 9.75l-4.5 4.38L17.66 21 12 17.72 6.34 21l1.16-6.87L3 9.75l6.17-.99L12 3z"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span>Rated</span>
+            </button>
+          ) : (
+            <button
+              className="btn glass btn-outline btn-warning btn-sm flex items-center gap-1"
+            >
+              <svg
+                className="size-[1.2em]"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 3l2.83 5.74L21 9.75l-4.5 4.38L17.66 21 12 17.72 6.34 21l1.16-6.87L3 9.75l6.17-.99L12 3z"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span>Rate</span>
+            </button>
+          )
+        )}
         <button className="btn glass btn-outline btn-info btn-sm" onClick={handleOnCardClick}>View</button>
         {isOwnDish && (
           <button className="btn glass btn-outline btn-error btn-sm" onClick={handleOnDeleteClick}>Delete</button>
