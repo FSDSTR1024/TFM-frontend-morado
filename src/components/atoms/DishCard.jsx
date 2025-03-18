@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 /************************************************* Internal libraries *************************************************/
 import { AuthContext, WebSocketContext } from "/src/contexts";
-import { dishAPI, reviewAPI } from "/src/api";
+import { dishAPI } from "/src/api";
 import { foodAllergenImgUrls } from "/src/constants";
 import { getImgURL, Logger } from "/src/utils";
 import { RatedButton, ToRateButton } from "/src/components/protons";
