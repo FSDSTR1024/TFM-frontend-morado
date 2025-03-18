@@ -56,7 +56,7 @@ const HalfUncheckedStar = memo(({ _id }) => (
 ));
 
 /************************************************ Component Definition ************************************************/
-const StarRating = ({ _id, nrOfReviews, rating, role, showReviews = true }) => {
+const StarRating = ({ _id, location = undefined, nrOfReviews, rating, role, showReviews = true }) => {
   const navigate = useNavigate();
 
   const intRating = Math.floor(rating);
@@ -72,16 +72,16 @@ const StarRating = ({ _id, nrOfReviews, rating, role, showReviews = true }) => {
         <div className="rating rating-sm rating-half">
           <input className="rating-hidden cursor-default" defaultChecked name={`rating-11_${_id}`} type="radio" />
           {[...Array(Math.floor(intRating / 2))].map((_, index) => (
-            <FullCheckedStar _id={`${_id}_${timestamp}`} key={index} />
+            <FullCheckedStar _id={`${timestamp}_${_id}_${location}`} key={index} />
           ))}
           {intRating % 2 !== 0 && (
             <>
-              <HalfCheckedStar _id={`${_id}_${timestamp}`} />
-              <HalfUncheckedStar _id={`${_id}_${timestamp}`} />
+              <HalfCheckedStar _id={`${timestamp}_${_id}_${location}`} />
+              <HalfUncheckedStar _id={`${timestamp}_${_id}_${location}`} />
             </>
           )}
           {[...Array(5 - Math.ceil(intRating / 2))].map((_, index) => (
-            <FullUncheckedStar _id={`${_id}_${timestamp}`} key={index} />
+            <FullUncheckedStar _id={`${timestamp}_${_id}_${location}`} key={index} />
           ))}
         </div>
         {nrOfReviews > 0 ? <p className="text-sm text-gray-600">({rating.toFixed(1)})</p> : null}

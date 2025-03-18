@@ -173,7 +173,7 @@ const RestaurantProfile = ({ restaurantId }) => {
             <h2 className="text-3xl font-bold mb-4">Best Dishes</h2>
             <div className="flex flex-wrap justify-evenly gap-y-8 mb-2">
               {restaurantDishes.sort((a, b) => b.rating - a.rating).slice(0, maxBestDishes).map((dish) => (
-                <DishCard key={dish._id} {...dish} />
+                <DishCard key={dish._id} location="Best Dishes" {...dish} />
               ))}
             </div>
           </div>
@@ -188,7 +188,7 @@ const RestaurantProfile = ({ restaurantId }) => {
               <p className="text-lg text-gray-400">No dishes found for this restaurant.</p>
             ) : (
               restaurantDishes.map((dish, index) => (
-                <DishCard isTheNewest={index === restaurantDishes.length - 1} key={dish._id} {...dish} />
+                <DishCard isTheNewest={index === restaurantDishes.length - 1} key={dish._id} location="All Dishes" {...dish} />
               ))
             ))}
           </div>

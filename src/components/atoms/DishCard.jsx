@@ -14,7 +14,7 @@ import { StarRating } from "/src/components/atoms";
 const logger = new Logger("DishCard");
 
 /************************************************ Component Definition ************************************************/
-const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrOfReviews, price, rating, restaurant }) => {
+const DishCard = ({ _id, allergens, description, img_url, isTheNewest, location, name, nrOfReviews, price, rating, restaurant }) => {
   const { isConsumer, loggedUser, userReviews } = useContext(AuthContext);
   const navigate = useNavigate();
   const { wsUpdateUserProfile } = useContext(WebSocketContext);
@@ -69,7 +69,7 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
         {isTheNewest && <span className="indicator-item badge badge-primary font-semibold">NEW</span>}
         <div className="card-body flex justify-between p-0 gap-0 w-full">
           <div className="flex flex-col mx-3 my-3">
-            <StarRating _id={_id} nrOfReviews={nrOfReviews} rating={rating} role="dishes" />
+            <StarRating _id={_id} location={location} nrOfReviews={nrOfReviews} rating={rating} role="dishes" />
           </div>
           <div className="flex flex-col items-center mx-3">
             <img
