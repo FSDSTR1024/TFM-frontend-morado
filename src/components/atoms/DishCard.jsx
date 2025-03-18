@@ -87,7 +87,7 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
           <div className="divider text-sm font-semibold mx-0 my-2">Description</div>
           <p className="text-md text-gray-500 mx-4 italic">{description}</p>
           <div className="divider text-sm font-semibold mx-0 my-2">Price</div>
-          <p className="text-md text-gray-500 mx-4 font-semibold text-base text-center">{price} €</p>
+          <p className="text-md text-gray-500 mx-4 font-semibold text-base text-center">{price ? `${price} €` : "N/A"}</p>
           <div className="mb-7">
             <div className="divider text-sm font-semibold my-2">Allergens</div>
             {allergens && allergens.length > 0 && (
