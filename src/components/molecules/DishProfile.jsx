@@ -8,7 +8,7 @@ import { foodAllergenImgUrls } from "/src/constants";
 import { getImgURL } from "/src/utils";
 import { Loading, ReviewCard, StarRating } from "/src/components/atoms";
 import { Logger } from "/src/utils";
-import { TextParagraph } from "/src/components/protons";
+import { RatedButton, TextParagraph, ToRateButton } from "/src/components/protons";
 
 /************************************************** Internal logger ***************************************************/
 const logger = new Logger("DishProfile");
@@ -111,20 +111,20 @@ const DishProfile = ({ dishId }) => {
                 ))}
               </div>
             )}
-            {loggedUser && (
+            {loggedUser && (isConsumer || isOwnDish) && (
               <>
-              <div className="divider text-xl font-semibold mt-6 mb-5">Actions</div>
-              <div className="flex justify-evenly">
-                {isConsumer ? (
-                  isDishRated ? (
-                    <p>Consumer but NOT rateable</p>
+                <div className="divider text-xl font-semibold mt-6 mb-5">Actions</div>
+                <div className="flex justify-evenly">
+                  {isConsumer ? (
+                    isDishRated ? (
+                      <RatedButton dishId={dish._id} />
+                    ) : (
+                      <ToRateButton />
+                    )
                   ) : (
-                    <p>Consumer and Rateable</p>
-                  )
-                ) : (
-                  <p>Not consumer</p>
-                )}
-              </div>
+                    <p>Not consumer but editable</p>
+                  )}
+                </div>
               </>
             )}
           </div>

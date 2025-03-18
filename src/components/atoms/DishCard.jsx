@@ -7,6 +7,7 @@ import { AuthContext, WebSocketContext } from "/src/contexts";
 import { dishAPI, reviewAPI } from "/src/api";
 import { foodAllergenImgUrls } from "/src/constants";
 import { getImgURL, Logger } from "/src/utils";
+import { RatedButton, ToRateButton } from "/src/components/protons";
 import { StarRating } from "/src/components/atoms";
 
 /************************************************** Internal logger ***************************************************/
@@ -102,46 +103,9 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
       <div className="indicator-item indicator-bottom indicator-center flex justify-center gap-7">
         {isRateable && (
           isDishRated ? (
-            <button
-              className="btn glass btn-outline btn-warning btn-sm flex items-center gap-1"
-              onClick={() => navigate(`/dishes/${_id}#reviews`)}
-            >
-              <svg
-                className="size-[1.2em]"
-                fill="currentColor"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 3l2.83 5.74L21 9.75l-4.5 4.38L17.66 21 12 17.72 6.34 21l1.16-6.87L3 9.75l6.17-.99L12 3z"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <span>Rated</span>
-            </button>
+            <RatedButton dishId={_id} />
           ) : (
-            <button
-              className="btn glass btn-outline btn-warning btn-sm flex items-center gap-1"
-            >
-              <svg
-                className="size-[1.2em]"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 3l2.83 5.74L21 9.75l-4.5 4.38L17.66 21 12 17.72 6.34 21l1.16-6.87L3 9.75l6.17-.99L12 3z"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <span>Rate</span>
-            </button>
+            <ToRateButton />
           )
         )}
         <button className="btn glass btn-outline btn-info btn-sm" onClick={handleOnCardClick}>View</button>
