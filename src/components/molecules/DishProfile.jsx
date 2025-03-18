@@ -3,10 +3,10 @@ import { useContext, useEffect, useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
 import { AuthContext } from "/src/contexts";
+import { ChangeProfilePictureButton, Loading, ReviewCard, StarRating } from "/src/components/atoms";
 import { dishAPI, reviewAPI } from "/src/api";
 import { foodAllergenImgUrls } from "/src/constants";
 import { getImgURL } from "/src/utils";
-import { Loading, ReviewCard, StarRating } from "/src/components/atoms";
 import { Logger } from "/src/utils";
 import { RatedButton, TextParagraph, ToRateButton } from "/src/components/protons";
 
@@ -77,6 +77,7 @@ const DishProfile = ({ dishId }) => {
         <div className="flex justify-between gap-6">
           <div className="flex flex-col justify-start items-center gap-2 w-96">
             <img alt={dish.name} className="w-60 h-60 rounded-lg" src={getImgURL({ ...dish })} />
+              {isOwnDish && <ChangeProfilePictureButton dishId={dish._id} kind="dish" />}
           </div>
           <div className="flex flex-col w-full">
             <div className="flex justify-between">
@@ -122,7 +123,7 @@ const DishProfile = ({ dishId }) => {
                       <ToRateButton dishId={dish._id} />
                     )
                   ) : (
-                    <p>Not consumer but editable</p>
+                    <p>EDIT + DELETE buttons</p>
                   )}
                 </div>
               </>

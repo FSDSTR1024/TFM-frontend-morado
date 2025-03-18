@@ -4,10 +4,10 @@ import { useCallback, useContext } from "react";
 /********************************************** Internal library imports **********************************************/
 import { AuthContext, WebSocketContext } from "/src/contexts";
 import { CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET } from "/src/constants";
-import { cloudinaryAPI, userAPI } from "/src/api";
+import { cloudinaryAPI, dishAPI, userAPI } from "/src/api";
 
 /************************************************ Component Definition ************************************************/
-const ChangeProfilePictureButton = () => {
+const ChangeProfilePictureButton = ({ dishId = undefined, kind = "user" }) => {
   const { loggedUser } = useContext(AuthContext);
   const { wsUpdateUserProfile } = useContext(WebSocketContext);
 
@@ -27,8 +27,14 @@ const ChangeProfilePictureButton = () => {
     // Upload the image to Cloudinary
     const cloudinary_url = await cloudinaryAPI.uploadImage({ uploadData});
 
-    // Update the user profile picture in the database
-    await userAPI.updateProfilePicture({ ...loggedUser, img_url: cloudinary_url });
+    // Update the profile picture in the database
+    let updateProfilePictureAPI;
+    if (kind === "user") {
+      updateProfilePictureAPI = userAPI.updateProfilePicture;
+    } else {
+      updateProfilePictureAPI = dishAPI.updateProfilePicture;
+    }
+    await updateProfilePictureAPI({ ...loggedUser, dishId, img_url: cloudinary_url });
     wsUpdateUserProfile();
   }, [loggedUser, wsUpdateUserProfile]);
 
