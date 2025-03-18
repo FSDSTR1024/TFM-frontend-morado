@@ -119,7 +119,7 @@ const DishProfile = ({ dishId }) => {
                     isDishRated ? (
                       <RatedButton dishId={dish._id} />
                     ) : (
-                      <ToRateButton />
+                      <ToRateButton dishId={dish._id} />
                     )
                   ) : (
                     <p>Not consumer but editable</p>

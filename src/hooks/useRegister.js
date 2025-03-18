@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
-import { dishAPI, userAPI } from "/src/api";
+import { dishAPI, reviewAPI, userAPI } from "/src/api";
 import { Logger } from "/src/utils";
 
 /************************************************** Internal logger ***************************************************/
@@ -51,7 +51,20 @@ const useRegister = () => {
     }
   };
 
-  return { error, registerConsumer, registerDish, registerRestaurant };
+  const registerReview = async (formData) => {
+    setError(null);
+    try {
+      const { newReviewID } = await reviewAPI.createReview(formData);
+      return newReviewID;
+    } catch (error) {
+      setError(error);
+      const errorText = "Dish review could not be created!";
+      logger.error(errorText, error);
+      return null;
+    }
+  };
+
+  return { error, registerConsumer, registerDish, registerRestaurant, registerReview };
 };
 
 /********************************************** Named export (ES module) **********************************************/

@@ -105,7 +105,7 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
           isDishRated ? (
             <RatedButton dishId={_id} />
           ) : (
-            <ToRateButton />
+            <ToRateButton dishId={_id} />
           )
         )}
         <button className="btn glass btn-outline btn-info btn-sm" onClick={handleOnCardClick}>View</button>

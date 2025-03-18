@@ -10,6 +10,7 @@ import { ModalOnLoading } from "./ModalOnLoading.jsx";
 import { ModalOnLogin } from "./ModalOnLogin.jsx";
 import { ModalOnLogout } from "./ModalOnLogout.jsx";
 import { ModalOnRegister } from "./ModalOnRegister.jsx";
+import { ModalOnReview } from "./ModalOnReview.jsx";
 import { ModalOnUserInvalidActivation } from "./ModalOnUserInvalidActivation.jsx";
 import { ModalOnUserPreviousActivation } from "./ModalOnUserPreviousActivation.jsx";
 import { ModalOnUserValidActivation } from "./ModalOnUserValidActivation.jsx";
@@ -35,6 +36,7 @@ export {
   ModalOnLogin,
   ModalOnLogout,
   ModalOnRegister,
+  ModalOnReview,
   ModalOnUserInvalidActivation,
   ModalOnUserPreviousActivation,
   ModalOnUserValidActivation,
