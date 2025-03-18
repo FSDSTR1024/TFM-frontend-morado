@@ -131,7 +131,7 @@ const DishProfile = ({ dishId }) => {
         </div>
       </div>
       <div className="bg-base-200 shadow-xl rounded-lg p-6">
-        <h2 className="text-3xl font-bold mb-4" id="reviews">Reviews</h2>
+        <h2 className="text-3xl font-bold mb-4" id="reviews">Reviews{dishReviews?.length > 0 && ` (${dishReviews.length})`}</h2>
         <div className="mb-2 w-full flex flex-col justify-center gap-2">
           {isLoadingReviews ? (
             <Loading />
