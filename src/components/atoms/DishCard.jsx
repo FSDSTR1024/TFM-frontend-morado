@@ -23,21 +23,23 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
     setIsConsumer(loggedUser?.role === "consumers");
   }, [loggedUser]);
 
-  const [isRated, setIsRated] = useState(false);
+  const [consumerReviews, setConsumerReviews] = useState([]);
   useEffect(() => {
-    const getIsRated = async () => {
-      try {
-        const { dishReviews } = await reviewAPI.getDishReviews(_id);
-        setIsRated(dishReviews.some((review) => review.user._id === loggedUser._id));
-      } catch (error) {
-        setIsRated(false);
-        const errorText = "There was an error while trying to fetch the dish Reviews!";
-        logger.error(errorText, error);
+    const getConsumerReviews = async () => {
+      if (isConsumer) {
+        try {
+          const { consumerReviews } = await reviewAPI.getReviewsMadeByConsumer(loggedUser._id);
+          setConsumerReviews(consumerReviews);
+        } catch (error) {
+          setConsumerReviews([]);
+          const errorText = "There was an error while trying to fetch the dish Reviews!";
+          logger.error(errorText, error);
+        }
       }
     };
 
-    getIsRated();
-  }, [_id, loggedUser]);
+    getConsumerReviews();
+  }, [isConsumer, loggedUser]);
 
   const handleOnCardClick = useCallback(() => {
     navigate(`/dishes/${_id}`);
@@ -110,7 +112,7 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
       </div>
       <div className="indicator-item indicator-bottom indicator-center flex justify-center gap-7">
         {isConsumer && (
-          isRated ? (
+          consumerReviews.some((review) => review.dish._id === _id) ? (
             <button
               className="btn glass btn-outline btn-warning btn-sm flex items-center gap-1"
               onClick={() => navigate(`/dishes/${_id}#reviews`)}
