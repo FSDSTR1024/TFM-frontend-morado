@@ -9,4 +9,4 @@ import { NotificationsButton } from "./NotificationsButton.jsx";
 import { RestaurantProfile } from "./RestaurantProfile.jsx";
 
 /********************************************* Named exports (ES module) **********************************************/
-export { AuthBtns, AuthCredentials, ConsumerProfile, ModalOnDishAdd, ModalOnRestaurantEdit, NotificationsButton, RestaurantProfile };
+export { AuthBtns, AuthCredentials, ConsumerProfile, DishProfile, ModalOnDishAdd, ModalOnRestaurantEdit, NotificationsButton, RestaurantProfile };
