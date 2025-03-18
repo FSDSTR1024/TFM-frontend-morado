@@ -14,32 +14,21 @@ const logger = new Logger("DishCard");
 
 /************************************************ Component Definition ************************************************/
 const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrOfReviews, price, rating, restaurant }) => {
-  const { loggedUser } = useContext(AuthContext);
+  const { isConsumer, loggedUser, userReviews } = useContext(AuthContext);
   const navigate = useNavigate();
   const { wsUpdateUserProfile } = useContext(WebSocketContext);
 
-  const [isConsumer, setIsConsumer] = useState(false);
+  const [isDishRated, setIsDishRated] = useState(false);  //  by logged user
+  const [isRateable, setIsRateable] = useState(false);
   useEffect(() => {
-    setIsConsumer(loggedUser?.role === "consumers");
-  }, [loggedUser]);
-
-  const [consumerReviews, setConsumerReviews] = useState([]);
-  useEffect(() => {
-    const getConsumerReviews = async () => {
-      if (isConsumer) {
-        try {
-          const { consumerReviews } = await reviewAPI.getReviewsMadeByConsumer(loggedUser._id);
-          setConsumerReviews(consumerReviews);
-        } catch (error) {
-          setConsumerReviews([]);
-          const errorText = "There was an error while trying to fetch the dish Reviews!";
-          logger.error(errorText, error);
-        }
-      }
-    };
-
-    getConsumerReviews();
-  }, [isConsumer, loggedUser]);
+    if (isConsumer) {
+      setIsDishRated(userReviews.some(review => review.dish._id.toString() === _id.toString()));
+      setIsRateable(true);
+    } else {
+      setIsDishRated(false);
+      setIsRateable(false);
+    }
+  }, [isConsumer, userReviews]);
 
   const handleOnCardClick = useCallback(() => {
     navigate(`/dishes/${_id}`);
@@ -111,8 +100,8 @@ const DishCard = ({ _id, allergens, description, img_url, isTheNewest, name, nrO
         </div>
       </div>
       <div className="indicator-item indicator-bottom indicator-center flex justify-center gap-7">
-        {isConsumer && (
-          consumerReviews.some((review) => review.dish._id === _id) ? (
+        {isRateable && (
+          isDishRated ? (
             <button
               className="btn glass btn-outline btn-warning btn-sm flex items-center gap-1"
               onClick={() => navigate(`/dishes/${_id}#reviews`)}
