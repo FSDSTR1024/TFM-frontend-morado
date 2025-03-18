@@ -39,13 +39,17 @@ const RestaurantsPage = () => {
     const locationMatches = restaurant.location.toLowerCase().includes(locationFilter.toLowerCase());
     const nameMatches = restaurant.name.toLowerCase().includes(nameFilter.toLowerCase());
     let phoneMatches, webPageMatches;
-    if (!restaurant.phone) {
+    if (phoneFilter && !restaurant.phone) {
       phoneMatches = false;
+    } else if (!phoneFilter && !restaurant.phone) {
+      phoneMatches = true;
     } else {
       phoneMatches = restaurant.phone.toString().toLowerCase().includes(phoneFilter.toLowerCase());
     }
-    if (!restaurant.web_page) {
+    if (webPageFilter && !restaurant.web_page) {
       webPageMatches = false;
+    } else if (!webPageFilter && !restaurant.web_page) {
+      webPageMatches = true;
     } else {
       webPageMatches = restaurant.web_page.toLowerCase().includes(webPageFilter.toLowerCase());
     }
