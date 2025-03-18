@@ -15,7 +15,7 @@ const ReviewCard = ({ comment, createdAt, dish, isTheNewest, rating, user }) => 
     <div className="flex flex-col gap-4 px-3 py-2 bg-base-100 shadow-md border border-gray-200 rounded-lg">
     {/* User Avatar */}
     <div className="flex justify-between items-center gap-10">
-      <div className="w-48">
+      <div className="w-56">
         <div className="flex gap-2 items-center cursor-pointer" onClick={() => navigate(`/consumers/${user._id}`)}>
           <div className="avatar w-8 h-8 rounded-full border border-gray-300">
             <img
