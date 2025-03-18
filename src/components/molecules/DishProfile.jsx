@@ -15,7 +15,7 @@ const logger = new Logger("DishProfile");
 
 /************************************************ Component Definition ************************************************/
 const DishProfile = ({ dishId }) => {
-  const { loggedUser } = useContext(AuthContext);
+  const { isConsumer, loggedUser, userReviews } = useContext(AuthContext);
 
   const [dish, setDish] = useState(null);
   useEffect(() => {
@@ -32,6 +32,15 @@ const DishProfile = ({ dishId }) => {
 
     getDish();
   }, [dishId]);
+
+  const [isDishRated, setIsDishRated] = useState(false);  //  by logged user
+  useEffect(() => {
+    if (isConsumer) {
+      setIsDishRated(userReviews.some(review => review.dish._id.toString() === dishId.toString()));
+    } else {
+      setIsDishRated(false);
+    }
+  }, [isConsumer, userReviews]);
 
   const [isOwnDish, setIsOwnDish] = useState(false);
   useEffect(() => {
@@ -101,6 +110,22 @@ const DishProfile = ({ dishId }) => {
                   <img key={index} alt={`${allergen} allergen logo`} className="w-14 h-14 rounded-full" src={foodAllergenImgUrls[allergen]} />
                 ))}
               </div>
+            )}
+            {loggedUser && (
+              <>
+              <div className="divider text-xl font-semibold mt-6 mb-5">Actions</div>
+              <div className="flex justify-evenly">
+                {isConsumer ? (
+                  isDishRated ? (
+                    <p>Consumer but NOT rateable</p>
+                  ) : (
+                    <p>Consumer and Rateable</p>
+                  )
+                ) : (
+                  <p>Not consumer</p>
+                )}
+              </div>
+              </>
             )}
           </div>
         </div>
