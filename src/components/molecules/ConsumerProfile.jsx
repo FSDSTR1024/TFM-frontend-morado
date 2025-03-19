@@ -3,12 +3,13 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
-import { AuthContext } from "/src/contexts";
+import { AuthContext, WebSocketContext } from "/src/contexts";
 import { ChangeProfilePictureButton, Loading } from "/src/components/atoms";
 import { getUserImgURL } from "/src/utils";
 import { Logger } from "/src/utils";
 import { ModalOnCredentialsChange } from "/src/components/molecules";
 import { userAPI } from "/src/api";
+import { useLogout } from "/src/hooks";
 
 /************************************************** Internal logger ***************************************************/
 const logger = new Logger("ConsumerProfile");
@@ -16,7 +17,9 @@ const logger = new Logger("ConsumerProfile");
 /************************************************ Component Definition ************************************************/
 const ConsumerProfile = ({ consumerId }) => {
   const { loggedUser } = useContext(AuthContext);
+  const { logout } = useLogout();
   const navigate = useNavigate();
+  const { wsLogoutUser } = useContext(WebSocketContext);
 
   const [isLoggedConsumer, setIsLoggedConsumer] = useState(false);
   const [consumer, setConsumer] = useState(null);
@@ -53,8 +56,11 @@ const ConsumerProfile = ({ consumerId }) => {
         document.getElementById("on_loading_modal").showModal();
         try {
           await userAPI.deleteUser(loggedUser._id, loggedUser.role);
+          wsLogoutUser();
+          logout();
           setIsLoadingDelete(false);
           navigate("/");
+          document.getElementById("on_account_delete_modal").showModal();
         } catch (error) {
           const errorText = `Consumer user ${loggedUser._id} could not be deleted!`;
           logger.error(errorText, error);

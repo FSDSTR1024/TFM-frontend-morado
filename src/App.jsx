@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 /************************************************* Internal libraries *************************************************/
 import { AuthContextProvider, NotificationsContextProvider, WebSocketContextProvider } from "/src/contexts";
 import { ConsumersPage, DishesPage, HomePage, LoginPage, NotFoundPage, ProfilePage, RegisterPage, RestaurantsPage, SpecificConsumerPage, SpecificDishPage, SpecificRestaurantPage, UserActivationPage } from "./pages";
-import { Footer, ModalOnLoading, ModalOnLogin, ModalOnLogout, ModalOnRegister, ModalOnUserInvalidActivation, ModalOnUserPreviousActivation, ModalOnUserValidActivation } from "/src/components/atoms";
+import { Footer, ModalOnAccountDelete, ModalOnLoading, ModalOnLogin, ModalOnLogout, ModalOnRegister, ModalOnUserInvalidActivation, ModalOnUserPreviousActivation, ModalOnUserValidActivation } from "/src/components/atoms";
 import { GoToTopButton } from "./components/protons";
 import { Header } from "/src/components/organisms";
 import { Logger } from "/src/utils";
@@ -25,6 +25,7 @@ const App = () => (
           <NotificationsContextProvider>
             <Header />
             <main className="flex-grow">
+              <ModalOnAccountDelete />
               <ModalOnLoading />
               <ModalOnLogin />
               <ModalOnLogout />
