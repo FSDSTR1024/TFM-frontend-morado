@@ -189,7 +189,7 @@ const RestaurantProfile = ({ restaurantId }) => {
           </div>
         )}
         <div className="bg-base-200 shadow-xl rounded-lg p-6">
-          <h2 className="text-3xl font-bold mb-4">All Dishes</h2>
+          <h2 className="text-3xl font-bold mb-4">All Dishes{restaurantDishes?.length > 0 && ` (${restaurantDishes.length})`}</h2>
           <div className="flex flex-wrap justify-evenly gap-y-8 mb-2">
             {isLoadingDishes ? (
               <Loading />
