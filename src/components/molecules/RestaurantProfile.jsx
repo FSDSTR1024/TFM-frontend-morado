@@ -197,8 +197,8 @@ const RestaurantProfile = ({ restaurantId }) => {
             restaurantDishes.length === 0 ? (
               <p className="text-lg text-gray-400">No dishes found for this restaurant.</p>
             ) : (
-              restaurantDishes.map((dish, index) => (
-                <DishCard isTheNewest={index === restaurantDishes.length - 1} key={dish._id} location="All Dishes" {...dish} />
+              restaurantDishes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((dish, index) => (
+                <DishCard isTheNewest={index === 0} key={dish._id} location="All Dishes" {...dish} />
               ))
             ))}
           </div>
