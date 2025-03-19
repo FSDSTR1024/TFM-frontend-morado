@@ -8,7 +8,7 @@ import { ChangeProfilePictureButton, DishCard, Loading, ModalOnWrongFileType, St
 import { dishAPI, userAPI } from "/src/api";
 import { getUserImgURL } from "/src/utils";
 import { Logger } from "/src/utils";
-import { ModalOnDishAdd, ModalOnRestaurantEdit } from "/src/components/molecules";
+import { ModalOnCredentialsChange, ModalOnDishAdd, ModalOnRestaurantEdit } from "/src/components/molecules";
 import { TextParagraph } from "/src/components/protons";
 import { useLogout } from "/src/hooks";
 
@@ -69,6 +69,10 @@ const RestaurantProfile = ({ restaurantId }) => {
     document.getElementById("on_dish_add_modal").showModal();
   }, []);
 
+  const handleChangeCredentialsClick = useCallback(() => {
+    document.getElementById("on_credentials_change_modal").showModal();
+  }, []);
+
   const [isLoadingDelete, setIsLoadingDelete] = useState(true);
   const handleDeleteAccountClick = useCallback(async () => {
     if (!isLoggedRestaurant) return;
@@ -115,6 +119,7 @@ const RestaurantProfile = ({ restaurantId }) => {
     <>
       {isLoggedRestaurant && (
         <>
+          <ModalOnCredentialsChange {...restaurant} />
           <ModalOnDishAdd {...restaurant} />
           <ModalOnRestaurantEdit editableFields={editableFields} {...restaurant} />
           <ModalOnWrongFileType />
@@ -160,6 +165,9 @@ const RestaurantProfile = ({ restaurantId }) => {
                     </button>
                     <button className="btn btn-secondary btn-outline" onClick={handleEditProfileClick}>
                       Edit Profile
+                    </button>
+                    <button className="btn btn-accent btn-outline" onClick={handleChangeCredentialsClick}>
+                      Change Credentials
                     </button>
                     <button className="btn btn-error btn-outline" onClick={handleDeleteAccountClick}>
                       Delete Account
