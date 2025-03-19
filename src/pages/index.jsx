@@ -7,6 +7,7 @@ import { NotFoundPage } from "./errors/NotFoundPage.jsx";
 import { ProfilePage } from "./ProfilePage.jsx";
 import { RegisterPage } from "./RegisterPage.jsx";
 import { RestaurantsPage } from "./restaurants/RestaurantsPage.jsx";
+import { SpecificConsumerPage } from "./consumers/SpecificConsumerPage.jsx"
 import { SpecificDishPage } from "./dishes/SpecificDishPage.jsx";
 import { SpecificRestaurantPage } from "./restaurants/SpecificRestaurantPage.jsx";
 import { UserActivationPage } from "./UserActivationPage.jsx";
@@ -21,6 +22,7 @@ export {
   ProfilePage,
   RegisterPage,
   RestaurantsPage,
+  SpecificConsumerPage,
   SpecificDishPage,
   SpecificRestaurantPage,
   UserActivationPage

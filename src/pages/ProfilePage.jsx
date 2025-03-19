@@ -23,7 +23,7 @@ const ProfilePage = () => {
 
   return (
     loggedUser &&
-    ((loggedUser.role === "consumers" && <ConsumerProfile />) ||
+    ((loggedUser.role === "consumers" && <ConsumerProfile consumerId={loggedUser._id} />) ||
       (loggedUser.role === "restaurants" && <RestaurantProfile restaurantId={loggedUser._id}/>))
   );
 };
