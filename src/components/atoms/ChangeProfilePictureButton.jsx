@@ -36,6 +36,7 @@ const ChangeProfilePictureButton = ({ dishId = undefined, kind = "user" }) => {
     }
     await updateProfilePictureAPI({ ...loggedUser, dishId, img_url: cloudinary_url });
     wsUpdateUserProfile();
+    window.location.reload();
   }, [loggedUser, wsUpdateUserProfile]);
 
   return (
