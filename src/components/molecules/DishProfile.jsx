@@ -141,7 +141,7 @@ const DishProfile = ({ dishId }) => {
             <p className="text-lg text-gray-400">No reviews found for this dish.</p>
           ) : (
             dishReviews.map((review, index) => (
-              <ReviewCard isTheNewest={index === dishReviews.length - 1} key={review._id} {...review} />
+              <ReviewCard key={review._id} {...review} />
             ))
           ))}
         </div>
