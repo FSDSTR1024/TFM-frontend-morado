@@ -69,24 +69,18 @@ const RestaurantCard = ({ _id, createdAt, description, email, followers, img_url
           </div>
           <div className="divider text-md font-semibold mx-0 my-4">Details</div>
           <div className="mx-4 my-0 gap-2">
-            {email && (
-              <div className="flex justify-between text-lg">
-                <p className="text-gray-400 font-semibold">📧 Email: </p>
-                <p className="text-gray-600 text-right">{email}</p>
-              </div>
-            )}
-            {phone && (
-              <div className="flex justify-between text-lg">
-                <p className="text-gray-400 font-semibold">📞 Phone: </p>
-                <p className="text-gray-600 text-right">{phone}</p>
-              </div>
-            )}
-            {web_page && (
-              <div className="flex justify-between text-lg">
-                <p className="text-gray-400 font-semibold">🌐 Website: </p>
-                <a href={web_page} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">{web_page}</a>
-              </div>
-            )}
+            <div className="flex justify-between text-lg">
+              <p className="text-gray-400 font-semibold">📧 Email: </p>
+              <p className="text-gray-600 text-right">{email}</p>
+            </div>
+            <div className="flex justify-between text-lg">
+              <p className="text-gray-400 font-semibold">📞 Phone: </p>
+              <p className="text-gray-600 text-right">{phone ? phone : "N/A"}</p>
+            </div>
+            <div className="flex justify-between text-lg">
+              <p className="text-gray-400 font-semibold">🌐 Website: </p>
+              <p className="text-gray-600 text-right">{web_page ? <a href={web_page} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">{web_page}</a> : "N/A"}</p>
+            </div>
           </div>
         </div>
       </div>

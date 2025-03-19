@@ -139,15 +139,11 @@ const RestaurantProfile = ({ restaurantId }) => {
               </div>
               <div className="mb-2">
                 <span className="text-lg text-gray-400 font-semibold">📞 Phone: </span>
-                <span className="text-lg text-gray-600">{restaurant.phone}</span>
+                <span className="text-lg text-gray-600">{restaurant.phone}{restaurant.phone ? restaurant.phone : "N/A"}</span>
               </div>
               <div>
                 <span className="text-lg text-gray-400 font-semibold">🌐 Website: </span>
-                <span className="text-lg text-gray-600">
-                  <a href={restaurant.web_page} className="text-blue-500 underline">
-                    {restaurant.web_page}
-                  </a>
-                </span>
+                <span className="text-lg text-gray-600">{restaurant.web_page ? <a href={restaurant.web_page} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">{restaurant.web_page}</a> : "N/A"}</span>
               </div>
               {isLoggedRestaurant && (
                 <>
