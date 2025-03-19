@@ -3,7 +3,7 @@ import { useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
-import { useLogout } from "/src/hooks/useLogout";
+import { useLogout } from "/src/hooks";
 import { WebSocketContext } from "/src/contexts";
 
 /************************************************ Component Definition ************************************************/
