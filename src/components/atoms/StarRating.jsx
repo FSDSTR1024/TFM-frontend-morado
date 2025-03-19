@@ -56,11 +56,11 @@ const HalfUncheckedStar = memo(({ _id }) => (
 ));
 
 /************************************************ Component Definition ************************************************/
-const StarRating = ({ _id, location = undefined, nrOfReviews, rating, role, showReviews = true }) => {
+const StarRating = ({ _id, createdAt, location = undefined, nrOfReviews, rating, role, showReviews = true }) => {
   const navigate = useNavigate();
 
   const intRating = Math.floor(rating);
-  const timestamp = Date.now();
+  const timestamp = new Date(createdAt);
 
   const handleOnReviewsClick = useCallback(() => {
     navigate(`/${role}/${_id}#reviews`);

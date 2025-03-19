@@ -7,7 +7,7 @@ import { StarRating } from "/src/components/atoms";
 import { useTimestamp } from "/src/hooks";
 
 /************************************************ Component Definition ************************************************/
-const ReviewCard = ({ comment, createdAt, dish, isTheNewest, rating, user }) => {
+const ReviewCard = ({ comment, createdAt, rating, user }) => {
   const { getTimestampStr } = useTimestamp();
   const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ const ReviewCard = ({ comment, createdAt, dish, isTheNewest, rating, user }) => 
         {comment ? <p className="text-md">{comment}</p> : <p className="text-sm text-gray-500">No comment</p>}
         <div className="flex flex-col items-end gap-1">
           <p className="text-xs text-gray-500">{getTimestampStr(createdAt)}</p>
-          <StarRating nrOfReviews={1} rating={rating} showReviews={false} />
+          <StarRating createdAt={createdAt} nrOfReviews={1} rating={rating} showReviews={false} />
         </div>
       </div>
     </div>

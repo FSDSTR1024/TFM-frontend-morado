@@ -8,7 +8,7 @@ import { getUserImgURL } from "/src/utils";
 import { StarRating } from "/src/components/atoms";
 
 /************************************************ Component Definition ************************************************/
-const RestaurantCard = ({ _id, description, email, followers, img_url, is_activated, isTheNewest, location, name, nrOfDishes, nrOfReviews, phone, rating, role, web_page }) => {
+const RestaurantCard = ({ _id, createdAt, description, email, followers, img_url, is_activated, isTheNewest, location, name, nrOfDishes, nrOfReviews, phone, rating, role, web_page }) => {
   const { loggedUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -52,7 +52,7 @@ const RestaurantCard = ({ _id, description, email, followers, img_url, is_activa
               {description && <p className="text-base text-gray-400 mt-3 italic">{description}</p>}
             </div>
             <div className="flex flex-col items-end gap-3">
-              <StarRating _id={_id} name={name} nrOfReviews={nrOfReviews} rating={rating} role={role} />
+              <StarRating _id={_id} createdAt={createdAt} name={name} nrOfReviews={nrOfReviews} rating={rating} role={role} />
               <div className="h-32 w-32">
                 <img
                   alt={`${_id} restaurant profile picture`}
