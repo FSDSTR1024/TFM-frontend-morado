@@ -50,7 +50,7 @@ const ConsumersPage = () => {
       text: "Name",
       value: "name"
     },
-    { text: "Reviews", value: "nrOfReviews" },
+    { text: "Reviews", value: "reviewed_dishes" },
     {
       filter: {
         inputType: "text",
@@ -60,7 +60,7 @@ const ConsumersPage = () => {
       text: "Surname",
       value: "surname"
     },
-    { text: "Visited Restaurants", value: "nrOfVisitedRestaurants" }
+    { text: "Visited Restaurants", value: "reviewed_restaurants" }
   ];
 
   return (
