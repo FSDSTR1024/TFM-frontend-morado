@@ -41,6 +41,7 @@ const ModalOnReview = ({ dishId }) => {
         if (newReviewID) {
           closeModal();
           wsUpdateUserProfile();
+          window.location.reload();
         }
       }
     }, [registerReview, submitForm]);
