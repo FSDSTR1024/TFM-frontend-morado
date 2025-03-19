@@ -90,12 +90,14 @@ const DishCard = ({ _id, allergens, createdAt, description, img_url, isTheNewest
           <p className="text-md text-gray-500 mx-4 font-semibold text-base text-center">{price ? `${price} €` : "N/A"}</p>
           <div className="mb-7">
             <div className="divider text-sm font-semibold my-2">Allergens</div>
-            {allergens && allergens.length > 0 && (
+            {allergens?.length > 0 ? (
               <div className="flex flex-wrap items-center justify-center gap-y-2 gap-x-4 mt-2">
                 {allergens.map((allergen, index) => (
                   <img key={index} alt={`${allergen} allergen logo`} className="w-12 h-12 rounded-full" src={foodAllergenImgUrls[allergen]} />
                 ))}
               </div>
+            ) : (
+              <p className="text-sm text-gray-500 text-center">-</p>
             )}
           </div>
         </div>
