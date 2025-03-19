@@ -3,13 +3,14 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
-import { AuthContext } from "/src/contexts";
+import { AuthContext, WebSocketContext } from "/src/contexts";
 import { ChangeProfilePictureButton, DishCard, Loading, ModalOnWrongFileType, StarRating } from "/src/components/atoms";
 import { dishAPI, userAPI } from "/src/api";
 import { getUserImgURL } from "/src/utils";
 import { Logger } from "/src/utils";
 import { ModalOnDishAdd, ModalOnRestaurantEdit } from "/src/components/molecules";
 import { TextParagraph } from "/src/components/protons";
+import { useLogout } from "/src/hooks";
 
 /************************************************** Internal logger ***************************************************/
 const logger = new Logger("RestaurantProfile");
@@ -17,7 +18,9 @@ const logger = new Logger("RestaurantProfile");
 /************************************************ Component Definition ************************************************/
 const RestaurantProfile = ({ restaurantId }) => {
   const { loggedUser } = useContext(AuthContext);
+  const { logout } = useLogout();
   const navigate = useNavigate();
+  const { wsLogoutUser } = useContext(WebSocketContext);
 
   const [isLoggedRestaurant, setIsLoggedRestaurant] = useState(false);
   const [restaurant, setRestaurant] = useState(null);
@@ -74,8 +77,11 @@ const RestaurantProfile = ({ restaurantId }) => {
         document.getElementById("on_loading_modal").showModal();
         try {
           await userAPI.deleteUser(loggedUser._id, loggedUser.role);
+          wsLogoutUser();
+          logout();
           setIsLoadingDelete(false);
           navigate("/");
+          document.getElementById("on_account_delete_modal").showModal();
         } catch (error) {
           const errorText = `Restaurant user ${loggedUser._id} could not be deleted!`;
           logger.error(errorText, error);
