@@ -25,6 +25,7 @@ const DeleteDishButton = ({ dishId }) => {
           logger.error(errorText, error);
         }
         document.getElementById("on_loading_modal").close();
+        window.location.reload();
       }
     }
   }, []);

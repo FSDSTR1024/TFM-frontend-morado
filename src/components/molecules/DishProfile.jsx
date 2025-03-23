@@ -1,5 +1,6 @@
 /************************************************ Node modules needed ************************************************/
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 /********************************************** Internal library imports **********************************************/
 import { AuthContext } from "/src/contexts";
@@ -16,6 +17,7 @@ const logger = new Logger("DishProfile");
 /************************************************ Component Definition ************************************************/
 const DishProfile = ({ dishId }) => {
   const { isConsumer, loggedUser, userReviews } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [dish, setDish] = useState(null);
   useEffect(() => {
@@ -27,6 +29,7 @@ const DishProfile = ({ dishId }) => {
         setDish(null);
         const errorText = "There was an error while trying to fetch the food Dish!";
         logger.error(errorText, error);
+        navigate(-1);
       }
     };
 
