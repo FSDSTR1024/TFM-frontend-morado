@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 /********************************************** Internal library imports **********************************************/
 import { AuthContext } from "/src/contexts";
 import { ChangeProfilePictureButton, Loading, ReviewCard, StarRating } from "/src/components/atoms";
-import { DeleteDishButton, RatedButton, TextParagraph, ToRateButton } from "/src/components/protons";
+import { DeleteDishButton, EditDishButton, RatedButton, TextParagraph, ToRateButton } from "/src/components/protons";
 import { dishAPI, reviewAPI } from "/src/api";
 import { foodAllergenImgUrls } from "/src/constants";
 import { getImgURL } from "/src/utils";
@@ -125,7 +125,10 @@ const DishProfile = ({ dishId }) => {
                       <ToRateButton dishId={dish._id} />
                     )
                   ) : (
+                    <>
+                      <EditDishButton dishId={dish._id} />
                       <DeleteDishButton dishId={dish._id} />
+                    </>
                   )}
                 </div>
               </>

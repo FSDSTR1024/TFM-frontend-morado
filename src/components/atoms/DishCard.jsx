@@ -3,20 +3,16 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 /************************************************* Internal libraries *************************************************/
-import { AuthContext, WebSocketContext } from "/src/contexts";
+import { AuthContext } from "/src/contexts";
 import { DeleteDishButton, RatedButton, ToRateButton } from "/src/components/protons";
 import { foodAllergenImgUrls } from "/src/constants";
-import { getImgURL, Logger } from "/src/utils";
+import { getImgURL } from "/src/utils";
 import { StarRating } from "/src/components/atoms";
-
-/************************************************** Internal logger ***************************************************/
-const logger = new Logger("DishCard");
 
 /************************************************ Component Definition ************************************************/
 const DishCard = ({ _id, allergens, createdAt, description, img_url, isTheNewest, location, name, nrOfReviews, price, rating, restaurant }) => {
   const { isConsumer, loggedUser, userReviews } = useContext(AuthContext);
   const navigate = useNavigate();
-  const { wsUpdateUserProfile } = useContext(WebSocketContext);
 
   const [isDishRated, setIsDishRated] = useState(false);  //  by logged user
   const [isRateable, setIsRateable] = useState(false);

@@ -8,6 +8,7 @@ const dishAPI = {
   getAllDishes: async () => await axiosInstance.get("/dishes"),
   getDishById: async (dishId) => await axiosInstance.get(`/dishes/${dishId}`),
   getDishesByRestaurantId: async (restaurantId) => await axiosInstance.get(`/dishes/byRestaurant/${restaurantId}`),
+  updateDish: async ({ _id, ...dish }) => await axiosInstance.put(`/dishes/${_id}`, { ...dish, _id: undefined, restaurant: dish.restaurant._id }),
   updateProfilePicture: async ({ dishId, img_url }) => await axiosInstance.patch(`/dishes/${dishId}/img_url`, { img_url })
 };
 
