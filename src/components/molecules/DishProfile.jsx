@@ -4,11 +4,11 @@ import { useContext, useEffect, useState } from "react";
 /********************************************** Internal library imports **********************************************/
 import { AuthContext } from "/src/contexts";
 import { ChangeProfilePictureButton, Loading, ReviewCard, StarRating } from "/src/components/atoms";
+import { DeleteDishButton, RatedButton, TextParagraph, ToRateButton } from "/src/components/protons";
 import { dishAPI, reviewAPI } from "/src/api";
 import { foodAllergenImgUrls } from "/src/constants";
 import { getImgURL } from "/src/utils";
 import { Logger } from "/src/utils";
-import { RatedButton, TextParagraph, ToRateButton } from "/src/components/protons";
 
 /************************************************** Internal logger ***************************************************/
 const logger = new Logger("DishProfile");
@@ -125,7 +125,7 @@ const DishProfile = ({ dishId }) => {
                       <ToRateButton dishId={dish._id} />
                     )
                   ) : (
-                    <p>EDIT + DELETE buttons</p>
+                      <DeleteDishButton dishId={dish._id} />
                   )}
                 </div>
               </>

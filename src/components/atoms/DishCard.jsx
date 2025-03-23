@@ -4,10 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 /************************************************* Internal libraries *************************************************/
 import { AuthContext, WebSocketContext } from "/src/contexts";
-import { dishAPI } from "/src/api";
+import { DeleteDishButton, RatedButton, ToRateButton } from "/src/components/protons";
 import { foodAllergenImgUrls } from "/src/constants";
 import { getImgURL, Logger } from "/src/utils";
-import { RatedButton, ToRateButton } from "/src/components/protons";
 import { StarRating } from "/src/components/atoms";
 
 /************************************************** Internal logger ***************************************************/
@@ -34,27 +33,6 @@ const DishCard = ({ _id, allergens, createdAt, description, img_url, isTheNewest
   const handleOnCardClick = useCallback(() => {
     navigate(`/dishes/${_id}`);
   }, [_id]);
-
-  const [isLoading, setIsLoading] = useState(true);
-  const handleOnDeleteClick = useCallback(async() => {
-    if (confirm("Are you sure you want to delete this dish?") === true) {
-      document.getElementById("on_loading_modal").showModal();
-      try {
-        await dishAPI.deleteDish(_id);
-        wsUpdateUserProfile();
-        setIsLoading(false);
-      } catch (error) {
-        const errorText = `Food dish ${_id} could not be deleted!`;
-        logger.error(errorText, error);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!isLoading) {
-      document.getElementById("on_loading_modal").close();
-    }
-  }, [isLoading])
 
   const [isOwnDish, setIsOwnDish] = useState(false);
   useEffect(() => {
@@ -111,9 +89,7 @@ const DishCard = ({ _id, allergens, createdAt, description, img_url, isTheNewest
           )
         )}
         <button className="btn glass btn-outline btn-info btn-sm" onClick={handleOnCardClick}>View</button>
-        {isOwnDish && (
-          <button className="btn glass btn-outline btn-error btn-sm" onClick={handleOnDeleteClick}>Delete</button>
-        )}
+        {isOwnDish && <DeleteDishButton dishId={_id} />}
       </div>
     </div>
   );
