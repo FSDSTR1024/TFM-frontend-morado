@@ -15,7 +15,11 @@ const ModalOnLogin = () => {
           {/* if there is a button in form, it will close the modal */}
           <button className="btn btn-sm btn-circle btn-outline btn-error absolute right-2 top-2">✕</button>
         </form>
-        <h3 className="font-bold text-lg">{`👋 Hello ${loggedUser?.name}!`}</h3>
+        <h3 className="font-bold text-lg">
+          <span>👋 Hello </span>
+          <span className="text-xl underline underline-offset-4">{`${loggedUser?.name || "'Nyam! friend'"}`}</span>
+          <span> !</span>
+        </h3>
         <p className="py-4">You have been successfully logged in.</p>
       </div>
     </dialog>
