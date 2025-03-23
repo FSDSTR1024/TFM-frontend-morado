@@ -1,5 +1,5 @@
 /*********************************************** External Node modules ************************************************/
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 /********************************************** Internal library imports **********************************************/
@@ -9,10 +9,10 @@ import { useProfile } from "/src/hooks";
 import { WebSocketContext } from "/src/contexts";
 
 /************************************************ Component Definition ************************************************/
-const ModalOnRestaurantEdit = ({ editableFields, ...loggedUser }) => {
+const ModalOnProfileEdit = ({ editableFields, ...loggedUser }) => {
   const { wsUpdateUserProfile } = useContext(WebSocketContext);
 
-  const { error, updateRestaurant } = useProfile();
+  const { error, updateProfile } = useProfile();
   const { formState, handleSubmit, register } = useForm({
     defaultValues: editableFields.reduce((accumulator, field) => {
       accumulator[field.name] = loggedUser[field.name] ? loggedUser[field.name] : "";
@@ -21,7 +21,7 @@ const ModalOnRestaurantEdit = ({ editableFields, ...loggedUser }) => {
   });
 
   const closeModal = useCallback(() => {
-    document.getElementById("on_restaurant_edit_modal").close();
+    document.getElementById("on_profile_edit_modal").close();
   }, []);
 
   const [submitForm, setSubmitForm] = useState(false);
@@ -31,22 +31,24 @@ const ModalOnRestaurantEdit = ({ editableFields, ...loggedUser }) => {
   }, []);
   const handleOnSubmit = useCallback(async (formData) => {
     if (submitForm) {
-      const error = await updateRestaurant({ formData });
+      document.getElementById("on_loading_modal").showModal();
+      const error = await updateProfile({ formData });
       if (!error) {
         closeModal();
         wsUpdateUserProfile();
       }
+      document.getElementById("on_loading_modal").close();
     }
-  }, [submitForm, updateRestaurant, wsUpdateUserProfile]);
+  }, [submitForm, updateProfile, wsUpdateUserProfile]);
 
   return (
-    <dialog className="modal" id="on_restaurant_edit_modal">
+    <dialog className="modal" id="on_profile_edit_modal">
       <div className="modal-box">
         <form method="dialog">
           <button className="btn btn-sm btn-circle btn-outline btn-error absolute right-2 top-2">✕</button>
         </form>
         <h3 className="font-bold text-2xl text-info text-center">Editing profile...</h3>
-        <form className="flex flex-col items-center" id="restaurant_edit_form" onSubmit={handleSubmit(handleOnSubmit)}>
+        <form className="flex flex-col items-center" id="profile_edit_form" onSubmit={handleSubmit(handleOnSubmit)}>
           <div className="w-80">
             <div>
               {editableFields.map((field, index) => (
@@ -70,4 +72,4 @@ const ModalOnRestaurantEdit = ({ editableFields, ...loggedUser }) => {
 };
 
 /********************************************** Named export (ES module) **********************************************/
-export { ModalOnRestaurantEdit };
+export { ModalOnProfileEdit };

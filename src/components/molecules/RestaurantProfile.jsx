@@ -8,7 +8,7 @@ import { ChangeProfilePictureButton, DishCard, Loading, ModalOnWrongFileType, St
 import { dishAPI, userAPI } from "/src/api";
 import { getUserImgURL } from "/src/utils";
 import { Logger } from "/src/utils";
-import { ModalOnCredentialsChange, ModalOnDishAdd, ModalOnRestaurantEdit } from "/src/components/molecules";
+import { ModalOnCredentialsChange, ModalOnDishAdd, ModalOnProfileEdit } from "/src/components/molecules";
 import { TextParagraph } from "/src/components/protons";
 import { useLogout } from "/src/hooks";
 
@@ -101,7 +101,7 @@ const RestaurantProfile = ({ restaurantId }) => {
   }, [isLoadingDelete]);
 
   const handleEditProfileClick = useCallback(() => {
-    document.getElementById("on_restaurant_edit_modal").showModal();
+    document.getElementById("on_profile_edit_modal").showModal();
   }, []);
 
   const editableFields = [
@@ -121,7 +121,7 @@ const RestaurantProfile = ({ restaurantId }) => {
         <>
           <ModalOnCredentialsChange {...restaurant} />
           <ModalOnDishAdd {...restaurant} />
-          <ModalOnRestaurantEdit editableFields={editableFields} {...restaurant} />
+          <ModalOnProfileEdit editableFields={editableFields} {...restaurant} />
           <ModalOnWrongFileType />
         </>
       )}

@@ -7,7 +7,7 @@ import { AuthContext, WebSocketContext } from "/src/contexts";
 import { ChangeProfilePictureButton, Loading } from "/src/components/atoms";
 import { getUserImgURL } from "/src/utils";
 import { Logger } from "/src/utils";
-import { ModalOnCredentialsChange } from "/src/components/molecules";
+import { ModalOnCredentialsChange, ModalOnProfileEdit } from "/src/components/molecules";
 import { userAPI } from "/src/api";
 import { useLogout } from "/src/hooks";
 
@@ -76,7 +76,7 @@ const ConsumerProfile = ({ consumerId }) => {
   }, [isLoadingDelete]);
 
   const handleEditProfileClick = useCallback(() => {
-    document.getElementById("on_consumer_edit_modal").showModal();
+    document.getElementById("on_profile_edit_modal").showModal();
   }, []);
 
   const editableFields = [
@@ -91,7 +91,7 @@ const ConsumerProfile = ({ consumerId }) => {
       {isLoggedConsumer && (
         <>
           <ModalOnCredentialsChange {...consumer} />
-          {/* <ModalOnConsumerEdit editableFields={editableFields} {...consumer} /> */}
+          <ModalOnProfileEdit editableFields={editableFields} {...consumer} />
         </>
       )}
       <div className="container mx-auto p-6">
