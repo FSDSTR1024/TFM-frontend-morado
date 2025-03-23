@@ -9,7 +9,7 @@ const ModalOnAccountDelete = () => {
         </form>
         <h3 className="font-bold text-lg">👋 Goodbye! We're sad to see you go.</h3>
         <p className="pt-4">Your account has been successfully deleted.</p>
-        <p>If you ever decide to come back, we'll be here to welcome you again.</p>
+        <p>If you ever decide to come back, we'll be here to welcome you again to Nyam!</p>
         <p>Take care and best wishes!</p>
       </div>
     </dialog>

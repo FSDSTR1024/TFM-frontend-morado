@@ -48,5 +48,6 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error.message);
   }
 );
+
 /********************************************** Named export (ES module) **********************************************/
 export { axiosInstance };
