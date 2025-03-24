@@ -3,17 +3,19 @@ import { useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
-import { NotificationsContext } from "/src/contexts";
+import { NotificationsContext, WebSocketContext } from "/src/contexts";
 import { useTimestamp } from "/src/hooks";
 
 /************************************************ Component Definition ************************************************/
 const NotificationCard = ({ notification }) => {
+  const { deleteNotification } = useContext(NotificationsContext);
   const { getTimestampStr } = useTimestamp();
   const navigate = useNavigate();
-  const { setToDeleteNotification } = useContext(NotificationsContext);
+  const { wsUpdateUserProfile } = useContext(WebSocketContext);
 
-  const handleDeleteNotification = useCallback(() => {
-    setToDeleteNotification(notification._id);
+  const handleDeleteNotification = useCallback(async () => {
+    await deleteNotification(notification.hash);
+    wsUpdateUserProfile();
   }, [notification]);
 
   const handleDishNameClick = useCallback(() => {
@@ -41,7 +43,7 @@ const NotificationCard = ({ notification }) => {
         <span className="text-blue-500 cursor-pointer" onClick={handleRestaurantNameClick}>
           {notification.restaurant.name}
         </span>
-        &quot; restaurant that you&apos;re following has published a new dish:
+        &quot; restaurant (that you&apos;re currently following) has published a new dish:
       </p>
       <h2 className="text-center text-base font-semibold mt-2">
         <span className="text-blue-500 cursor-pointer" onClick={handleDishNameClick}>

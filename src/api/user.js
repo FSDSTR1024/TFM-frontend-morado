@@ -22,7 +22,8 @@ const userAPI = {
     const route = `/users/${loggedUser.role}/${loggedUser._id}`
     await axiosInstance.put(route, newUserData);
   },
-  updateProfilePicture: async ({ _id, img_url, role }) => await axiosInstance.patch(`/users/${role}/${_id}/img_url`, { img_url })
+  updateProfilePicture: async ({ _id, img_url, role }) => await axiosInstance.patch(`/users/${role}/${_id}/img_url`, { img_url }),
+  updateUserNotifications: async ({ _id, role, notifications }) => await axiosInstance.patch(`/users/${role}/${_id}/notifications`, { notifications })
 };
 
 /********************************************* Named exports (ES module) **********************************************/

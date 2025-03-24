@@ -1,14 +1,15 @@
 /************************************************ Node modules needed *************************************************/
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 /************************************************* Internal libraries *************************************************/
-import { getSHA1Hash } from "/src/utils";
+import { AuthContext } from "/src/contexts";
+import { userAPI } from "../api/user";
 
 /*********************************************** Initial context object ***********************************************/
 const initialContext = {
-  deleteAllNotifications: () => "Out of context",
+  deleteNotification: () => "Out of context",
   notifications: [],
-  setNewNotification: () => "Out of context"
+  refresh: () => "Out of context"
 };
 
 /************************************************** Context creation **************************************************/
@@ -16,49 +17,26 @@ const NotificationsContext = createContext(initialContext);
 
 /************************************************** Context provider **************************************************/
 const NotificationsContextProvider = ({ children }) => {
-  const localStorageNotifications = localStorage.getItem("notifications");
+  const { loggedUser, refresh: refreshAuth } = useContext(AuthContext);
+  const [state, refresh] = useState(false);
 
-  const [newNotification, setNewNotification] = useState(null);
-  const [notifications, setNotifications] = useState(localStorageNotifications ? JSON.parse(localStorageNotifications) : []);
-  const [toDeleteNotification, setToDeleteNotification] = useState(null);
-
-  /* Use effect to initialize the notifications in the local storage */
+  const [notifications, setNotifications] = useState([]);
   useEffect(() => {
-    if (!localStorageNotifications) {
-      localStorage.setItem("notifications", JSON.stringify([]));
+    if (loggedUser) {
+      setNotifications(loggedUser.notifications);
     }
-  }, []);
+  }, [loggedUser]);
 
-  /* Use effect to update the notifications when setNewNotification is called outside */
   useEffect(() => {
-    const addNotification = async () => {
-      const notificationHash = await getSHA1Hash(JSON.stringify(newNotification));
-      const sortedNotifications = [...notifications, { ...newNotification, _id: notificationHash }].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-      setNotifications(sortedNotifications);
-    };
+    refreshAuth((prevState) => !prevState);
+  }, [state]);
 
-    if (newNotification) {
-      setNewNotification(null);
-      addNotification();
-    }
-  }, [newNotification]);
+  const deleteNotification = useCallback(async (notificationHash) => {
+    const updatedNotifications = notifications.filter((notification) => notification.hash !== notificationHash);
+    await userAPI.updateUserNotifications({ ...loggedUser, notifications: updatedNotifications });
+  }, [loggedUser, notifications]);
 
-  /* Use effect to update the notifications when setToDeleteNotification is called outside */
-  useEffect(() => {
-    if (toDeleteNotification) {
-      setToDeleteNotification(null);
-      const updatedNotifications = notifications.filter((notification) => notification._id !== toDeleteNotification);
-      const sortedNotifications = [...updatedNotifications].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-      setNotifications(sortedNotifications);
-    }
-  }, [toDeleteNotification]);
-
-  /* Use effect to update the local storage when notifications change */
-  useEffect(() => {
-    localStorage.setItem("notifications", JSON.stringify(notifications));
-  }, [notifications]);
-
-  const valueObj = { notifications, setNewNotification, setToDeleteNotification };
+  const valueObj = { deleteNotification, notifications, refresh };
   return <NotificationsContext.Provider value={{ ...valueObj }}>{children}</NotificationsContext.Provider>;
 };
 

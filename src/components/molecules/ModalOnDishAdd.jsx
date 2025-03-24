@@ -12,7 +12,7 @@ import { WebSocketContext } from "/src/contexts";
 
 /************************************************ Component Definition ************************************************/
 const ModalOnDishAdd = ({ _id }) => {
-  const { wsUpdateUserProfile } = useContext(WebSocketContext);
+  const { wsNewDishAdded, wsUpdateUserProfile } = useContext(WebSocketContext);
 
   const allergensList = [
     "celery",
@@ -60,7 +60,7 @@ const ModalOnDishAdd = ({ _id }) => {
       const newDishID = await registerDish({ ...formData, img_url, restaurant: _id });
       if (newDishID) {
         closeModal();
-        wsUpdateUserProfile();
+        wsNewDishAdded();
         window.location.reload();
       }
     }

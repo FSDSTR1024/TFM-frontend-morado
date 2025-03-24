@@ -1,5 +1,5 @@
 /*********************************************** External Node modules ************************************************/
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
 import { NotificationCard } from "/src/components/atoms";
@@ -9,13 +9,19 @@ import { NotificationsContext } from "/src/contexts";
 const NotificationsButton = () => {
   const { notifications } = useContext(NotificationsContext);
 
+  const [userNotifications, setUserNotifications] = useState([]);
+  useEffect(() => {
+    const sortedNotifications = notifications.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    setUserNotifications(sortedNotifications);
+  }, [notifications]);
+
   return (
     <div className="dropdown dropdown-end">
       <div className="btn btn-circle btn-ghost" role="button" tabIndex={0}>
         <div className="indicator">
-          {notifications.length > 0 && <span className="badge badge-xs badge-secondary indicator-item">{notifications.length}</span>}
+          {userNotifications.length > 0 && <span className="badge badge-xs badge-secondary indicator-item">{userNotifications.length}</span>}
           <svg
-            className="h-5 w-5"
+            className="h-6 w-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -33,10 +39,10 @@ const NotificationsButton = () => {
         </div>
       </div>
       <ul className="bg-base-200 dropdown-content flex flex-col items-center max-h-96 mt-1 overflow-y-auto shadow rounded-box z-10" tabIndex={0}>
-        {notifications.length === 0 ? (
-          <li className="border card bg-base-200 px-3 py-2 w-64 text-center text-gray-400">There are no new notifications...</li>
+        {userNotifications.length === 0 ? (
+          <li className="border card bg-base-200 px-3 py-2 w-64 text-center text-gray-400 cursor-default">There are no new notifications...</li>
         ) : (
-          notifications.map((notification, index) => (
+          userNotifications.map((notification, index) => (
             <li key={index}>
               <NotificationCard notification={notification} />
             </li>

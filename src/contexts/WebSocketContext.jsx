@@ -2,7 +2,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
-import { AuthContext } from "/src/contexts";
+import { AuthContext, NotificationsContext } from "/src/contexts";
 import { Logger } from "/src/utils";
 import { websocket } from "/src/config";
 
@@ -15,6 +15,7 @@ const initialContext = {
   wsGetOnlineUsers: () => "Out of context",
   wsIsConnected: false,
   wsLogoutUser: () => "Out of context",
+  wsNewDishAdded: () => "Out of context",
   wsOnlineConsumers: [],
   wsOnlineRestaurants: [],
   wsUpdateUserProfile: () => "Out of context"
@@ -25,7 +26,8 @@ const WebSocketContext = createContext(initialContext);
 
 /************************************************** Context provider **************************************************/
 const WebSocketContextProvider = ({ children }) => {
-  const { loggedUser, refresh } = useContext(AuthContext);
+  const { loggedUser, refresh: refreshAuth } = useContext(AuthContext);
+  const { refresh: refreshNotis } = useContext(NotificationsContext);
 
   const [wsIsConnected, setWsIsConnected] = useState(initialContext.wsIsConnected);
   const [wsOnlineConsumers, setWsOnlineConsumers] = useState(initialContext.wsOnlineConsumers);
@@ -69,6 +71,12 @@ const WebSocketContextProvider = ({ children }) => {
     }
   }, [loggedUser]);
 
+  const wsNewDishAdded = useCallback(() => {
+    const { socket } = getSocket();
+    logger.debug(`(${socket.id}) A new dish has been added.`);
+    socket.emit("new dish added");
+  }, []);
+
   const wsUpdateUserProfile = useCallback(() => {
     const { socket } = getSocket();
     if (loggedUser) {
@@ -83,7 +91,7 @@ const WebSocketContextProvider = ({ children }) => {
     const onConnect = () => {
       logger.debug(`(${socket.id}) Connected to a websocket server.`);
       setWsIsConnected(true);
-      refresh((prevState) => !prevState);
+      refreshAuth((prevState) => !prevState);
       LoginUser();
     };
     const onDisconnect = () => {
@@ -97,7 +105,12 @@ const WebSocketContextProvider = ({ children }) => {
     };
 
     const onReloadLoggedUser = () => {
-      refresh((prevState) => !prevState);
+      refreshAuth((prevState) => !prevState);
+    };
+
+    const onUpdateNotifications = () => {
+      logger.debug(`(${socket.id}) Updating the logged user notifications`);
+      refreshNotis((prevState) => !prevState);
     };
 
     const onUpdateOnlineUsers = ({ onlineUsers }) => {
@@ -110,6 +123,7 @@ const WebSocketContextProvider = ({ children }) => {
     socket.on("disconnect", onDisconnect);
     socket.on("is connected", onIsConnected);
     socket.on("reload logged user", onReloadLoggedUser);
+    socket.on("update notifications", onUpdateNotifications);
     socket.on("update online users", onUpdateOnlineUsers);
 
     return () => {
@@ -117,6 +131,7 @@ const WebSocketContextProvider = ({ children }) => {
       socket.off("disconnect", onDisconnect);
       socket.off("is connected", onIsConnected);
       socket.off("reload logged user", onReloadLoggedUser);
+      socket.off("update notifications", onUpdateNotifications);
       socket.off("update online users", onUpdateOnlineUsers);
     };
   }, []);
@@ -130,6 +145,7 @@ const WebSocketContextProvider = ({ children }) => {
     wsGetOnlineUsers,
     wsIsConnected,
     wsLogoutUser,
+    wsNewDishAdded,
     wsOnlineConsumers,
     wsOnlineRestaurants,
     wsUpdateUserProfile

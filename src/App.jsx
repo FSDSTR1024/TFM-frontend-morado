@@ -19,10 +19,10 @@ const logger = new Logger("App");
 /************************************************ Component Definition ************************************************/
 const App = () => (
   <AuthContextProvider>
-    <WebSocketContextProvider>
-      <BrowserRouter>
-        <div className="flex flex-col min-h-screen">
-          <NotificationsContextProvider>
+    <NotificationsContextProvider>
+      <WebSocketContextProvider>
+        <BrowserRouter>
+          <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-grow">
               <ModalOnAccountDelete />
@@ -50,10 +50,10 @@ const App = () => (
               <GoToTopButton />
             </main>
             <Footer />
-          </NotificationsContextProvider>
-        </div>
-      </BrowserRouter>
-    </WebSocketContextProvider>
+          </div>
+        </BrowserRouter>
+      </WebSocketContextProvider>
+    </NotificationsContextProvider>
   </AuthContextProvider>
 );
 
