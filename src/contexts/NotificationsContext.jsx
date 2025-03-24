@@ -7,6 +7,7 @@ import { userAPI } from "../api/user";
 
 /*********************************************** Initial context object ***********************************************/
 const initialContext = {
+  deleteAllNotifications: () => "Out of context",
   deleteNotification: () => "Out of context",
   notifications: [],
   refresh: () => "Out of context"
@@ -31,12 +32,16 @@ const NotificationsContextProvider = ({ children }) => {
     refreshAuth((prevState) => !prevState);
   }, [state]);
 
+  const deleteAllNotifications = useCallback(async () => {
+    await userAPI.updateUserNotifications({ ...loggedUser, notifications: [] });
+  }, []);
+
   const deleteNotification = useCallback(async (notificationHash) => {
     const updatedNotifications = notifications.filter((notification) => notification.hash !== notificationHash);
     await userAPI.updateUserNotifications({ ...loggedUser, notifications: updatedNotifications });
   }, [loggedUser, notifications]);
 
-  const valueObj = { deleteNotification, notifications, refresh };
+  const valueObj = { deleteAllNotifications, deleteNotification, notifications, refresh };
   return <NotificationsContext.Provider value={{ ...valueObj }}>{children}</NotificationsContext.Provider>;
 };
 

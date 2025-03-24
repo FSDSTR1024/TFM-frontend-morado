@@ -1,19 +1,25 @@
 /*********************************************** External Node modules ************************************************/
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 /********************************************** Internal library imports **********************************************/
 import { NotificationCard } from "/src/components/atoms";
-import { NotificationsContext } from "/src/contexts";
+import { NotificationsContext, WebSocketContext } from "/src/contexts";
 
 /************************************************ Component Definition ************************************************/
 const NotificationsButton = () => {
-  const { notifications } = useContext(NotificationsContext);
+  const { deleteAllNotifications, notifications } = useContext(NotificationsContext);
+  const { wsUpdateUserProfile } = useContext(WebSocketContext);
 
   const [userNotifications, setUserNotifications] = useState([]);
   useEffect(() => {
     const sortedNotifications = notifications.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
     setUserNotifications(sortedNotifications);
   }, [notifications]);
+
+  const handleDeleteAllNotifications = useCallback(async () => {
+    await deleteAllNotifications();
+    wsUpdateUserProfile();
+  }, []);
 
   return (
     <div className="dropdown dropdown-end">
@@ -42,11 +48,33 @@ const NotificationsButton = () => {
         {userNotifications.length === 0 ? (
           <li className="border card bg-base-200 px-3 py-2 w-64 text-center text-gray-400 cursor-default">There are no new notifications...</li>
         ) : (
-          userNotifications.map((notification, index) => (
-            <li key={index}>
-              <NotificationCard notification={notification} />
-            </li>
-          ))
+          <>
+            <button
+              className="btn btn-outline btn-error btn-sm flex items-center gap-1 w-full rounded-box mb-1"
+              onClick={handleDeleteAllNotifications}
+            >
+              <svg
+                className="size-[1.2em]"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6m3 0h10m-7 4v6m4-6v6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span>Delete All</span>
+            </button>
+            {userNotifications.map((notification, index) => (
+              <li key={index}>
+                <NotificationCard notification={notification} />
+              </li>
+            ))}
+          </>
         )}
       </ul>
     </div>
