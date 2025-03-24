@@ -1,9 +1,9 @@
 /*********************************************** External Node modules ************************************************/
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
-import { getUserImgURL, roundImg } from "/src/utils";
+import { getConsumerAchievements, getUserImgURL, roundImg } from "/src/utils";
 
 /********************************************** Subcomponents Definition **********************************************/
 const OfflineAvatar = memo(({ _id, img_url, is_activated }) => (
@@ -26,13 +26,17 @@ const OnlineAvatar = memo(({ _id, img_url, is_activated }) => (
 ));
 
 /************************************************ Component Definition ************************************************/
-const ConsumerCard = ({ _id, img_url, is_activated, isConsumerOnline, isTheNewest, name, reviewed_dishes, reviewed_restaurants, surname }) => {
+const ConsumerCard = ({ _id, createdAt, img_url, is_activated, isConsumerOnline, isTheNewest, name, reviewed_dishes, reviewed_restaurants, surname }) => {
   const navigate = useNavigate();
 
   const handleOnCardClick = useCallback(() => {
     navigate(`/consumers/${_id}`);
   }, [_id]);
 
+  const [achievements, setAchievements] = useState([]);
+  useEffect(() => {
+    setAchievements(getConsumerAchievements({ createdAt, reviewed_dishes }));
+  }, []);
 
   return (
     <div className="indicator">
@@ -60,6 +64,18 @@ const ConsumerCard = ({ _id, img_url, is_activated, isConsumerOnline, isTheNewes
               <strong>Restaurants:</strong>
               <span>{reviewed_restaurants.toLocaleString("en-US")}</span>
             </div>
+          </div>
+          <div>
+            <div className="divider text-sm font-semibold mt-4">Achievements</div>
+            {achievements && achievements.length > 0 && (
+              <div className="flex flex-wrap justify-center gap-y-2 gap-x-4 mt-2">
+                {achievements.map(({name, url}, index) => (
+                  <div className="tooltip" data-tip={name} key={index}>
+                    <img alt={`Achievement ${name}`} className="w-10 h-10" src={url} />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

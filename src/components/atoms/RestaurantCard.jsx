@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
 import { AuthContext } from "/src/contexts";
-import { getUserImgURL } from "/src/utils";
+import { dishAPI, userAPI } from "/src/api";
+import { getRestaurantAchievements, getUserImgURL } from "/src/utils";
 import { StarRating } from "/src/components/atoms";
-import { userAPI } from "/src/api";
 
 /************************************************ Component Definition ************************************************/
 const RestaurantCard = ({ _id, createdAt, description, email, followers, img_url, is_activated, isTheNewest, location, name, nrOfDishes, nrOfReviews, phone, rating, role, web_page }) => {
@@ -19,6 +19,22 @@ const RestaurantCard = ({ _id, createdAt, description, email, followers, img_url
     setIsConsumer(loggedUser?.role === "consumers");
     setIsFollowing(followers.some((follower) => follower._id === loggedUser?._id));
   }, [followers, loggedUser]);
+
+    const [restaurantDishes, setRestaurantDishes] = useState([]);
+    useEffect(() => {
+      const getRestaurantDishes = async () => {
+        try {
+          const { restaurantDishes } = await dishAPI.getDishesByRestaurantId(_id);
+          setRestaurantDishes(restaurantDishes);
+        } catch (error) {
+          setRestaurantDishes([]);
+          const errorText = "There was an error while trying to fetch the Restaurant dishes!";
+          logger.error(errorText, error);
+        }
+      };
+
+      getRestaurantDishes();
+    }, [_id]);
 
   const handleFollowClick = useCallback(async () => {
     await userAPI.followRestaurant({ restaurantId: _id, currentFollowers: followers, newFollower: loggedUser});
@@ -37,6 +53,11 @@ const RestaurantCard = ({ _id, createdAt, description, email, followers, img_url
     await userAPI.unfollowRestaurant({ restaurantId: _id, currentFollowers: followers, dropFollower: loggedUser});
     window.location.reload();
   }, [_id, followers, loggedUser]);
+
+  const [achievements, setAchievements] = useState([]);
+  useEffect(() => {
+    setAchievements(getRestaurantAchievements({ createdAt, dishes: restaurantDishes, nrOfDishes }));
+  }, [restaurantDishes]);
 
   return (
     <div className="indicator">
@@ -84,6 +105,18 @@ const RestaurantCard = ({ _id, createdAt, description, email, followers, img_url
               <p className="text-gray-400 font-semibold">🌐 Website: </p>
               <p className="text-gray-600 text-right">{web_page ? <a href={web_page} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">{web_page}</a> : "N/A"}</p>
             </div>
+          </div>
+          <div>
+            <div className="divider text-md font-semibold mt-6">Achievements</div>
+            {achievements && achievements.length > 0 && (
+              <div className="flex flex-wrap justify-center gap-y-2 gap-x-4 mt-2">
+                {achievements.map(({name, url}, index) => (
+                  <div className="tooltip" data-tip={name} key={index}>
+                    <img alt={`Achievement ${name}`} className="w-12 h-12" src={url} />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
