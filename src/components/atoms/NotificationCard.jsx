@@ -30,9 +30,33 @@ const NewFollowerNoti = memo(({ consumer, handleConsumerNameClick }) => (
     <h1 className="text-center text-lg text-secondary font-bold mb-2">Yee-Ha!</h1>
     <p className="text-gray-400 text-sm">
       <span className="text-base font-semibold text-blue-500 cursor-pointer" onClick={handleConsumerNameClick}>
-        {consumer?.name} {consumer?.surname}
+        {consumer.name} {consumer.surname}
       </span>
       &nbsp;consumer has started to follow your restaurant!
+    </p>
+  </>
+));
+
+const NewReviewNoti = memo(({ consumer, dish, handleConsumerNameClick, handleDishNameClick, review }) => (
+  <>
+    {review.rating <= 3 ? (
+      <h1 className="text-center text-lg text-secondary font-bold mb-2">Oops...</h1>
+    ) : (
+      review.rating <= 7 ? (
+        <h1 className="text-center text-lg text-secondary font-bold mb-2">News!</h1>
+      ) : (
+        <h1 className="text-center text-lg text-secondary font-bold mb-2">Extraordinary!</h1>
+      )
+    )}
+    <p className="text-gray-400 text-sm">
+      <span className="text-base font-semibold text-blue-500 cursor-pointer" onClick={handleConsumerNameClick}>
+        {consumer.name} {consumer.surname}
+      </span>
+      &nbsp;consumer has reviewed your &quot;
+      <span className="text-base font-semibold text-green-700 cursor-pointer" onClick={handleDishNameClick}>
+        {dish.name}
+      </span>
+      &quot; dish plate with a rating of <strong>{review.rating}</strong> points.
     </p>
   </>
 ));
@@ -63,14 +87,17 @@ const NotificationCard = ({ notification }) => {
 
   const handleConsumerNameClick = useCallback(() => {
     navigate(`/consumers/${notification.consumer._id}`);
+    window.location.reload();
   }, [notification]);
 
   const handleDishNameClick = useCallback(() => {
     navigate(`/dishes/${notification.dish._id}`);
+    window.location.reload();
   }, [notification]);
 
   const handleRestaurantNameClick = useCallback(() => {
     navigate(`/restaurants/${notification.restaurant._id}`);
+    window.location.reload();
   }, [notification]);
 
   return (
@@ -94,6 +121,13 @@ const NotificationCard = ({ notification }) => {
       {notificationKind === "newFollower" && (
         <NewFollowerNoti
           handleConsumerNameClick={handleConsumerNameClick}
+          {...notification}
+        />
+      )}
+      {notificationKind === "newReview" && (
+        <NewReviewNoti
+          handleConsumerNameClick={handleConsumerNameClick}
+          handleDishNameClick={handleDishNameClick}
           {...notification}
         />
       )}

@@ -11,7 +11,7 @@ import { useRegister } from "/src/hooks";
 /************************************************ Component Definition ************************************************/
 const ModalOnReview = ({ dishId }) => {
   const { loggedUser } = useContext(AuthContext);
-  const { wsUpdateUserProfile } = useContext(WebSocketContext);
+  const { wsNewRatingAdded, wsUpdateUserProfile } = useContext(WebSocketContext);
 
   const editableFields = [
     { max: 10, min: 0, name: "rating", step: 1, text: "Rating (0 ~ 10)", type: "number" },
@@ -37,11 +37,14 @@ const ModalOnReview = ({ dishId }) => {
     }, []);
     const handleOnSubmit = useCallback(async (formData) => {
       if (submitForm) {
+        document.getElementById("on_loading_modal").showModal();
         const newReviewID = await registerReview({ ...formData, dish: dishId, user: loggedUser._id });
         if (newReviewID) {
           closeModal();
+          wsNewRatingAdded();
           wsUpdateUserProfile();
           window.location.reload();
+          document.getElementById("on_loading_modal").close();
         }
       }
     }, [registerReview, submitForm]);
