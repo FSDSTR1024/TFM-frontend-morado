@@ -3,7 +3,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
-import { AuthContext } from "/src/contexts";
+import { AuthContext, WebSocketContext } from "/src/contexts";
 import { dishAPI, userAPI } from "/src/api";
 import { getRestaurantAchievements, getUserImgURL } from "/src/utils";
 import { StarRating } from "/src/components/atoms";
@@ -12,6 +12,7 @@ import { StarRating } from "/src/components/atoms";
 const RestaurantCard = ({ _id, createdAt, description, email, followers, img_url, is_activated, isTheNewest, location, name, nrOfDishes, nrOfReviews, phone, rating, role, web_page }) => {
   const { loggedUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { wsNewFollowerAdded } = useContext(WebSocketContext);
 
   const [isConsumer, setIsConsumer] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
@@ -20,25 +21,28 @@ const RestaurantCard = ({ _id, createdAt, description, email, followers, img_url
     setIsFollowing(followers.some((follower) => follower._id === loggedUser?._id));
   }, [followers, loggedUser]);
 
-    const [restaurantDishes, setRestaurantDishes] = useState([]);
-    useEffect(() => {
-      const getRestaurantDishes = async () => {
-        try {
-          const { restaurantDishes } = await dishAPI.getDishesByRestaurantId(_id);
-          setRestaurantDishes(restaurantDishes);
-        } catch (error) {
-          setRestaurantDishes([]);
-          const errorText = "There was an error while trying to fetch the Restaurant dishes!";
-          logger.error(errorText, error);
-        }
-      };
+  const [restaurantDishes, setRestaurantDishes] = useState([]);
+  useEffect(() => {
+    const getRestaurantDishes = async () => {
+      try {
+        const { restaurantDishes } = await dishAPI.getDishesByRestaurantId(_id);
+        setRestaurantDishes(restaurantDishes);
+      } catch (error) {
+        setRestaurantDishes([]);
+        const errorText = "There was an error while trying to fetch the Restaurant dishes!";
+        logger.error(errorText, error);
+      }
+    };
 
-      getRestaurantDishes();
-    }, [_id]);
+    getRestaurantDishes();
+  }, [_id]);
 
   const handleFollowClick = useCallback(async () => {
+    document.getElementById("on_loading_modal").showModal();
     await userAPI.followRestaurant({ restaurantId: _id, currentFollowers: followers, newFollower: loggedUser});
+    wsNewFollowerAdded();
     window.location.reload();
+    document.getElementById("on_loading_modal").close();
   }, [_id, followers, loggedUser]);
 
   const handleOnCardClick = useCallback(() => {
@@ -48,11 +52,6 @@ const RestaurantCard = ({ _id, createdAt, description, email, followers, img_url
       navigate(`/restaurants/${_id}`);
     }
   }, [_id, loggedUser]);
-
-  const handleUnfollowClick = useCallback(async () => {
-    await userAPI.unfollowRestaurant({ restaurantId: _id, currentFollowers: followers, dropFollower: loggedUser});
-    window.location.reload();
-  }, [_id, followers, loggedUser]);
 
   const [achievements, setAchievements] = useState([]);
   useEffect(() => {
@@ -125,7 +124,7 @@ const RestaurantCard = ({ _id, createdAt, description, email, followers, img_url
           isFollowing ? (
             <button
               className="btn glass btn-outline btn-error btn-sm flex items-center gap-1"
-              onClick={handleUnfollowClick}
+              onClick={() => alert("Unfollow feature is not implemented yet!")}
             >
               <svg
                 className="size-[1.2em]"

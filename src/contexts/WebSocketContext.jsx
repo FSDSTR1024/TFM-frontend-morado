@@ -16,6 +16,7 @@ const initialContext = {
   wsIsConnected: false,
   wsLogoutUser: () => "Out of context",
   wsNewDishAdded: () => "Out of context",
+  wsNewFollowerAdded: () => "Out of context",
   wsOnlineConsumers: [],
   wsOnlineRestaurants: [],
   wsUpdateUserProfile: () => "Out of context"
@@ -75,6 +76,12 @@ const WebSocketContextProvider = ({ children }) => {
     const { socket } = getSocket();
     logger.debug(`(${socket.id}) A new dish has been added.`);
     socket.emit("new dish added");
+  }, []);
+
+  const wsNewFollowerAdded = useCallback(() => {
+    const { socket } = getSocket();
+    logger.debug(`(${socket.id}) A new follower has been added.`);
+    socket.emit("new follower added");
   }, []);
 
   const wsUpdateUserProfile = useCallback(() => {
@@ -146,6 +153,7 @@ const WebSocketContextProvider = ({ children }) => {
     wsIsConnected,
     wsLogoutUser,
     wsNewDishAdded,
+    wsNewFollowerAdded,
     wsOnlineConsumers,
     wsOnlineRestaurants,
     wsUpdateUserProfile

@@ -17,8 +17,10 @@ const NotificationsButton = () => {
   }, [notifications]);
 
   const handleDeleteAllNotifications = useCallback(async () => {
+    document.getElementById("on_loading_modal").showModal();
     await deleteAllNotifications();
     wsUpdateUserProfile();
+    document.getElementById("on_loading_modal").close();
   }, []);
 
   return (

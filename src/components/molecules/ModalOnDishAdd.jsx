@@ -12,7 +12,7 @@ import { WebSocketContext } from "/src/contexts";
 
 /************************************************ Component Definition ************************************************/
 const ModalOnDishAdd = ({ _id }) => {
-  const { wsNewDishAdded, wsUpdateUserProfile } = useContext(WebSocketContext);
+  const { wsNewDishAdded } = useContext(WebSocketContext);
 
   const allergensList = [
     "celery",

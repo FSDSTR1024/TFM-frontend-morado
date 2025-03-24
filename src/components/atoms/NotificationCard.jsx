@@ -1,21 +1,68 @@
 /************************************************ Node modules needed ************************************************/
-import { useCallback, useContext } from "react";
+import { memo, useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 /************************************************* Internal libraries *************************************************/
-import { NotificationsContext, WebSocketContext } from "/src/contexts";
+import { AuthContext, NotificationsContext, WebSocketContext } from "/src/contexts";
 import { useTimestamp } from "/src/hooks";
+
+/********************************************** Subcomponents Definition **********************************************/
+const NewDishNoti = memo(({ dish, handleDishNameClick, handleRestaurantNameClick, restaurant }) => (
+  <>
+    <h1 className="text-center text-lg text-secondary font-bold mb-2">Stay tuned!</h1>
+    <p className="text-gray-400 text-sm">
+      The &quot;
+      <span className="text-blue-500 cursor-pointer" onClick={handleRestaurantNameClick}>
+        {restaurant.name}
+      </span>
+      &quot; restaurant (that you&apos;re currently following) has published a new dish:
+    </p>
+    <h2 className="text-center text-base font-semibold mt-2">
+      <span className="text-blue-500 cursor-pointer" onClick={handleDishNameClick}>
+        {dish.name}
+      </span>
+    </h2>
+  </>
+));
+
+const NewFollowerNoti = memo(({ consumer, handleConsumerNameClick }) => (
+  <>
+    <h1 className="text-center text-lg text-secondary font-bold mb-2">Yee-Ha!</h1>
+    <p className="text-gray-400 text-sm">
+      <span className="text-base font-semibold text-blue-500 cursor-pointer" onClick={handleConsumerNameClick}>
+        {consumer?.name} {consumer?.surname}
+      </span>
+      &nbsp;consumer has started to follow your restaurant!
+    </p>
+  </>
+));
 
 /************************************************ Component Definition ************************************************/
 const NotificationCard = ({ notification }) => {
   const { deleteNotification } = useContext(NotificationsContext);
   const { getTimestampStr } = useTimestamp();
+  const { loggedUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const { wsUpdateUserProfile } = useContext(WebSocketContext);
 
+  const [notificationKind, setNotificationKind] = useState(null);
+  useEffect(() => {
+    if (loggedUser?.role === "consumers") {
+      setNotificationKind("newDish");
+    } else {
+      setNotificationKind(notification.kind);
+    }
+  }, [loggedUser]);
+
   const handleDeleteNotification = useCallback(async () => {
+    document.getElementById("on_loading_modal").showModal();
     await deleteNotification(notification.hash);
     wsUpdateUserProfile();
+    document.getElementById("on_loading_modal").close();
+  }, [notification]);
+
+  const handleConsumerNameClick = useCallback(() => {
+    navigate(`/consumers/${notification.consumer._id}`);
   }, [notification]);
 
   const handleDishNameClick = useCallback(() => {
@@ -37,19 +84,19 @@ const NotificationCard = ({ notification }) => {
           Delete
         </button>
       </div>
-      <h1 className="text-center text-lg text-secondary font-bold mb-2">Stay tuned!</h1>
-      <p className="text-gray-400 text-sm">
-        The &quot;
-        <span className="text-blue-500 cursor-pointer" onClick={handleRestaurantNameClick}>
-          {notification.restaurant.name}
-        </span>
-        &quot; restaurant (that you&apos;re currently following) has published a new dish:
-      </p>
-      <h2 className="text-center text-base font-semibold mt-2">
-        <span className="text-blue-500 cursor-pointer" onClick={handleDishNameClick}>
-          {notification.dish.name}
-        </span>
-      </h2>
+      {notificationKind === "newDish" && (
+        <NewDishNoti
+          handleDishNameClick={handleDishNameClick}
+          handleRestaurantNameClick={handleRestaurantNameClick}
+          {...notification}
+        />
+      )}
+      {notificationKind === "newFollower" && (
+        <NewFollowerNoti
+          handleConsumerNameClick={handleConsumerNameClick}
+          {...notification}
+        />
+      )}
     </div>
   );
 };
