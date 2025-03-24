@@ -14,7 +14,7 @@ const ModalOnReview = ({ dishId }) => {
   const { wsUpdateUserProfile } = useContext(WebSocketContext);
 
   const editableFields = [
-    { name: "rating", text: "Rating (0 ~ 10)", type: "number" },
+    { max: 10, min: 0, name: "rating", step: 1, text: "Rating (0 ~ 10)", type: "number" },
     { name: "comment", required: false, text: "Comment", type: "textarea" }
   ];
 

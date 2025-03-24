@@ -2,7 +2,7 @@
 import { FormFieldError } from "/src/components/protons";
 
 /************************************************ Component Definition ************************************************/
-const FormField = ({ formState, list = undefined, name, required=true, register, step = undefined, text, type="text", validate=undefined }) => {
+const FormField = ({ formState, list = undefined, max = undefined, min = undefined, name, required=true, register, step = undefined, text, type="text", validate=undefined }) => {
   const getEmptyFieldError = (field_text) => {
     return field_text.trim().length > 0 ? null : "This field must be filled with at least one non-blank character!";
   };
