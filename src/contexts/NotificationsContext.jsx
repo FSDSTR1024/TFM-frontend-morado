@@ -34,7 +34,7 @@ const NotificationsContextProvider = ({ children }) => {
 
   const deleteAllNotifications = useCallback(async () => {
     await userAPI.updateUserNotifications({ ...loggedUser, notifications: [] });
-  }, []);
+  }, [loggedUser]);
 
   const deleteNotification = useCallback(async (notificationHash) => {
     const updatedNotifications = notifications.filter((notification) => notification.hash !== notificationHash);
