@@ -106,13 +106,13 @@ const ConsumerProfile = ({ consumerId }) => {
                 <h1 className="text-4xl font-bold">{consumer.name}</h1>
               </div>
               <p className="text-2xl text-gray-600 mb-2">{consumer.surname}</p>
-              <div className="divider text-xl font-semibold mt-6 mb-3">Contact Information</div>
-              <div className="mb-2">
-                <span className="text-lg text-gray-400 font-semibold">📧 Email: </span>
-                <span className="text-lg text-gray-600">{consumer.email}</span>
-              </div>
               {isLoggedConsumer && (
                 <>
+                  <div className="divider text-xl font-semibold mt-6 mb-3">Information</div>
+                  <div className="mb-2">
+                    <span className="text-lg text-gray-400 font-semibold">📧 Email: </span>
+                    <span className="text-lg text-gray-600">{consumer.email}</span>
+                  </div>
                   <div className="divider text-xl font-semibold mt-6 mb-5">Actions</div>
                   <div className="flex justify-evenly">
                     <button className="btn btn-secondary btn-outline" onClick={handleEditProfileClick}>
