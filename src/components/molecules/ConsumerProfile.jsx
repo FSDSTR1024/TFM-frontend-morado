@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 /********************************************** Internal library imports **********************************************/
 import { AuthContext, WebSocketContext } from "/src/contexts";
 import { ChangeProfilePictureButton, Loading } from "/src/components/atoms";
+import { getConsumerAchievements, Logger } from "/src/utils";
 import { getUserImgURL } from "/src/utils";
-import { Logger } from "/src/utils";
 import { ModalOnCredentialsChange, ModalOnProfileEdit } from "/src/components/molecules";
 import { userAPI } from "/src/api";
 import { useLogout } from "/src/hooks";
@@ -84,6 +84,11 @@ const ConsumerProfile = ({ consumerId }) => {
     { name: "surname", text: "Surname" }
   ];
 
+  const [achievements, setAchievements] = useState([]);
+  useEffect(() => {
+    setAchievements(getConsumerAchievements({ ...consumer }));
+  }, [consumer]);
+
   return !consumer ? (
     <Loading />
   ) : (
@@ -119,6 +124,18 @@ const ConsumerProfile = ({ consumerId }) => {
                   <span className="text-lg text-gray-600">{consumer.reviewed_dishes.toLocaleString("en-US")} dishes</span>
                   <span className="text-lg text-gray-600">{consumer.reviewed_restaurants.toLocaleString("en-US")} restaurants</span>
                 </div>
+              </div>
+              <div>
+                <div className="divider text-xl font-semibold mt-6">Achievements</div>
+                {achievements && achievements.length > 0 && (
+                  <div className="flex flex-wrap justify-center gap-y-2 gap-x-4 mt-2">
+                    {achievements.map(({name, url}, index) => (
+                      <div className="tooltip" data-tip={name} key={index}>
+                        <img alt={`Achievement ${name}`} className="w-16 h-16" src={url} />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
               {isLoggedConsumer && (
                 <>
