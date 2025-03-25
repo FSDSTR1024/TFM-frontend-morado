@@ -103,23 +103,25 @@ const ConsumerProfile = ({ consumerId }) => {
             </div>
             <div className="flex flex-col w-full">
               <div className="flex justify-between">
-                <div>
-                  <h1 className="text-4xl font-bold">{consumer.name}</h1>
-                  <p className="text-2xl text-gray-600 mb-2">{consumer.surname}</p>
+                <h1 className="text-4xl font-bold">{consumer.name}</h1>
+              </div>
+              <p className="text-2xl text-gray-600 mb-2">{consumer.surname}</p>
+              <div className="divider text-xl font-semibold mt-6 mb-3">Information</div>
+              {isLoggedConsumer && (
+                <div className="mb-2">
+                  <span className="text-lg text-gray-400 font-semibold">📧 Email: </span>
+                  <span className="text-lg text-gray-600">{consumer.email}</span>
                 </div>
-                <div className="flex flex-col text-right gap-0">
-                  <p className="text-lg text-gray-400 font-semibold">🍽 Total Reviews: </p>
+              )}
+              <div className="flex items-center gap-2">
+                <p className="text-lg text-gray-400 font-semibold">🍽 Total Reviews: </p>
+                <div className="flex flex-col gap-0">
                   <span className="text-lg text-gray-600">{consumer.reviewed_dishes.toLocaleString("en-US")} dishes</span>
                   <span className="text-lg text-gray-600">{consumer.reviewed_restaurants.toLocaleString("en-US")} restaurants</span>
                 </div>
               </div>
               {isLoggedConsumer && (
                 <>
-                  <div className="divider text-xl font-semibold mt-6 mb-3">Information</div>
-                  <div className="mb-2">
-                    <span className="text-lg text-gray-400 font-semibold">📧 Email: </span>
-                    <span className="text-lg text-gray-600">{consumer.email}</span>
-                  </div>
                   <div className="divider text-xl font-semibold mt-6 mb-5">Actions</div>
                   <div className="flex justify-evenly">
                     <button className="btn btn-secondary btn-outline" onClick={handleEditProfileClick}>
