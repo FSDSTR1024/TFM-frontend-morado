@@ -153,7 +153,7 @@ const HomePage = () => {
                             <div className={`badge ${index < 3 ? 'badge-primary' : 'badge-ghost'} mr-2 px-2`}>
                               {index + 1}
                             </div>
-                            <span className={`${loggedUser?.email === restaurant.email ? "text-emerald-300 text-xl font-semibold" : ""}`}>{restaurant.name}</span>
+                            <span className={`${loggedUser?.email === restaurant.email ? "text-yellow-300 text-lg font-semibold underline underline-offset-3" : ""}`}>{restaurant.name}</span>
                           </div>
                           <div className="badge py-4 pl-0 pr-2">
                             <StarRating showReviews={false} {...restaurant} />
@@ -188,7 +188,7 @@ const HomePage = () => {
                             <div className={`badge ${index < 3 ? 'badge-secondary' : 'badge-ghost'} mr-2 px-2`}>
                               {index + 1}
                             </div>
-                            <span>{dish.name}</span>
+                            <span className={`${loggedUser?.email === dish.restaurant.email ? "text-yellow-300 text-lg font-semibold underline underline-offset-3" : ""}`}>{dish.name}</span>
                           </div>
                           <div className="badge py-4 pl-0 pr-2">
                             <StarRating showReviews={false} {...dish} />
@@ -223,7 +223,7 @@ const HomePage = () => {
                             <div className={`badge ${index < 3 ? 'badge-accent' : 'badge-ghost'} mr-2 px-2`}>
                               {index + 1}
                             </div>
-                            <span className={`${loggedUser?.email === consumer.email ? "text-yellow-300 text-xl font-semibold" : ""}`}>{consumer.name} {consumer.surname}</span>
+                            <span className={`${loggedUser?.email === consumer.email ? "text-yellow-300 text-lg font-semibold underline underline-offset-3" : ""}`}>{consumer.name} {consumer.surname}</span>
                           </div>
                           <span className="font-mono badge px-2 py-3">{consumer.reviewed_dishes} revs.</span>
                         </li>
