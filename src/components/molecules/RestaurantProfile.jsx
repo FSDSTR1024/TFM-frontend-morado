@@ -189,7 +189,7 @@ const RestaurantProfile = ({ restaurantId }) => {
           <div className="bg-base-200 shadow-xl rounded-lg p-6 mb-6">
             <h2 className="text-3xl font-bold mb-4">Best Dishes</h2>
             <div className="flex flex-wrap justify-evenly gap-y-8 mb-2">
-              {restaurantDishes.sort((a, b) => b.rating - a.rating).slice(0, maxBestDishes).map((dish) => (
+              {restaurantDishes.filter((dish) => dish.nrOfReviews > 0).sort((a, b) => b.rating - a.rating).slice(0, maxBestDishes).map((dish) => (
                 <DishCard key={dish._id} location="Best Dishes" {...dish} />
               ))}
             </div>
