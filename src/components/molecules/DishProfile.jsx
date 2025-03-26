@@ -111,7 +111,9 @@ const DishProfile = ({ dishId }) => {
             {dish.allergens?.length > 0 ? (
               <div className="flex flex-wrap items-center justify-evenly gap-y-2 gap-x-4 mt-2">
                 {dish.allergens.map((allergen, index) => (
-                  <img key={index} alt={`${allergen} allergen logo`} className="w-14 h-14 rounded-full" src={foodAllergenImgUrls[allergen]} />
+                  <div className="tooltip" data-tip={allergen} key={index}>
+                    <img alt={`${allergen} allergen logo`} className="w-14 h-14 rounded-full" src={foodAllergenImgUrls[allergen]} />
+                  </div>
                 ))}
               </div>
             ) : (
