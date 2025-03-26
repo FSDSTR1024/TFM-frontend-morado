@@ -6,8 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext, WebSocketContext } from "/src/contexts";
 import { ChangeProfilePictureButton, DishCard, Loading, ModalOnWrongFileType, StarRating } from "/src/components/atoms";
 import { dishAPI, userAPI } from "/src/api";
-import { getUserImgURL } from "/src/utils";
-import { Logger } from "/src/utils";
+import { getRestaurantAchievements, getUserImgURL, Logger } from "/src/utils";
 import { ModalOnCredentialsChange, ModalOnDishAdd, ModalOnProfileEdit } from "/src/components/molecules";
 import { TextParagraph } from "/src/components/protons";
 import { useLogout } from "/src/hooks";
@@ -112,6 +111,11 @@ const RestaurantProfile = ({ restaurantId }) => {
     { name: "web_page", required: false, text: "Web Page" }
   ];
 
+  const [achievements, setAchievements] = useState([]);
+  useEffect(() => {
+    setAchievements(getRestaurantAchievements({ ...restaurant, dishes: restaurantDishes }));
+  }, [restaurant, restaurantDishes]);
+
   const maxBestDishes = 3;
   return !restaurant ? (
     <Loading />
@@ -162,6 +166,18 @@ const RestaurantProfile = ({ restaurantId }) => {
               <div>
                 <span className="text-lg text-gray-400 font-semibold">🌐 Website: </span>
                 <span className="text-lg text-gray-600">{restaurant.web_page ? <a href={restaurant.web_page} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">{restaurant.web_page}</a> : "N/A"}</span>
+              </div>
+              <div>
+                <div className="divider text-xl font-semibold mt-6">Achievements</div>
+                {achievements && achievements.length > 0 && (
+                  <div className="flex flex-wrap justify-center gap-y-2 gap-x-4 mt-2">
+                    {achievements.map(({name, url}, index) => (
+                      <div className="tooltip" data-tip={name} key={index}>
+                        <img alt={`Achievement ${name}`} className="w-16 h-16" src={url} />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
               {isLoggedRestaurant && (
                 <>
