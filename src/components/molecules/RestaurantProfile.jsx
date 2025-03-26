@@ -189,7 +189,7 @@ const RestaurantProfile = ({ restaurantId }) => {
                     <button className="btn btn-secondary btn-outline" onClick={handleEditProfileClick}>
                       Edit Profile
                     </button>
-                    <button className="btn btn-accent btn-outline" onClick={handleChangeCredentialsClick}>
+                    <button className="btn btn-accent btn-outline" onClick={() => alert("Changing credentials feature is not implemented yet!")}>
                       Change Credentials
                     </button>
                     <button className="btn btn-error btn-outline" onClick={handleDeleteAccountClick}>
